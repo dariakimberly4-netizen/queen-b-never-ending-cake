@@ -31,15 +31,15 @@ button{font:inherit;color:inherit}
 #memory.show{display:grid}
 #photos{position:relative;width:94vw;height:72vh;display:flex;align-items:center;justify-content:center}
 .photoSet{position:relative;width:min(92vw,760px);height:min(62vh,620px)}
-.memoryCard{position:absolute;border:8px solid #fff8ef;border-radius:14px;background:#fff;box-shadow:0 35px 110px #000d,0 0 45px #d79bff33;overflow:hidden;touch-action:manipulation;cursor:pointer}
-.memoryCard img{display:block;width:100%;height:100%;object-fit:cover}
+.memoryCard{position:absolute;z-index:20;border:8px solid #fff8ef;border-radius:14px;background:#fff;box-shadow:0 35px 110px #000d,0 0 45px #d79bff33;overflow:hidden;touch-action:manipulation;cursor:pointer;pointer-events:auto}
+.memoryCard img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;-webkit-user-drag:none}
 .photoSet.two .memoryCard{width:min(40vw,250px);height:min(56vw,340px)}
-.photoSet.two .memoryCard:nth-child(1){left:50%;top:50%;transform:translate(-108%,-50%) rotate(-6deg)}
-.photoSet.two .memoryCard:nth-child(2){left:50%;top:50%;transform:translate(8%,-50%) rotate(6deg)}
+.photoSet.two .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-108%,-50%) rotate(-6deg)}
+.photoSet.two .memoryCard:nth-child(2){left:50%;top:50%;z-index:22;transform:translate(8%,-50%) rotate(6deg)}
 .photoSet.three .memoryCard{width:min(34vw,220px);height:min(48vw,300px)}
-.photoSet.three .memoryCard:nth-child(1){left:50%;top:50%;transform:translate(-125%,-52%) rotate(-8deg)}
-.photoSet.three .memoryCard:nth-child(2){left:50%;top:50%;transform:translate(-50%,-42%) rotate(0deg);z-index:2}
-.photoSet.three .memoryCard:nth-child(3){left:50%;top:50%;transform:translate(25%,-52%) rotate(8deg)}
+.photoSet.three .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-125%,-52%) rotate(-8deg)}
+.photoSet.three .memoryCard:nth-child(2){left:50%;top:50%;z-index:23;transform:translate(-50%,-42%) rotate(0deg)}
+.photoSet.three .memoryCard:nth-child(3){left:50%;top:50%;z-index:22;transform:translate(25%,-52%) rotate(8deg)}
 #memoryCaption{position:absolute;left:0;right:0;bottom:9%;text-align:center;font:700 18px Georgia,serif;color:#ffe6a0}
 #closeMemory{position:absolute;z-index:2;left:50%;bottom:18px;transform:translateX(-50%);min-width:230px;min-height:58px;border-radius:999px;border:1px solid var(--gold);background:#ffffff10;color:#ffe9a5;font-weight:800}
 #zoom.show{display:grid!important}
@@ -61,6 +61,7 @@ video{width:min(96vw,900px);max-height:78vh;background:#000;border-radius:18px}
 
   <div id="memory">
     <div id="photos"></div>
+    <div id="tapHint" style="position:absolute;left:0;right:0;bottom:14%;text-align:center;font-size:11px;letter-spacing:.14em;color:#fff9">TAP A PHOTO TO ENLARGE</div>
     <div id="memoryCaption"></div>
     <button id="closeMemory">BACK TO THE CAKE ✨</button>
   </div>
@@ -127,10 +128,13 @@ function openOne(i,button){
     img.alt="Memory";
 
     card.appendChild(img);
-    card.addEventListener("click",()=>{
+    const openZoom=(e)=>{
+      if(e){e.preventDefault();e.stopPropagation();}
       document.getElementById("zoomImg").src=img.src;
       document.getElementById("zoom").classList.add("show");
-    });
+    };
+    card.addEventListener("pointerup",openZoom);
+    card.addEventListener("click",openZoom);
 
     set.appendChild(card);
   });
@@ -152,12 +156,21 @@ for(let i=0;i<43;i++){
   candles.appendChild(b);
 }
 
-document.getElementById("zoomClose").onclick=()=>document.getElementById("zoom").classList.remove("show");
+const closeZoom=(e)=>{if(e){e.preventDefault();e.stopPropagation();}document.getElementById("zoom").classList.remove("show");};
+document.getElementById("zoomClose").addEventListener("pointerup",closeZoom);
+document.getElementById("zoomClose").addEventListener("click",closeZoom);
 document.getElementById("zoom").addEventListener("click",e=>{if(e.target.id==="zoom")e.currentTarget.classList.remove("show")});
-document.getElementById("closeMemory").onclick=()=>{
+let closingMemory=false;
+const closeMemoryFn=(e)=>{
+  if(e){e.preventDefault();e.stopPropagation();}
+  if(closingMemory)return;
+  closingMemory=true;
   memory.classList.remove("show");
   if(opened.size===43) document.getElementById("message").classList.add("show");
+  setTimeout(()=>closingMemory=false,250);
 };
+document.getElementById("closeMemory").addEventListener("pointerup",closeMemoryFn);
+document.getElementById("closeMemory").addEventListener("click",closeMemoryFn);
 document.getElementById("showVideo").onclick=()=>{
   document.getElementById("message").classList.remove("show");
   document.getElementById("video").classList.add("show");
