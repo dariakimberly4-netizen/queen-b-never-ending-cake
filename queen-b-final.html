@@ -253,7 +253,7 @@ button{font:inherit;color:inherit}
     <div id="pedestal"></div>
     <div id="candles"></div>
   </div>
-  <div id="count">0 OF 43 CANDLES OPENED</div>
+  <div id="count">00/43</div>
 
   <section id="memory">
     <div id="memoryHead">
@@ -359,7 +359,7 @@ function openOne(i,b){
   portal.appendChild(set);
   title.textContent="CANDLE "+roman[i];
   sub.textContent=groups[i].length===2?"TWO MEMORIES":"THREE MEMORIES";
-  count.textContent=opened.size+" OF 43 CANDLES OPENED";
+  count.textContent=String(opened.size).padStart(2,"0")+"/43";
   memory.classList.add("show");
 }
 for(let i=0;i<43;i++){
