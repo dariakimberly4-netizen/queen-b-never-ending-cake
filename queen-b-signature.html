@@ -156,6 +156,36 @@ button{font:inherit;color:inherit}
   position:absolute;inset:0;z-index:130;display:none;place-items:center;text-align:center;padding:28px;
   background:linear-gradient(180deg,#0d0311,#040005)
 }
+#message{
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:34px 20px max(42px,env(safe-area-inset-bottom))
+}
+#message .inner{
+  width:min(92vw,680px);
+  margin:auto;
+  padding:10px 0 28px
+}
+.finalPhotoWrap{
+  width:min(84vw,380px);
+  margin:0 auto 24px;
+  padding:5px;
+  border:1px solid rgba(214,182,95,.55);
+  background:linear-gradient(145deg,rgba(214,182,95,.12),rgba(255,255,255,.025));
+  box-shadow:0 24px 70px rgba(0,0,0,.48),0 0 34px rgba(214,182,95,.08)
+}
+.finalPhoto{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0 auto;
+  object-fit:contain;
+  object-position:center;
+  background:#08010b
+}
+#message .sigB{margin-top:8px}
+#message p{max-width:620px;margin:0 auto}
+
 #message.show,#video.show{display:grid}
 #message .sigB{
   font:900 150px/.72 Georgia,serif;color:transparent;-webkit-text-stroke:1.5px rgba(214,182,95,.45);
@@ -243,7 +273,10 @@ button{font:inherit;color:inherit}
   </div>
 
   <section id="message">
-    <div>
+    <div class="inner">
+      <div class="finalPhotoWrap">
+        <img class="finalPhoto" src="./IMG-20260710-WA0031(1).jpg" alt="Kimmy and Beaux">
+      </div>
       <div class="sigB">B</div>
       <small>FORTY-THREE CANDLES · ONE HUNDRED MEMORIES</small>
       <h2>Happy Birthday to the<br><span class="gold">Queen B! 👑💜</span></h2>
