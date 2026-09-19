@@ -144,41 +144,81 @@ button{font:inherit;color:inherit}
 
 #memory{
   position:absolute;inset:0;z-index:90;display:none;place-items:center;
-  background:radial-gradient(circle at 50% 35%,rgba(89,28,112,.94),rgba(7,0,9,.98) 74%);
-  backdrop-filter:blur(8px)
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(109,42,132,.46),transparent 34%),
+    linear-gradient(180deg,#16051d 0%,#0b020e 46%,#040005 100%);
+  backdrop-filter:blur(10px);
+  overflow:hidden
+}
+#memory:before{
+  content:"B";position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);
+  font:700 min(95vw,640px)/1 Georgia,"Times New Roman",serif;color:transparent;
+  -webkit-text-stroke:1px rgba(232,197,110,.085);
+  text-shadow:0 0 70px rgba(232,197,110,.04);
+  pointer-events:none
+}
+#memory:after{
+  content:"";position:absolute;left:14%;right:14%;top:13%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,197,110,.55),transparent);
+  pointer-events:none
 }
 #memory.show{display:grid}
-#photos{position:relative;width:94vw;height:68vh;display:flex;align-items:center;justify-content:center}
-.photoSet{position:relative;width:min(92vw,760px);height:min(60vh,600px)}
-.memoryCard{
-  position:absolute;z-index:20;border:10px solid #f7efe5;border-radius:18px;background:#fff;
-  box-shadow:0 40px 120px rgba(0,0,0,.68),0 0 55px rgba(217,168,255,.14);
-  overflow:hidden;touch-action:manipulation;cursor:pointer;pointer-events:auto
+#memoryTopline{
+  position:absolute;top:max(24px,env(safe-area-inset-top));left:0;right:0;text-align:center;
+  color:var(--gold);font-size:9px;letter-spacing:.36em;font-weight:700
 }
-.memoryCard img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;-webkit-user-drag:none}
-.photoSet.two .memoryCard{width:min(38vw,235px);height:min(54vw,330px)}
-.photoSet.two .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-105%,-50%) rotate(-7deg)}
-.photoSet.two .memoryCard:nth-child(2){left:50%;top:50%;z-index:22;transform:translate(5%,-50%) rotate(7deg)}
-.photoSet.three .memoryCard{width:min(32vw,205px);height:min(46vw,285px)}
-.photoSet.three .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-120%,-52%) rotate(-8deg)}
-.photoSet.three .memoryCard:nth-child(2){left:50%;top:50%;z-index:23;transform:translate(-50%,-40%) rotate(0deg)}
-.photoSet.three .memoryCard:nth-child(3){left:50%;top:50%;z-index:22;transform:translate(20%,-52%) rotate(8deg)}
+#memoryMonogram{
+  position:absolute;top:57px;left:0;right:0;text-align:center;
+  font:400 28px/1 Georgia,"Times New Roman",serif;color:var(--softGold);
+  text-shadow:0 0 20px rgba(232,197,110,.2)
+}
+#photos{position:relative;width:94vw;height:66vh;display:flex;align-items:center;justify-content:center;margin-top:-3vh}
+.photoSet{position:relative;width:min(94vw,780px);height:min(59vh,600px)}
+.memoryCard{
+  position:absolute;z-index:20;border:1px solid rgba(232,197,110,.72);border-radius:12px;
+  background:#f8f1e8;padding:5px;
+  box-shadow:0 28px 75px rgba(0,0,0,.72),0 0 0 1px rgba(255,255,255,.08),0 0 40px rgba(215,168,255,.08);
+  overflow:hidden;touch-action:manipulation;cursor:pointer;pointer-events:auto;
+  transition:transform .22s ease,opacity .22s ease,filter .22s ease
+}
+.memoryCard:active{filter:brightness(1.05);transform:scale(.98)}
+.memoryCard img{display:block;width:100%;height:100%;object-fit:cover;border-radius:7px;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.photoSet.two .memoryCard{width:min(39vw,245px);height:min(57vw,350px)}
+.photoSet.two .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-104%,-50%) rotate(-4deg)}
+.photoSet.two .memoryCard:nth-child(2){left:50%;top:50%;z-index:22;transform:translate(4%,-50%) rotate(4deg)}
+.photoSet.three .memoryCard:nth-child(1),
+.photoSet.three .memoryCard:nth-child(3){
+  width:min(29vw,182px);height:min(43vw,270px);opacity:.82;filter:saturate(.92) brightness(.9)
+}
+.photoSet.three .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-138%,-45%) rotate(-5deg)}
+.photoSet.three .memoryCard:nth-child(2){
+  left:50%;top:50%;z-index:24;width:min(39vw,245px);height:min(57vw,350px);
+  transform:translate(-50%,-50%);opacity:1
+}
+.photoSet.three .memoryCard:nth-child(3){left:50%;top:50%;z-index:22;transform:translate(38%,-45%) rotate(5deg)}
 #tapHint{
-  position:absolute;left:0;right:0;bottom:15%;text-align:center;
-  font-size:10px;letter-spacing:.24em;color:rgba(255,244,205,.84)
+  position:absolute;left:0;right:0;bottom:17.2%;text-align:center;
+  font-size:9px;letter-spacing:.28em;color:rgba(248,241,232,.58)
 }
 #memoryCaption{
-  position:absolute;left:0;right:0;bottom:9%;text-align:center;
-  font:700 20px Georgia,"Times New Roman",serif;color:var(--softGold);letter-spacing:.04em
+  position:absolute;left:0;right:0;bottom:11.4%;text-align:center;color:var(--softGold)
+}
+#memoryCaption .capCandle{
+  display:block;font:400 19px/1.1 Georgia,"Times New Roman",serif;letter-spacing:.12em
+}
+#memoryCaption .capMemories{
+  display:block;margin-top:7px;font-size:9px;letter-spacing:.34em;color:rgba(248,241,232,.68);font-weight:700
 }
 #closeMemory,#showVideo{
   position:absolute;left:50%;transform:translateX(-50%);
-  min-width:240px;min-height:58px;border-radius:999px;border:1px solid rgba(232,197,110,.9);
-  background:linear-gradient(rgba(255,255,255,.10),rgba(255,255,255,.03));
-  color:#ffe8a8;font-weight:700;letter-spacing:.08em;box-shadow:0 0 28px rgba(222,180,77,.10);
+  min-width:220px;min-height:50px;padding:0 24px;border-radius:999px;
+  border:1px solid rgba(232,197,110,.52);
+  background:rgba(255,255,255,.035);
+  color:#f2d98e;font-size:11px;font-weight:700;letter-spacing:.18em;
+  box-shadow:0 10px 40px rgba(0,0,0,.18),inset 0 0 22px rgba(255,255,255,.025);
   touch-action:manipulation
 }
-#closeMemory{bottom:18px}
+#closeMemory{bottom:22px}
 #zoom{
   position:absolute;inset:0;z-index:110;display:none;place-items:center;background:#020003f4;padding:18px
 }
@@ -247,10 +287,12 @@ video{width:min(96vw,900px);max-height:78vh;background:#000;border-radius:22px;b
   <div id="status">0 / 43 CANDLES</div>
 
   <div id="memory">
+    <div id="memoryTopline">QUEEN B · MEMORY REVEAL</div>
+    <div id="memoryMonogram">♛</div>
     <div id="photos"></div>
-    <div id="tapHint">TAP A PHOTO TO ENLARGE</div>
+    <div id="tapHint">TAP A MEMORY TO VIEW</div>
     <div id="memoryCaption"></div>
-    <button id="closeMemory">BACK TO THE CAKE ✨</button>
+    <button id="closeMemory">RETURN TO THE CAKE</button>
   </div>
 
   <div id="zoom">
@@ -341,7 +383,8 @@ function openOne(i,b){
   });
 
   photos.appendChild(set);
-  caption.textContent="CANDLE "+String(i+1).padStart(2,"0")+" · "+groups[i].length+" MEMORIES";
+  const roman=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII"];
+  caption.innerHTML='<span class="capCandle">CANDLE '+roman[i]+'</span><span class="capMemories">'+(groups[i].length===2?'TWO MEMORIES':'THREE MEMORIES')+'</span>';
   status.textContent=opened.size+" / 43 CANDLES";
   memory.classList.add("show");
 }
