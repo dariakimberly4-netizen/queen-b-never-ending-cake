@@ -155,6 +155,42 @@ body.reduced *{animation:none!important;transition:none!important}
   #w4 .memory{width:125px;height:168px}
   #w5 .memory{width:100px;height:135px}
 }
+
+/* ===== IMMERSIVE CAMERA PASS OVERRIDES ===== */
+#stage:before{content:"";position:absolute;inset:0;z-index:60;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 34%,rgba(0,0,0,.12) 58%,rgba(0,0,0,.72) 115%);mix-blend-mode:multiply}
+#stage:after{content:"";position:absolute;inset:-10%;z-index:61;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.025),transparent 44%);filter:blur(18px)}
+#hud{top:auto;bottom:max(12px,env(safe-area-inset-bottom));align-items:flex-end}
+#progressPill{font-size:10px;padding:9px 12px;opacity:.88}
+#reduce{position:fixed;right:10px;top:max(10px,env(safe-area-inset-top));bottom:auto;font-size:10px;padding:9px 12px}
+.worldTitle{top:8vh;left:14px;right:14px;z-index:30}
+.worldTitle small{font-size:9px;letter-spacing:.26em}
+.worldTitle h2{font-size:clamp(29px,7.5vw,52px);line-height:.94}
+.worldTitle p{font-size:12px;margin-top:7px;opacity:.54}
+#worldCue{bottom:9vh;font-size:10px;opacity:.58}
+.memory{left:50%;top:54%;transition:filter .2s,opacity .18s linear}
+.memory .tag{opacity:0;transition:opacity .18s}
+.memory.near .tag{opacity:.9}
+.memory.current{z-index:30;filter:brightness(1.05)}
+.memory.current .tag{opacity:1}
+.memory.current img{box-shadow:0 30px 95px #000d,0 0 55px #e7b9ff33}
+#w1 .environment:before{content:"";position:absolute;left:-28vw;right:-28vw;top:-22vh;height:58vh;border-radius:0 0 50% 50%;background:linear-gradient(180deg,#fff5ff 0 9%,#d58bdd 10% 24%,#70277b 25% 100%);box-shadow:inset 0 -26px 70px #26002f,0 25px 80px #0008;transform:translateZ(-520px)}
+#w1 .environment:after{content:"";position:absolute;left:50%;top:28vh;transform:translateX(-50%) translateZ(-620px);width:78vw;height:42vh;border:22px solid #ffdff7;border-bottom-width:10px;border-radius:50% 50% 14% 14%/60% 60% 12% 12%;box-shadow:0 0 60px #e78dff55,inset 0 0 70px #8f3da655}
+#w1 .candyTower{opacity:.38;filter:blur(.3px)}
+#w2 .environment:before{content:"";position:absolute;left:-10vw;right:-10vw;top:-18vh;height:45vh;border-radius:0 0 50% 50%;background:radial-gradient(circle at 50% 100%,#9e62a844,#244d3255 35%,#06100a 70%);box-shadow:0 30px 85px #0008}
+#w2 .environment:after{content:"";position:absolute;left:7vw;right:7vw;bottom:4vh;height:44vh;border:2px solid #a8e3a044;border-radius:50% 50% 7% 7%;box-shadow:inset 0 0 80px #66b66a22,0 0 60px #000}
+#w3 .environment:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,0,8,.72),transparent 18%,transparent 82%,rgba(5,0,8,.72));z-index:3;pointer-events:none}
+#w3 .environment:after{content:"";position:absolute;left:10vw;right:10vw;bottom:10vh;height:44vh;border-radius:50% 50% 0 0/75% 75% 0 0;border:1px solid #f1c46a22;box-shadow:inset 0 0 90px #e0a95612}
+#w4 .environment:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:78vw;height:78vw;border-radius:50%;border:1px solid #b9a8ff22;box-shadow:0 0 100px #6c5cff1f,inset 0 0 100px #7b6aff19}
+#w5 .environment:after{content:"";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:76vw;height:76vw;border-radius:50%;border:1px solid #f3d27a22;box-shadow:0 0 120px #e0ad4922,inset 0 0 110px #e0ad4917}
+#w1 .memory,#w2 .memory{width:clamp(128px,33vw,210px);height:clamp(170px,44vw,280px)}
+#w3 .memory,#w4 .memory{width:clamp(118px,30vw,190px);height:clamp(156px,40vw,250px)}
+#w5 .memory{width:clamp(82px,20vw,128px);height:clamp(108px,27vw,170px)}
+#w1 .memory img{object-fit:cover;border-radius:32px 32px 18px 18px}
+#w2 .memory img{object-fit:cover}
+#w3 .memory img{object-fit:cover}
+#w4 .memory img{object-fit:cover}
+#w5 .memory img{object-fit:cover}
+
 </style>
 </head>
 <body>
@@ -297,51 +333,70 @@ function worldIndexFromProgress(p){
 }
 function localProgress(p,scene){return clamp((p-scene*.2)/.2)}
 function placeScene(scene,lp){
-  const els=worlds[scene].querySelectorAll(".memory");
+  const els=[...worlds[scene].querySelectorAll(".memory")];
+  const focus=lp*19;
+
   els.forEach((el,j)=>{
-    let x=0,y=0,z=0,r=0,s=1,op=1;
-    const wave=Math.sin((j+1)*1.7+lp*5.5);
-    if(scene===0){
-      const side=j%2===0?-1:1;
-      x=side*(23+(j%5)*9) + wave*2;
-      y=-14+Math.floor(j/5)*22 + Math.sin(j*.7)*4;
-      z=-520 + (j%5)*150 + lp*480;
-      r=side*(4+(j%3)*3);
-      s=.72+lp*.16;
-    }else if(scene===1){
-      const angle=(j/20)*Math.PI*2;
-      x=Math.cos(angle)*(28+(j%4)*7);
-      y=Math.sin(angle)*(25+(j%3)*5)+10;
-      z=-420+(j%5)*120+lp*400;
-      r=Math.sin(angle)*9;
-      s=.75+lp*.12;
-    }else if(scene===2){
-      const lane=j%4;
-      x=[-38,-18,18,38][lane]+wave*1.5;
-      y=-14+Math.floor(j/4)*18;
-      z=-500+(j%5)*135+lp*450;
-      r=(lane<2?-1:1)*(2+(j%3)*2);
-      s=.73+lp*.15;
-    }else if(scene===3){
-      const angle=(j/20)*Math.PI*2+lp*.75;
-      x=Math.cos(angle)*(28+(j%5)*8);
-      y=Math.sin(angle)*(24+(j%4)*6);
-      z=-360+(j%6)*105+lp*320;
-      r=wave*8;
-      s=.72+lp*.2;
+    const d=j-focus;
+    let x=0,y=0,z=0,r=0,s=1,op=0;
+    el.classList.remove("near","current");
+
+    if(scene<4){
+      const ad=Math.abs(d);
+      if(ad<3.25){
+        op=clamp(1-ad/3.25);
+        const side=(j%2===0?-1:1);
+        if(scene===0){
+          x=d*18 + side*(6+ad*4);
+          y=Math.sin(j*.9)*7 + d*2.2;
+          z=-d*245;
+          r=side*(2+ad*2.5);
+          s=1.0-Math.min(ad*.10,.25);
+        }else if(scene===1){
+          x=Math.sin(j*1.27)*24 + d*12;
+          y=Math.cos(j*.78)*15 + d*1.5;
+          z=-d*235;
+          r=Math.sin(j*.5)*5;
+          s=.98-Math.min(ad*.09,.22);
+        }else if(scene===2){
+          const lane=j%2===0?-1:1;
+          x=lane*(14+ad*9) + d*8;
+          y=-6+Math.sin(j*.62)*10 + d*2;
+          z=-d*255;
+          r=lane*(1.5+ad*2.2);
+          s=.97-Math.min(ad*.085,.22);
+        }else{
+          const a=j*.88 + lp*1.4;
+          x=Math.cos(a)*(12+ad*11) + d*8;
+          y=Math.sin(a)*(10+ad*7);
+          z=-d*230;
+          r=Math.sin(a)*7;
+          s=.98-Math.min(ad*.08,.2);
+        }
+      }
     }else{
-      /* assemble into a giant B */
-      const bx=[-20,-20,-20,-20,-20,-20,-20,-20,-20,-20,0,18,24,18,0,18,24,18,0,6][j];
+      const bx=[-20,-20,-20,-20,-20,-20,-20,-20,-20,-20,0,18,24,18,0,18,24,18,0,7][j];
       const by=[-34,-26,-18,-10,-2,6,14,22,30,38,-34,-29,-20,-11,-4,5,14,23,31,38][j];
-      const startX=((j%5)-2)*24, startY=-22+Math.floor(j/5)*18;
-      x=startX*(1-lp)+bx*lp;
-      y=startY*(1-lp)+by*lp;
-      z=-260+(j%4)*85+lp*210;
-      r=(wave*6)*(1-lp);
-      s=.72+lp*.08;
+      const arrived=clamp((focus-j+1.15)/1.15);
+      if(arrived>0){
+        const sweep=1-arrived;
+        x=bx*arrived + (((j%2)?38:-38)+d*4)*sweep;
+        y=by*arrived + (Math.sin(j*.9)*22)*sweep;
+        z=(-240+Math.abs(d)*60)*sweep + (-25+((j%4)*5))*arrived;
+        r=(Math.sin(j*.7)*10)*sweep;
+        s=.78+.12*arrived;
+        op=arrived;
+      }
     }
-    const depthFade=clamp((z+620)/220,0.18,1);
-    op=depthFade;
+
+    if(op>.04){
+      el.classList.add("near");
+      el.style.pointerEvents="auto";
+    }else{
+      el.style.pointerEvents="none";
+    }
+    if(Math.abs(d)<.52 || (scene===4 && Math.abs(j-focus)<.7)) el.classList.add("current");
+
     el.style.opacity=op;
     el.style.transform='translate3d(calc(-50% + '+x+'vw),calc(-50% + '+y+'vh),'+z+'px) rotateZ('+r+'deg) scale('+s+')';
   });
@@ -358,18 +413,18 @@ function render(){
   progressPill.textContent="MEMORY "+String(current).padStart(3,"0")+" / 100";
 
   const title=worlds[scene].querySelector(".worldTitle");
-  title.style.opacity=clamp(1-Math.max(0,(lp-.58))*2.3);
-  title.style.transform='translateY('+(lp*10)+'px) scale('+(1-lp*.035)+')';
+  title.style.opacity=lp<.23 ? clamp(1-lp*2.2,.35,1) : clamp(1-(lp-.23)*4.2,0,.35);
+  title.style.transform='translateY('+(lp*7)+'px) scale('+(1-lp*.02)+')';
 
   /* environmental camera push */
   const env=worlds[scene].querySelector(".environment");
   env.style.transform='scale('+(1+lp*.18)+') translateY('+(-lp*2.5)+'vh)';
 
   const cue=document.getElementById("worldCue");
-  cue.style.opacity=scene===4&&lp>.72?0:.7;
+  cue.style.opacity=(scene===0&&lp<.12)?(.62-lp*3.2):0;
 
   const collapse=document.getElementById("collapse");
-  if(scene===4&&lp>.86) collapse.classList.add("show"); else collapse.classList.remove("show");
+  if(scene===4&&lp>.985) collapse.classList.add("show"); else collapse.classList.remove("show");
 
   requestAnimationFrame(render);
 }
