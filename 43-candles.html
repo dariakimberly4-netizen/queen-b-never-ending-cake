@@ -29,13 +29,20 @@ button{font:inherit;color:inherit}
 #status{position:absolute;z-index:45;left:14px;bottom:max(14px,env(safe-area-inset-bottom));padding:10px 13px;border-radius:999px;background:#09000dcc;border:1px solid #ffffff25;font-size:11px;letter-spacing:.08em}
 #memory{position:absolute;inset:0;z-index:80;display:none;place-items:center;background:#070009ee;backdrop-filter:blur(8px)}
 #memory.show{display:grid}
-#photos{position:relative;width:94vw;height:72vh}
-#photos img{position:absolute;left:50%;top:49%;max-width:72vw;max-height:55vh;object-fit:contain;border:8px solid #fff8ef;border-radius:12px;box-shadow:0 35px 110px #000d,0 0 45px #d79bff33}
-#photos img:nth-child(1){transform:translate(-58%,-50%) rotate(-5deg)}
-#photos img:nth-child(2){transform:translate(-42%,-50%) rotate(5deg)}
-#photos img:nth-child(3){transform:translate(-50%,-42%) rotate(0deg)}
+#photos{position:relative;width:94vw;height:72vh;display:flex;align-items:center;justify-content:center}
+.photoSet{position:relative;width:min(92vw,760px);height:min(62vh,620px)}
+.memoryCard{position:absolute;border:8px solid #fff8ef;border-radius:14px;background:#fff;box-shadow:0 35px 110px #000d,0 0 45px #d79bff33;overflow:hidden;touch-action:manipulation;cursor:pointer}
+.memoryCard img{display:block;width:100%;height:100%;object-fit:cover}
+.photoSet.two .memoryCard{width:min(40vw,250px);height:min(56vw,340px)}
+.photoSet.two .memoryCard:nth-child(1){left:50%;top:50%;transform:translate(-108%,-50%) rotate(-6deg)}
+.photoSet.two .memoryCard:nth-child(2){left:50%;top:50%;transform:translate(8%,-50%) rotate(6deg)}
+.photoSet.three .memoryCard{width:min(34vw,220px);height:min(48vw,300px)}
+.photoSet.three .memoryCard:nth-child(1){left:50%;top:50%;transform:translate(-125%,-52%) rotate(-8deg)}
+.photoSet.three .memoryCard:nth-child(2){left:50%;top:50%;transform:translate(-50%,-42%) rotate(0deg);z-index:2}
+.photoSet.three .memoryCard:nth-child(3){left:50%;top:50%;transform:translate(25%,-52%) rotate(8deg)}
 #memoryCaption{position:absolute;left:0;right:0;bottom:9%;text-align:center;font:700 18px Georgia,serif;color:#ffe6a0}
 #closeMemory{position:absolute;z-index:2;left:50%;bottom:18px;transform:translateX(-50%);min-width:230px;min-height:58px;border-radius:999px;border:1px solid var(--gold);background:#ffffff10;color:#ffe9a5;font-weight:800}
+#zoom.show{display:grid!important}
 #message,#video{position:absolute;inset:0;z-index:100;display:none;place-items:center;text-align:center;padding:26px;background:radial-gradient(circle at 50% 42%,#5b1b76,#15031d 46%,#030004 78%)}
 #message.show,#video.show{display:grid}
 #message h2{font:700 clamp(46px,12vw,84px)/.9 Georgia,serif;margin:12px 0 18px}
@@ -56,6 +63,11 @@ video{width:min(96vw,900px);max-height:78vh;background:#000;border-radius:18px}
     <div id="photos"></div>
     <div id="memoryCaption"></div>
     <button id="closeMemory">BACK TO THE CAKE ✨</button>
+  </div>
+
+  <div id="zoom" style="position:absolute;inset:0;z-index:95;display:none;place-items:center;background:#020003f2;padding:18px">
+    <button id="zoomClose" style="position:absolute;right:16px;top:max(16px,env(safe-area-inset-top));width:54px;height:54px;border-radius:50%;border:1px solid #fff4;background:#120019cc;font-size:28px">×</button>
+    <img id="zoomImg" alt="Memory" style="max-width:94vw;max-height:84vh;object-fit:contain;border-radius:16px;box-shadow:0 30px 120px #000">
   </div>
 
   <div id="message">
@@ -101,12 +113,29 @@ function openOne(i,button){
   opened.add(i);
   button.classList.add("done");
   photos.innerHTML="";
+
+  const set=document.createElement("div");
+  set.className="photoSet "+(groups[i].length===2?"two":"three");
+
   groups[i].forEach(id=>{
+    const card=document.createElement("button");
+    card.type="button";
+    card.className="memoryCard";
+
     const img=document.createElement("img");
     img.src="https://drive.google.com/thumbnail?id="+id+"&sz=w1600";
     img.alt="Memory";
-    photos.appendChild(img);
+
+    card.appendChild(img);
+    card.addEventListener("click",()=>{
+      document.getElementById("zoomImg").src=img.src;
+      document.getElementById("zoom").classList.add("show");
+    });
+
+    set.appendChild(card);
   });
+
+  photos.appendChild(set);
   caption.textContent="CANDLE "+String(i+1).padStart(2,"0")+" · "+groups[i].length+" MEMORIES";
   status.textContent=opened.size+" / 43 CANDLES";
   memory.classList.add("show");
@@ -123,6 +152,8 @@ for(let i=0;i<43;i++){
   candles.appendChild(b);
 }
 
+document.getElementById("zoomClose").onclick=()=>document.getElementById("zoom").classList.remove("show");
+document.getElementById("zoom").addEventListener("click",e=>{if(e.target.id==="zoom")e.currentTarget.classList.remove("show")});
 document.getElementById("closeMemory").onclick=()=>{
   memory.classList.remove("show");
   if(opened.size===43) document.getElementById("message").classList.add("show");
