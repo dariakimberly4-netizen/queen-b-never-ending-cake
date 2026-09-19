@@ -4,328 +4,290 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-store, max-age=0">
-<meta name="theme-color" content="#070009">
-<title>Queen B — Royal Edition</title>
+<meta name="theme-color" content="#08030a">
+<title>Queen B — Couture Edition</title>
 <style>
 :root{
-  --gold:#e8c56e;
-  --softGold:#f4e2a3;
-  --cream:#fbf4ea;
-  --plum:#4b145f;
-  --deep:#050007;
+  --ink:#08030a;
+  --plum:#24102d;
+  --plum2:#3a1649;
+  --gold:#d7b76a;
+  --gold2:#f0dda0;
+  --cream:#f7efe7;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;overflow:hidden;background:var(--deep);color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--ink);color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
 button{font:inherit;color:inherit}
 #app{
   position:fixed;inset:0;overflow:hidden;
   background:
-    radial-gradient(circle at 50% 16%,rgba(137,75,173,.16),transparent 28%),
-    radial-gradient(circle at 50% 68%,#4a155f 0,#17051f 38%,#060008 72%,#020003 100%);
+    radial-gradient(ellipse at 50% 28%,rgba(92,45,111,.20),transparent 30%),
+    linear-gradient(180deg,#100613 0%,#08030a 58%,#050207 100%);
+}
+#app:before,#app:after{
+  content:"";position:absolute;pointer-events:none
 }
 #app:before{
-  content:"";position:absolute;inset:-15%;
-  background-image:
-    radial-gradient(#fff 0 1px,transparent 1.3px),
-    radial-gradient(var(--gold) 0 1px,transparent 1.4px);
-  background-size:86px 86px,132px 132px;
-  opacity:.12;animation:stars 24s linear infinite;pointer-events:none;
+  inset:18px;border:1px solid rgba(215,183,106,.28);border-radius:28px
 }
-@keyframes stars{to{transform:translateY(-90px)}}
+#app:after{
+  left:50%;top:7%;bottom:7%;width:1px;
+  background:linear-gradient(transparent,rgba(215,183,106,.18),transparent);
+  opacity:.45
+}
 
-#title{
-  position:absolute;z-index:60;left:16px;right:16px;
-  top:max(20px,env(safe-area-inset-top));text-align:center;pointer-events:none
+/* Header */
+#header{
+  position:absolute;z-index:50;left:24px;right:24px;top:max(22px,env(safe-area-inset-top));
+  text-align:center;pointer-events:none
 }
-#title small{display:block;color:var(--gold);font-size:10px;letter-spacing:.34em;font-weight:800}
-#title h1{
-  font:700 clamp(42px,10vw,72px)/.9 Georgia,"Times New Roman",serif;
-  margin:10px 0 7px;letter-spacing:-.025em;text-shadow:0 12px 36px rgba(0,0,0,.48)
+#header .mark{
+  font:400 30px/1 Georgia,serif;color:var(--gold2);letter-spacing:.1em;
+  text-shadow:0 0 28px rgba(215,183,106,.18)
 }
-#title p{margin:0;font-size:13px;letter-spacing:.04em;opacity:.74}
+#header small{
+  display:block;margin-top:8px;color:rgba(240,221,160,.82);
+  font-size:9px;letter-spacing:.38em;font-weight:700
+}
+#header h1{
+  font:400 clamp(42px,10vw,74px)/.9 Georgia,"Times New Roman",serif;
+  margin:12px 0 8px;letter-spacing:-.03em
+}
+#header p{
+  margin:0 auto;max-width:420px;color:rgba(247,239,231,.66);
+  font-size:12px;letter-spacing:.06em
+}
 
+/* Cake */
 #cake{
-  position:absolute;z-index:10;left:50%;top:60%;transform:translate(-50%,-50%);
-  width:min(92vw,560px);height:min(74vh,650px);
-  filter:drop-shadow(0 28px 44px rgba(0,0,0,.36)) drop-shadow(0 0 50px rgba(214,124,255,.08))
+  position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);
+  width:min(90vw,540px);height:min(72vh,620px);z-index:10
 }
-#cake:before{
-  content:"";position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);
-  width:92%;height:16%;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,223,162,.20),transparent 72%);
-  filter:blur(10px);pointer-events:none
+#cake .halo{
+  position:absolute;left:50%;bottom:5%;transform:translateX(-50%);
+  width:92%;height:46%;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(111,60,126,.28),transparent 66%);
+  filter:blur(10px)
 }
-#cake:after{
-  content:"";position:absolute;left:50%;bottom:1%;transform:translateX(-50%);
-  width:74%;height:8%;border-radius:999px;
-  background:linear-gradient(#f6de95,#d0a347 45%,#8f5f18);
-  box-shadow:inset 0 2px 3px rgba(255,255,255,.45),0 8px 18px rgba(0,0,0,.28);
-  pointer-events:none
+.tier{
+  position:absolute;left:50%;transform:translateX(-50%);border-radius:50%/18%;
+  border:1px solid rgba(215,183,106,.42);
+  box-shadow:inset 0 10px 24px rgba(255,255,255,.08),inset 0 -20px 35px rgba(0,0,0,.50),0 24px 60px rgba(0,0,0,.45)
 }
-.base,.top{pointer-events:none;position:absolute;left:50%;transform:translateX(-50%);border-radius:50%/20%}
-.base{
-  bottom:8%;width:88%;height:35%;
-  background:linear-gradient(#fff9ff 0 8%,#f2c4f6 9% 18%,#d98ce6 19% 32%,#9d4dac 33% 58%,#5a1a67 59% 100%);
-  box-shadow:inset 0 14px 26px rgba(255,255,255,.58),inset 0 -22px 34px rgba(38,0,46,.9),0 34px 72px rgba(0,0,0,.60)
+.tier.lower{
+  bottom:10%;width:82%;height:31%;
+  background:linear-gradient(180deg,#4b205a 0,#3b1748 38%,#1b0a22 100%)
 }
-.top{
-  bottom:34%;width:69%;height:25%;
-  background:linear-gradient(#fffbff 0 10%,#f5d2f8 11% 20%,#e6a5ef 21% 42%,#a650b4 43% 68%,#652071 69% 100%);
-  box-shadow:inset 0 10px 18px rgba(255,255,255,.58),inset 0 -16px 24px rgba(33,0,41,.9)
+.tier.upper{
+  bottom:35%;width:62%;height:24%;
+  background:linear-gradient(180deg,#5a286a 0,#411a4f 42%,#210b29 100%)
 }
-.base:before,.top:before{
-  content:"";position:absolute;border-radius:999px;
-  background:linear-gradient(rgba(255,255,255,.96),rgba(255,235,248,.76));
-  box-shadow:inset 0 2px 5px rgba(255,255,255,.6)
+.tier:before{
+  content:"";position:absolute;left:8%;right:8%;top:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.85
 }
-.base:before{left:5%;right:5%;top:8%;height:20%}
-.top:before{left:8%;right:8%;top:8%;height:20%}
-.base:after,.top:after{
-  content:"";position:absolute;border-radius:999px;
-  background:linear-gradient(#f7dfa2,#d2a64d 48%,#8a5b18);
-  box-shadow:0 1px 6px rgba(0,0,0,.24)
+.tier:after{
+  content:"";position:absolute;left:10%;right:10%;bottom:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(215,183,106,.6),transparent)
 }
-.base:after{left:6%;right:6%;bottom:8%;height:6%}
-.top:after{left:8%;right:8%;bottom:8%;height:7%}
-
-.basePearls,.topPearls{
-  position:absolute;left:50%;transform:translateX(-50%);display:flex;justify-content:space-between;
-  pointer-events:none;z-index:18
+#cake .crown{
+  position:absolute;left:50%;top:7%;transform:translateX(-50%);
+  font:400 58px/1 Georgia,serif;color:var(--gold2);z-index:20;
+  filter:drop-shadow(0 0 18px rgba(215,183,106,.25))
 }
-.basePearls{bottom:33%;width:72%}
-.topPearls{bottom:57%;width:48%}
-.basePearls span,.topPearls span{
-  width:10px;height:10px;border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#fff 0,#fff7e9 35%,#e7c779 100%);
-  box-shadow:0 0 8px rgba(255,231,172,.28)
-}
-.crown{
-  pointer-events:none;position:absolute;left:50%;top:5%;transform:translateX(-50%);
-  font-size:54px;color:var(--softGold);
-  filter:drop-shadow(0 0 18px rgba(232,197,110,.45));z-index:20
-}
-#candles{position:absolute;inset:0;z-index:35}
+#candles{position:absolute;inset:0;z-index:30}
 .candle{
-  position:absolute;width:62px;height:96px;margin:-48px 0 0 -31px;
-  border:0;background:transparent;padding:0;cursor:pointer;touch-action:manipulation;z-index:40
+  position:absolute;width:60px;height:92px;margin:-46px 0 0 -30px;
+  border:0;background:transparent;padding:0;touch-action:manipulation;cursor:pointer
 }
 .candle:before{
-  content:"";position:absolute;left:50%;top:15px;transform:translateX(-50%);
-  width:42px;height:42px;border-radius:50%;
-  background:radial-gradient(circle,rgba(244,212,119,.22),transparent 72%);filter:blur(3px)
+  content:"";position:absolute;left:50%;top:9px;transform:translateX(-50%);
+  width:34px;height:34px;border-radius:50%;
+  background:radial-gradient(circle,rgba(215,183,106,.16),transparent 72%)
 }
-.candle .stick{
-  position:absolute;left:25px;bottom:12px;width:12px;height:38px;border-radius:8px;
-  background:linear-gradient(#fff7cf,#f0d27a 18%,#c79b35 45%,#8d5d12);
-  box-shadow:inset 0 0 6px rgba(255,255,255,.45),0 0 10px rgba(244,212,119,.18)
-}
-.candle .stick:before{
-  content:"";position:absolute;left:-6px;bottom:-8px;width:24px;height:8px;border-radius:999px;
-  background:linear-gradient(#e8c56e,#9e6d1c);box-shadow:0 2px 8px rgba(0,0,0,.28)
+.candle .stem{
+  position:absolute;left:26px;bottom:12px;width:8px;height:34px;border-radius:6px;
+  background:linear-gradient(#f3e5b0,#c7a75b 50%,#7f642c);
+  box-shadow:0 0 0 1px rgba(255,255,255,.10)
 }
 .candle .flame{
-  position:absolute;left:50%;top:0;transform:translateX(-50%);
-  width:18px;height:28px;border-radius:65% 35% 60% 40%;
-  background:radial-gradient(circle at 50% 65%,#fff8bc 0 18%,#ffcf4a 19% 48%,#ff8a2e 49% 72%,#ff5f22 73%);
-  filter:drop-shadow(0 0 8px rgba(255,201,84,.95)) drop-shadow(0 0 16px rgba(255,154,44,.65));
-  animation:flick .74s ease-in-out infinite alternate
+  position:absolute;left:50%;top:3px;transform:translateX(-50%);
+  width:14px;height:24px;border-radius:65% 35% 60% 40%;
+  background:radial-gradient(circle at 50% 64%,#fff6c6 0 18%,#e9c35a 20% 50%,#c6722d 52%);
+  filter:drop-shadow(0 0 7px rgba(236,194,88,.7));animation:flick .8s ease-in-out infinite alternate
 }
-@keyframes flick{to{transform:translateX(-50%) scale(.82,1.14) rotate(5deg)}}
-.candle .n{display:none}
-.candle.done{opacity:.20}
+@keyframes flick{to{transform:translateX(-50%) scale(.86,1.12) rotate(4deg)}}
+.candle.done{opacity:.16}
 .candle.done .flame{display:none}
-
-#status{
-  position:absolute;z-index:70;left:14px;bottom:max(14px,env(safe-area-inset-bottom));
-  padding:10px 13px;border-radius:999px;background:rgba(10,3,17,.72);
-  border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);
-  color:var(--cream);font-size:10px;letter-spacing:.17em
+#count{
+  position:absolute;left:50%;bottom:max(20px,env(safe-area-inset-bottom));transform:translateX(-50%);
+  z-index:55;color:rgba(247,239,231,.62);font-size:9px;letter-spacing:.34em;white-space:nowrap
 }
 
+/* MEMORY REVEAL — couture triptych, no polaroid look */
 #memory{
-  position:absolute;inset:0;z-index:90;display:none;place-items:center;
+  position:absolute;inset:0;z-index:90;display:none;overflow:hidden;
   background:
-    radial-gradient(ellipse at 50% 38%,rgba(109,42,132,.46),transparent 34%),
-    linear-gradient(180deg,#16051d 0%,#0b020e 46%,#040005 100%);
-  backdrop-filter:blur(10px);
-  overflow:hidden
+    radial-gradient(ellipse at 50% 38%,rgba(78,33,95,.26),transparent 38%),
+    linear-gradient(180deg,#0d0610 0%,#08030a 100%)
 }
-#memory:before{
-  content:"B";position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);
-  font:700 min(95vw,640px)/1 Georgia,"Times New Roman",serif;color:transparent;
-  -webkit-text-stroke:1px rgba(232,197,110,.085);
-  text-shadow:0 0 70px rgba(232,197,110,.04);
-  pointer-events:none
+#memory.show{display:block}
+#memory .frame{
+  position:absolute;inset:18px;border:1px solid rgba(215,183,106,.28);border-radius:28px;pointer-events:none
 }
-#memory:after{
-  content:"";position:absolute;left:14%;right:14%;top:13%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(232,197,110,.55),transparent);
-  pointer-events:none
+#memory .ornament{
+  position:absolute;left:50%;top:28px;transform:translateX(-50%);
+  color:var(--gold2);font:400 27px/1 Georgia,serif
 }
-#memory.show{display:grid}
-#memoryTopline{
-  position:absolute;top:max(24px,env(safe-area-inset-top));left:0;right:0;text-align:center;
-  color:var(--gold);font-size:9px;letter-spacing:.36em;font-weight:700
+#memory .eyebrow{
+  position:absolute;top:68px;left:0;right:0;text-align:center;
+  color:rgba(240,221,160,.76);font-size:8px;letter-spacing:.4em;font-weight:700
 }
-#memoryMonogram{
-  position:absolute;top:57px;left:0;right:0;text-align:center;
-  font:400 28px/1 Georgia,"Times New Roman",serif;color:var(--softGold);
-  text-shadow:0 0 20px rgba(232,197,110,.2)
+#memoryTitle{
+  position:absolute;top:93px;left:20px;right:20px;text-align:center;
+  font:400 28px/1 Georgia,"Times New Roman",serif;color:var(--cream)
 }
-#photos{position:relative;width:94vw;height:66vh;display:flex;align-items:center;justify-content:center;margin-top:-3vh}
-.photoSet{position:relative;width:min(94vw,780px);height:min(59vh,600px)}
+#memorySub{
+  position:absolute;top:128px;left:20px;right:20px;text-align:center;
+  font-size:9px;letter-spacing:.32em;color:rgba(247,239,231,.44)
+}
+#photos{
+  position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);
+  width:min(92vw,760px);height:min(58vh,560px)
+}
+.photoSet{position:relative;width:100%;height:100%}
 .memoryCard{
-  position:absolute;z-index:20;border:1px solid rgba(232,197,110,.72);border-radius:12px;
-  background:#f8f1e8;padding:5px;
-  box-shadow:0 28px 75px rgba(0,0,0,.72),0 0 0 1px rgba(255,255,255,.08),0 0 40px rgba(215,168,255,.08);
-  overflow:hidden;touch-action:manipulation;cursor:pointer;pointer-events:auto;
-  transition:transform .22s ease,opacity .22s ease,filter .22s ease
+  position:absolute;border:0;background:transparent;padding:0;cursor:pointer;
+  touch-action:manipulation;pointer-events:auto
 }
-.memoryCard:active{filter:brightness(1.05);transform:scale(.98)}
-.memoryCard img{display:block;width:100%;height:100%;object-fit:cover;border-radius:7px;pointer-events:none;user-select:none;-webkit-user-drag:none}
-.photoSet.two .memoryCard{width:min(39vw,245px);height:min(57vw,350px)}
-.photoSet.two .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-104%,-50%) rotate(-4deg)}
-.photoSet.two .memoryCard:nth-child(2){left:50%;top:50%;z-index:22;transform:translate(4%,-50%) rotate(4deg)}
-.photoSet.three .memoryCard:nth-child(1),
-.photoSet.three .memoryCard:nth-child(3){
-  width:min(29vw,182px);height:min(43vw,270px);opacity:.82;filter:saturate(.92) brightness(.9)
+.memoryCard .goldFrame{
+  width:100%;height:100%;padding:2px;
+  background:linear-gradient(145deg,#8c6e2f 0,#eedda5 38%,#8d7130 62%,#d5b86b 100%);
+  border-radius:4px;
+  box-shadow:0 28px 70px rgba(0,0,0,.62)
 }
-.photoSet.three .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-138%,-45%) rotate(-5deg)}
+.memoryCard .mat{
+  width:100%;height:100%;padding:6px;background:#f2eadf;border-radius:3px
+}
+.memoryCard img{
+  display:block;width:100%;height:100%;object-fit:contain;background:#111;
+  border-radius:2px;pointer-events:none;user-select:none;-webkit-user-drag:none
+}
+.photoSet.two .memoryCard{
+  width:min(40vw,260px);height:min(56vw,370px);top:50%
+}
+.photoSet.two .memoryCard:nth-child(1){left:26%;transform:translate(-50%,-50%)}
+.photoSet.two .memoryCard:nth-child(2){left:74%;transform:translate(-50%,-50%)}
+.photoSet.three .memoryCard{
+  width:min(28vw,180px);height:min(40vw,260px);top:50%
+}
+.photoSet.three .memoryCard:nth-child(1){left:18%;transform:translate(-50%,-50%)}
 .photoSet.three .memoryCard:nth-child(2){
-  left:50%;top:50%;z-index:24;width:min(39vw,245px);height:min(57vw,350px);
-  transform:translate(-50%,-50%);opacity:1
+  left:50%;width:min(36vw,235px);height:min(52vw,340px);
+  transform:translate(-50%,-50%);z-index:3
 }
-.photoSet.three .memoryCard:nth-child(3){left:50%;top:50%;z-index:22;transform:translate(38%,-45%) rotate(5deg)}
-#tapHint{
-  position:absolute;left:0;right:0;bottom:17.2%;text-align:center;
-  font-size:9px;letter-spacing:.28em;color:rgba(248,241,232,.58)
+.photoSet.three .memoryCard:nth-child(3){left:82%;transform:translate(-50%,-50%)}
+#viewHint{
+  position:absolute;left:0;right:0;bottom:106px;text-align:center;
+  color:rgba(247,239,231,.40);font-size:8px;letter-spacing:.34em
 }
-#memoryCaption{
-  position:absolute;left:0;right:0;bottom:11.4%;text-align:center;color:var(--softGold)
+#back{
+  position:absolute;left:50%;bottom:38px;transform:translateX(-50%);
+  border:0;background:transparent;color:var(--gold2);
+  font-size:10px;letter-spacing:.22em;font-weight:700;padding:16px 22px;touch-action:manipulation
 }
-#memoryCaption .capCandle{
-  display:block;font:400 19px/1.1 Georgia,"Times New Roman",serif;letter-spacing:.12em
-}
-#memoryCaption .capMemories{
-  display:block;margin-top:7px;font-size:9px;letter-spacing:.34em;color:rgba(248,241,232,.68);font-weight:700
-}
-#closeMemory,#showVideo{
-  position:absolute;left:50%;transform:translateX(-50%);
-  min-width:220px;min-height:50px;padding:0 24px;border-radius:999px;
-  border:1px solid rgba(232,197,110,.52);
-  background:rgba(255,255,255,.035);
-  color:#f2d98e;font-size:11px;font-weight:700;letter-spacing:.18em;
-  box-shadow:0 10px 40px rgba(0,0,0,.18),inset 0 0 22px rgba(255,255,255,.025);
-  touch-action:manipulation
-}
-#closeMemory{bottom:22px}
+#back:before,#back:after{content:"";display:inline-block;width:34px;height:1px;background:rgba(215,183,106,.42);vertical-align:middle;margin:0 12px}
+
+/* Zoom */
 #zoom{
-  position:absolute;inset:0;z-index:110;display:none;place-items:center;background:#020003f4;padding:18px
+  position:absolute;inset:0;z-index:120;display:none;place-items:center;background:#050207f4;padding:18px
 }
 #zoom.show{display:grid}
-#zoomImg{max-width:94vw;max-height:84vh;object-fit:contain;border-radius:18px;box-shadow:0 30px 120px #000}
+#zoom img{max-width:92vw;max-height:82vh;object-fit:contain;border:1px solid rgba(215,183,106,.45);padding:5px;background:#f2eadf;box-shadow:0 30px 120px #000}
 #zoomClose{
-  position:absolute;right:16px;top:max(16px,env(safe-area-inset-top));
-  width:56px;height:56px;border-radius:50%;border:1px solid #fff4;background:#120019dd;font-size:28px;z-index:2
+  position:absolute;right:18px;top:max(18px,env(safe-area-inset-top));
+  width:52px;height:52px;border-radius:50%;border:1px solid rgba(215,183,106,.35);
+  background:#0c050fcc;font-size:26px
 }
 
+/* Final message */
 #message,#video{
-  position:absolute;inset:0;z-index:120;display:none;place-items:center;text-align:center;padding:28px;
-  background:
-    radial-gradient(circle at 50% 26%,rgba(118,45,153,.48),transparent 25%),
-    radial-gradient(circle at 50% 42%,#581874,#15031d 46%,#030004 78%)
+  position:absolute;inset:0;z-index:130;display:none;place-items:center;text-align:center;padding:28px;
+  background:linear-gradient(180deg,#0d0610,#050207)
 }
 #message.show,#video.show{display:grid}
-.msgWrap{max-width:650px}
-.msgCrown{font-size:52px;color:var(--softGold);filter:drop-shadow(0 0 18px rgba(232,197,110,.4))}
-#message small{color:var(--gold);letter-spacing:.28em;font-weight:700}
-#message h2{
-  font:700 clamp(48px,12vw,86px)/.9 Georgia,"Times New Roman",serif;
-  margin:12px 0 20px
+#message .inner{max-width:640px}
+#message .crown{font:400 46px/1 Georgia,serif;color:var(--gold2)}
+#message small{display:block;margin-top:12px;color:rgba(240,221,160,.75);font-size:9px;letter-spacing:.38em}
+#message h2{font:400 clamp(46px,12vw,86px)/.9 Georgia,serif;margin:18px 0;color:var(--cream)}
+#message p,.end{font:22px/1.55 Georgia,serif;color:rgba(247,239,231,.84)}
+.gold{color:var(--gold2)}
+#showVideo{
+  margin-top:18px;padding:16px 24px;border:1px solid rgba(215,183,106,.4);background:transparent;
+  color:var(--gold2);letter-spacing:.18em;font-size:10px
 }
-#message p,.end{font:23px/1.5 Georgia,"Times New Roman",serif;color:var(--cream)}
-.gold{color:var(--softGold)}
-#showVideo{position:relative;left:auto;bottom:auto;transform:none;margin-top:12px}
-video{width:min(96vw,900px);max-height:78vh;background:#000;border-radius:22px;box-shadow:0 30px 100px rgba(0,0,0,.68)}
+video{width:min(96vw,900px);max-height:76vh;background:#000;border-radius:8px;box-shadow:0 30px 100px rgba(0,0,0,.7)}
 .end{margin-top:18px}
 
-@media (max-height:740px){
-  #cake{top:62%;height:68vh}
-  #title h1{font-size:36px}
-  #title p{font-size:12px}
-}
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
+@media(max-height:740px){
+  #cake{top:62%;height:67vh}
+  #header h1{font-size:38px}
+  #photos{top:53%;height:52vh}
 }
 </style>
 </head>
 <body>
 <div id="app">
-  <div id="title">
-    <small>QUEEN B · 43 CANDLES</small>
+  <div id="header">
+    <div class="mark">♛</div>
+    <small>QUEEN B · FORTY-THREE</small>
     <h1>For Beaux</h1>
-    <p>Forty-three candles. One hundred beautiful memories.</p>
+    <p>Forty-three candles. One hundred memories. One unforgettable Queen B.</p>
   </div>
 
   <div id="cake">
+    <div class="halo"></div>
     <div class="crown">♛</div>
-    <div class="base"></div>
-    <div class="top"></div>
-
-    <div class="basePearls">
-      <span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="topPearls">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span>
-    </div>
-
+    <div class="tier lower"></div>
+    <div class="tier upper"></div>
     <div id="candles"></div>
   </div>
+  <div id="count">0 OF 43 CANDLES OPENED</div>
 
-  <div id="status">0 / 43 CANDLES</div>
-
-  <div id="memory">
-    <div id="memoryTopline">QUEEN B · ROYAL MEMORY REVEAL</div>
-    <div id="memoryMonogram">♛</div>
+  <section id="memory">
+    <div class="frame"></div>
+    <div class="ornament">♛</div>
+    <div class="eyebrow">QUEEN B · PRIVATE MEMORY</div>
+    <div id="memoryTitle">CANDLE I</div>
+    <div id="memorySub">THREE MEMORIES</div>
     <div id="photos"></div>
-    <div id="tapHint">TAP A MEMORY TO VIEW</div>
-    <div id="memoryCaption"></div>
-    <button id="closeMemory">RETURN TO THE CAKE</button>
-  </div>
+    <div id="viewHint">TAP A PORTRAIT TO VIEW FULL SIZE</div>
+    <button id="back">RETURN</button>
+  </section>
 
   <div id="zoom">
     <button id="zoomClose">×</button>
     <img id="zoomImg" alt="Memory">
   </div>
 
-  <div id="message">
-    <div class="msgWrap">
-      <div class="msgCrown">♛</div>
-      <small>43 CANDLES · 100 MEMORIES</small>
-      <h2>HAPPY BIRTHDAY,<br><span class="gold">BEAUX.</span></h2>
-      <p>
-        Happy Birthday, Sis. ❤️<br>
-        <span class="gold">Every candle holds a memory. Every memory holds love.</span><br><br>
-        — Kimmy
-      </p>
-      <button id="showVideo">ONE MORE THING… ▶</button>
+  <section id="message">
+    <div class="inner">
+      <div class="crown">♛</div>
+      <small>FORTY-THREE CANDLES · ONE HUNDRED MEMORIES</small>
+      <h2>Happy Birthday,<br><span class="gold">Beaux.</span></h2>
+      <p>Happy birthday, Sis. ❤️<br><span class="gold">Every candle holds a memory. Every memory holds love.</span><br><br>— Kimmy</p>
+      <button id="showVideo">ONE MORE THING · PLAY VIDEO</button>
     </div>
-  </div>
+  </section>
 
-  <div id="video">
+  <section id="video">
     <div>
       <video id="vid" controls playsinline preload="metadata">
         <source src="./VID-20260915-WA0000.mp4" type="video/mp4">
       </video>
-      <div class="end">
-        HAPPY BIRTHDAY, BEAUX. 👑<br>
-        <span class="gold">43 candles. 100 memories. One Queen B.</span><br>
-        — Kimmy ❤️
-      </div>
+      <div class="end">Happy Birthday, Beaux. 👑<br><span class="gold">43 candles. 100 memories. One Queen B.</span><br>— Kimmy ❤️</div>
     </div>
-  </div>
+  </section>
 </div>
 
 <script>
@@ -333,11 +295,13 @@ const groups=[["1zh1cxp5hcBl0ZGsoIercv51RSxszmMSb","1-QVlGgM0BqfcUQqWcQLNPlzoDzt
 const candles=document.getElementById("candles");
 const memory=document.getElementById("memory");
 const photos=document.getElementById("photos");
-const caption=document.getElementById("memoryCaption");
-const status=document.getElementById("status");
+const count=document.getElementById("count");
+const title=document.getElementById("memoryTitle");
+const sub=document.getElementById("memorySub");
 const zoom=document.getElementById("zoom");
 const zoomImg=document.getElementById("zoomImg");
 const opened=new Set();
+const roman=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII"];
 
 function pos(i){
   const rows=[
@@ -353,67 +317,58 @@ function pos(i){
 
 function openZoom(src,e){
   if(e){e.preventDefault();e.stopPropagation();}
-  zoomImg.src=src;
-  zoom.classList.add("show");
+  zoomImg.src=src;zoom.classList.add("show");
 }
 
 function openOne(i,b){
-  if(opened.has(i)) return;
-  opened.add(i);
-  b.classList.add("done");
+  if(opened.has(i))return;
+  opened.add(i);b.classList.add("done");
   photos.innerHTML="";
-
   const set=document.createElement("div");
   set.className="photoSet "+(groups[i].length===2?"two":"three");
 
   groups[i].forEach(id=>{
     const card=document.createElement("button");
-    card.type="button";
-    card.className="memoryCard";
+    card.type="button";card.className="memoryCard";
+    const gf=document.createElement("div");gf.className="goldFrame";
+    const mat=document.createElement("div");mat.className="mat";
     const img=document.createElement("img");
     img.src="https://drive.google.com/thumbnail?id="+id+"&sz=w1600";
     img.alt="Memory";
-    card.appendChild(img);
-
-    const handler=e=>openZoom(img.src,e);
-    card.addEventListener("pointerup",handler);
-    card.addEventListener("click",handler);
-
+    mat.appendChild(img);gf.appendChild(mat);card.appendChild(gf);
+    const h=e=>openZoom(img.src,e);
+    card.addEventListener("pointerup",h);card.addEventListener("click",h);
     set.appendChild(card);
   });
 
   photos.appendChild(set);
-  const roman=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII"];
-  caption.innerHTML='<span class="capCandle">CANDLE '+roman[i]+'</span><span class="capMemories">'+(groups[i].length===2?'TWO MEMORIES':'THREE MEMORIES')+'</span>';
-  status.textContent=opened.size+" / 43 CANDLES";
+  title.textContent="CANDLE "+roman[i];
+  sub.textContent=groups[i].length===2?"TWO MEMORIES":"THREE MEMORIES";
+  count.textContent=opened.size+" OF 43 CANDLES OPENED";
   memory.classList.add("show");
 }
 
 for(let i=0;i<43;i++){
   const p=pos(i);
   const b=document.createElement("button");
-  b.type="button";
-  b.className="candle";
-  b.style.left=p.x+"%";
-  b.style.top=p.y+"%";
-  b.innerHTML='<span class="flame"></span><span class="stick"></span><span class="n">'+(i+1)+'</span>';
-  const handler=e=>{e.preventDefault();e.stopPropagation();openOne(i,b)};
-  b.addEventListener("pointerup",handler);
-  b.addEventListener("click",handler);
+  b.type="button";b.className="candle";
+  b.style.left=p.x+"%";b.style.top=p.y+"%";
+  b.innerHTML='<span class="flame"></span><span class="stem"></span>';
+  const h=e=>{e.preventDefault();e.stopPropagation();openOne(i,b)};
+  b.addEventListener("pointerup",h);b.addEventListener("click",h);
   candles.appendChild(b);
 }
 
 let closing=false;
 function closeMemory(e){
   if(e){e.preventDefault();e.stopPropagation();}
-  if(closing)return;
-  closing=true;
+  if(closing)return;closing=true;
   memory.classList.remove("show");
-  if(opened.size===43) document.getElementById("message").classList.add("show");
+  if(opened.size===43)document.getElementById("message").classList.add("show");
   setTimeout(()=>closing=false,220);
 }
-document.getElementById("closeMemory").addEventListener("pointerup",closeMemory);
-document.getElementById("closeMemory").addEventListener("click",closeMemory);
+document.getElementById("back").addEventListener("pointerup",closeMemory);
+document.getElementById("back").addEventListener("click",closeMemory);
 
 function closeZoom(e){
   if(e){e.preventDefault();e.stopPropagation();}
