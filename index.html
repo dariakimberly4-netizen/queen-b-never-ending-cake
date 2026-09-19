@@ -1,24 +1,241 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Queen B — Happy Birthday, Sis</title><style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#09000f;color:#fff;font-family:Georgia,serif;overflow-x:hidden}.opening{position:fixed;inset:0;z-index:20;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 50% 65%,#421058,#08000d 55%);transition:1.2s}.opening.gone{opacity:0;pointer-events:none}.cake{font-size:92px;filter:drop-shadow(0 0 30px #d8a7ff)}h1{font-size:clamp(32px,8vw,72px);margin:10px}.gold{color:#f3d27a}.hold{border:1px solid #d8b55b;border-radius:999px;padding:18px 30px;min-width:240px;color:#ffe9a8;background:#ffffff0c;font-size:18px;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:pointer}.flame{font-size:42px;animation:f 1s infinite alternate}@keyframes f{to{transform:scale(.85) rotate(4deg)}}.world{min-height:100vh;padding:80px 18px 120px;position:relative;overflow:hidden}.world h2{text-align:center;font-size:clamp(34px,8vw,70px);margin:0 0 8px}.sub{text-align:center;opacity:.78;margin-bottom:42px}.w1{background:radial-gradient(circle,#7c287f,#210528 65%,#09000f)}.w2{background:radial-gradient(circle at bottom,#49246c,#10051e 70%)}.w3{background:linear-gradient(#170724,#51214e,#1b071d)}.w4{background:radial-gradient(circle,#26154d,#03000a 70%)}.w5{background:radial-gradient(circle,#6c3e12,#17040f 62%,#050007)}.memories{max-width:1000px;margin:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.memory{position:relative;min-height:220px;display:grid;place-items:center;transform:rotate(var(--r));transition:.35s}.memory img{max-width:100%;max-height:330px;width:auto;height:auto;object-fit:contain;border:5px solid #fff7e7;border-radius:8px;box-shadow:0 20px 55px #000a,0 0 24px #d8a7ff55}.memory:active{transform:scale(1.05)}.num{position:absolute;bottom:8px;background:#120018dd;border:1px solid #d9b85f;padding:6px 10px;border-radius:20px;font:12px system-ui}.bigB{font-size:min(65vw,520px);line-height:.8;text-align:center;color:#f3d27a;text-shadow:0 0 50px #ffda78;position:absolute;inset:auto 0 7%;opacity:.13}.final{min-height:100vh;display:grid;place-items:center;text-align:center;padding:30px;background:radial-gradient(circle,#441157,#08000d 65%)}.final button{font-size:54px;border:0;background:none;filter:drop-shadow(0 0 25px #ffb43c)}.videoBox{display:none}.videoBox.show{display:block}.videoBox video{width:min(100%,900px);max-height:75vh;background:#000}.note{font-family:system-ui;font-size:13px;opacity:.65}.reduce{position:fixed;right:12px;top:12px;z-index:30;border:1px solid #ffffff44;background:#100016cc;color:white;border-radius:30px;padding:12px}.counter{position:sticky;top:12px;z-index:5;width:max-content;margin-left:auto;background:#09000dcc;border:1px solid #d9b85f;padding:9px 13px;border-radius:20px;font:12px system-ui}@media(min-width:700px){.memories{grid-template-columns:repeat(4,1fr)}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}body.reduced *{animation:none!important;transition:none!important}
-</style></head><body><button class="reduce" onclick="document.body.classList.toggle('reduced')">Reduced motion</button>
-<section class="opening" id="open"><div><div class="flame">🔥</div><div class="cake">🎂</div><h1>HAPPY BIRTHDAY, SIS.</h1><p class="gold">Make a wish.</p><div class="hold" id="hold">TAP HERE TO BLOW THE CANDLE</div></div></section>
-<main id="journey"></main><section class="final"><div><div class="cake">🎂</div><h2>100 candles. One universe.</h2><p>And one more thing, Sis…</p><button id="play">🔥</button><div class="videoBox" id="vb"><video id="vid" controls playsinline><source src="./VID-20260915-WA0000.mp4" type="video/mp4"></video><p>HAPPY BIRTHDAY, BEAUX. 👑<br><span class="gold">Some cakes have layers.<br>Yours has a whole universe.</span><br>— Kimmy ❤️</p></div><p class="note">Tap the flame for your final surprise.</p></div></section>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Queen B — The Never-Ending Birthday Cake</title>
+<style>
+:root{--gold:#f3d27a;--purple:#7a2fb0;--ink:#050008;--glass:#ffffff12}
+*{box-sizing:border-box}
+html,body{margin:0;background:#050008;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;overflow-x:hidden}
+body{min-height:100%;overscroll-behavior-y:none}
+button{font:inherit}
+#opening{position:fixed;inset:0;z-index:100;background:
+radial-gradient(circle at 50% 72%,#5d1686 0,#1d0628 26%,#09000e 60%,#020003 100%);
+display:grid;place-items:center;overflow:hidden;transition:1s cubic-bezier(.2,.8,.2,1)}
+#opening.vanish{opacity:0;transform:scale(1.35);filter:blur(14px);pointer-events:none}
+.stars,.stars:before,.stars:after{position:absolute;inset:-20%;content:"";background-image:radial-gradient(#fff 1px,transparent 1.4px);background-size:58px 58px;opacity:.17;animation:drift 22s linear infinite}
+.stars:before{transform:scale(.65) rotate(18deg);opacity:.25}.stars:after{transform:scale(1.4) rotate(-12deg);opacity:.09}
+@keyframes drift{to{transform:translate3d(0,-110px,0) rotate(1deg)}}
+.intro{text-align:center;padding:24px;max-width:620px;position:relative;z-index:2}
+.crown{font-size:38px;filter:drop-shadow(0 0 18px #f3d27a88);animation:float 2.3s ease-in-out infinite}
+.cake3d{width:230px;height:260px;margin:4px auto 0;position:relative;perspective:700px;filter:drop-shadow(0 28px 36px #000)}
+.tier{position:absolute;left:50%;transform:translateX(-50%);border-radius:50% / 20%;background:
+linear-gradient(180deg,#fbddff 0 18%,#c56bd4 19% 47%,#72237f 48% 100%);
+box-shadow:inset 0 7px 15px #fff8,inset 0 -10px 18px #32003d99,0 0 30px #cc65ff55}
+.t1{width:205px;height:94px;bottom:16px}.t2{width:155px;height:82px;bottom:86px}.t3{width:105px;height:72px;bottom:145px}
+.drip{position:absolute;width:13px;height:28px;background:#f7dcff;border-radius:0 0 14px 14px;top:15px}
+.candle{position:absolute;left:50%;bottom:210px;transform:translateX(-50%);width:14px;height:47px;border-radius:8px;background:repeating-linear-gradient(45deg,#f7d274 0 6px,#fff0b0 6px 12px);box-shadow:0 0 20px #ffd87755}
+.flame{position:absolute;left:50%;bottom:251px;transform:translateX(-50%);width:26px;height:38px;border-radius:60% 40% 60% 40%;background:radial-gradient(circle at 55% 65%,#fff6a8 0 23%,#ffb21d 24% 58%,#ff5b1d 59%);filter:drop-shadow(0 0 18px #ff8a00);animation:flicker .8s ease-in-out infinite alternate}
+@keyframes flicker{to{transform:translateX(-50%) scale(.82,1.12) rotate(5deg)}}
+@keyframes float{50%{transform:translateY(-7px)}}
+.intro h1{font-family:Georgia,serif;font-size:clamp(37px,10vw,76px);line-height:.92;margin:12px 0 8px;letter-spacing:-1px}
+.intro .wish{font-family:Georgia,serif;color:var(--gold);font-size:22px;margin:14px 0 22px}
+.enter{width:min(92vw,430px);min-height:68px;border:1.5px solid var(--gold);border-radius:999px;color:#fff3bd;background:linear-gradient(180deg,#ffffff12,#ffffff05);box-shadow:0 0 30px #b56aff20,inset 0 0 30px #ffffff06;font-weight:800;letter-spacing:.08em;touch-action:manipulation}
+.enter:active{transform:scale(.97)}
+.hint{opacity:.62;font-size:13px;margin-top:12px}
+#hud{position:fixed;z-index:50;left:12px;right:12px;top:10px;display:flex;justify-content:space-between;gap:10px;pointer-events:none}
+.pill{background:#08000cc8;border:1px solid #ffffff24;backdrop-filter:blur(14px);border-radius:999px;padding:10px 14px;font-size:12px;letter-spacing:.07em;box-shadow:0 10px 30px #0007}
+#reduce{pointer-events:auto;color:#fff;background:#08000cc8}
+#journey{opacity:0;transition:.8s}#journey.show{opacity:1}
+.world{min-height:170vh;position:relative;isolation:isolate}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden;perspective:1100px;display:grid;place-items:center}
+.world1 .stage{background:radial-gradient(circle at 50% 28%,#c55ae050,#3a0a48 38%,#100116 75%)}
+.world2 .stage{background:radial-gradient(circle at 50% 85%,#5c2b7b,#170323 42%,#060009 78%)}
+.world3 .stage{background:linear-gradient(#11021e 0,#52214f 52%,#140316 100%)}
+.world4 .stage{background:radial-gradient(circle at 50% 50%,#2b1e63,#090014 43%,#020005 100%)}
+.world5 .stage{background:radial-gradient(circle,#8c531d33,#16020e 45%,#030003 78%)}
+.title{position:absolute;top:8vh;left:18px;right:18px;text-align:center;z-index:20;pointer-events:none}
+.title small{display:block;color:var(--gold);font-size:11px;letter-spacing:.28em;font-weight:800;margin-bottom:9px}
+.title h2{font-family:Georgia,serif;font-size:clamp(38px,9vw,74px);line-height:.95;margin:0;text-shadow:0 10px 45px #000}
+.title p{max-width:480px;margin:12px auto 0;opacity:.72;font-size:14px}
+.field{position:absolute;inset:0;transform-style:preserve-3d}
+.memory{position:absolute;left:50%;top:50%;width:clamp(118px,32vw,220px);height:clamp(150px,41vw,285px);transform-style:preserve-3d;will-change:transform,opacity;transition:filter .2s;cursor:pointer}
+.memory img{width:100%;height:100%;object-fit:contain;background:#130817;border:1px solid #fff8;border-radius:16px;padding:7px;box-shadow:0 25px 70px #000c,0 0 30px #df82ff24;backdrop-filter:blur(5px)}
+.memory::after{content:attr(data-n);position:absolute;left:50%;bottom:-31px;transform:translateX(-50%);font-size:10px;letter-spacing:.12em;color:#ffe39b;background:#050008c8;border:1px solid #f2d47b55;border-radius:999px;padding:6px 9px;white-space:nowrap}
+.world2 .memory img{border-radius:45% 45% 22% 22% / 32% 32% 18% 18%}
+.world3 .memory img{border:8px solid #fff7e6;border-bottom-width:28px;border-radius:5px}
+.world4 .memory img{border-radius:24px;box-shadow:0 0 60px #7e79ff55,0 25px 80px #000}
+.world5 .memory img{border-color:#e9c65caa;box-shadow:0 0 50px #d7a83a44,0 24px 80px #000}
+.ring{position:absolute;width:88vw;height:88vw;max-width:700px;max-height:700px;border:1px solid #f3d27a22;border-radius:50%;box-shadow:0 0 100px #d57cff1c inset;animation:spin 28s linear infinite}
+.ring.r2{width:58vw;height:58vw;animation-direction:reverse;animation-duration:18s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.petals,.sparkles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.petal,.spark{position:absolute;animation:fall linear infinite;opacity:.7}
+.petal{font-size:22px}.spark{width:3px;height:3px;background:#fff;border-radius:50%;box-shadow:0 0 10px #fff}
+@keyframes fall{from{transform:translate3d(0,-15vh,0) rotate(0)}to{transform:translate3d(12vw,115vh,0) rotate(560deg)}}
+.eiffel{position:absolute;bottom:-3vh;left:50%;transform:translateX(-50%);font-family:Georgia,serif;font-size:min(73vw,560px);line-height:.7;color:#f8d77a0e;text-shadow:0 0 35px #f7cc5c12}
+.B{position:absolute;inset:auto 0 3vh;text-align:center;font:900 min(70vw,540px)/.8 Georgia,serif;color:transparent;-webkit-text-stroke:1px #f7d56d33;text-shadow:0 0 70px #e0b04f22}
+.depthText{position:absolute;bottom:8vh;left:0;right:0;text-align:center;color:#fff8;font-size:12px;letter-spacing:.18em;pointer-events:none}
+#reveal{min-height:110vh;background:radial-gradient(circle at 50% 35%,#662388,#14021e 42%,#030004 78%);display:grid;place-items:center;text-align:center;padding:80px 20px;position:relative;overflow:hidden}
+#reveal h2{font:700 clamp(46px,12vw,92px)/.9 Georgia,serif;margin:0;color:#fff}
+#reveal .gold{color:var(--gold)}
+#flamePlay{margin:34px auto 18px;width:112px;height:112px;border-radius:50%;border:1px solid #f3d27a;background:radial-gradient(circle,#ffcf58 0 5%,#ff7625 28%,#6c1760 55%,#180221 75%);box-shadow:0 0 90px #ff9c3155;color:white;font-size:38px;display:grid;place-items:center;animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 0 130px #ff9c3180}}
+#videoBox{display:none;margin-top:24px}#videoBox.show{display:block}
+video{width:min(94vw,900px);max-height:76vh;background:#000;border-radius:20px;box-shadow:0 30px 100px #000}
+.message{font:24px/1.5 Georgia,serif;margin-top:22px}.message strong{color:var(--gold)}
+#modal{position:fixed;inset:0;z-index:120;background:#030004ef;display:none;place-items:center;padding:18px}
+#modal.show{display:grid}
+#modal img{max-width:94vw;max-height:86vh;object-fit:contain;border-radius:18px;box-shadow:0 30px 120px #000}
+#modal button{position:absolute;top:18px;right:18px;width:52px;height:52px;border-radius:50%;border:1px solid #fff4;background:#100019cc;color:white;font-size:28px}
+@media (min-width:800px){.memory{width:190px;height:245px}.title{top:6vh}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+body.reduced *{animation:none!important;transition:none!important}
+</style>
+</head>
+<body>
+<div id="opening">
+  <div class="stars"></div>
+  <div class="intro">
+    <div class="crown">♛</div>
+    <div class="cake3d">
+      <div class="tier t1"><i class="drip" style="left:28px"></i><i class="drip" style="left:76px;height:20px"></i><i class="drip" style="right:36px;height:34px"></i></div>
+      <div class="tier t2"><i class="drip" style="left:38px;height:30px"></i><i class="drip" style="right:26px;height:20px"></i></div>
+      <div class="tier t3"></div>
+      <div class="candle"></div><div class="flame" id="openingFlame"></div>
+    </div>
+    <h1>HAPPY BIRTHDAY,<br>SIS.</h1>
+    <div class="wish">Make a wish.</div>
+    <button class="enter" id="enter">TAP TO BLOW THE CANDLE</button>
+    <div class="hint">One tap. Then the cake opens.</div>
+  </div>
+</div>
+
+<div id="hud">
+  <div class="pill" id="counter">MEMORY 001 / 100</div>
+  <button class="pill" id="reduce">REDUCED MOTION</button>
+</div>
+
+<main id="journey">
+  <section class="world world1" data-start="1">
+    <div class="stage"><div class="ring"></div><div class="ring r2"></div>
+      <div class="title"><small>LAYER 01 · 001–020</small><h2>THE SWEET BEGINNING</h2><p>Frosting becomes landscape. Candles become towers. The first memories break through the cake.</p></div>
+      <div class="field"></div><div class="depthText">SWIPE / SCROLL DEEPER ↓</div>
+    </div>
+  </section>
+  <section class="world world2" data-start="21">
+    <div class="stage"><div class="petals"></div>
+      <div class="title"><small>LAYER 02 · 021–040</small><h2>THE SECRET GARDEN</h2><p>Flowers open into memories. Butterflies carry pieces of time. Gravity starts to fail.</p></div>
+      <div class="field"></div><div class="depthText">THE GARDEN IS INSIDE THE CAKE</div>
+    </div>
+  </section>
+  <section class="world world3" data-start="41">
+    <div class="stage"><div class="eiffel">A</div>
+      <div class="title"><small>LAYER 03 · 041–060</small><h2>PARIS INSIDE THE CAKE</h2><p>Café windows glow. Postcards float. The city folds like paper around the memories.</p></div>
+      <div class="field"></div><div class="depthText">PARIS FOLDS INTO THE NEXT LAYER</div>
+    </div>
+  </section>
+  <section class="world world4" data-start="61">
+    <div class="stage"><div class="sparkles"></div><div class="ring"></div>
+      <div class="title"><small>LAYER 04 · 061–080</small><h2>ZERO GRAVITY</h2><p>No floor. No cake. Just memories drifting through a purple universe.</p></div>
+      <div class="field"></div><div class="depthText">THE STARS ARE STARTING TO SPELL B</div>
+    </div>
+  </section>
+  <section class="world world5" data-start="81">
+    <div class="stage"><div class="B">B</div>
+      <div class="title"><small>LAYER 05 · 081–100</small><h2>QUEEN B</h2><p>The final twenty memories lock into a monumental golden B.</p></div>
+      <div class="field"></div><div class="depthText">100 / 100 · THE CHAMBER IS COMPLETE</div>
+    </div>
+  </section>
+
+  <section id="reveal">
+    <div>
+      <div style="font-size:48px">♛</div>
+      <h2>ONE MORE THING,<br><span class="gold">SIS…</span></h2>
+      <button id="flamePlay" aria-label="Play birthday video">▶</button>
+      <div style="opacity:.66">Tap the flame.</div>
+      <div id="videoBox">
+        <video id="vid" controls playsinline preload="metadata">
+          <source src="./VID-20260915-WA0000.mp4" type="video/mp4">
+        </video>
+        <div class="message">HAPPY BIRTHDAY, BEAUX. 👑<br><strong>Some cakes have layers.<br>Yours has a whole universe.</strong><br>— Kimmy ❤️</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="modal"><button id="close">×</button><img alt="Memory enlarged"></div>
+
 <script>
-const ids=["1zh1cxp5hcBl0ZGsoIercv51RSxszmMSb","1-QVlGgM0BqfcUQqWcQLNPlzoDztmzcpg","1ONzcyGleKAL39Wl3BP4JHSF04wpkuUxT","1_-ca47E29UUEVxlmK64GAN_tZ4YQfbaP","1L9YqKXnmXQx6j-xS2dp6QvOfu4oHi1q7","1SMMWYdG0DtjnhH_u9KYqBRS_eNX4Ls2l","19hKTEOxavIecIMoJbimuODSOJXK-4Np6","1Yxjpv34EWj758TA_FuRB4_R1RHGeZ6eL","1frYwatctg6od3LQhvl3atnZTjDDCNAxP","1HBeZ7kuMR_OXKO3IaZOTlFnsIcV16mOu","14sTEaEBPn5nxEUrV1Nh_c6DVkUp5SItR","1o7OlBVPnmvnoAxVMTo7d-AZM396Mv8vo","1o7hyORJ5AD5IcxOBGemLDaBcZheNHZsB","1i7V_2yoKvM46leKNYS44ZdjoMSlvZkms","1wHMphIV-A0eJfts5fXEkvq5781MCMqiL","1j0Kr0w5x-1i4M-onpcgwzmwezWszqZp7","1jaR44yZw_rjDDSB0Xso7gAMd_KkRssP3","1XKElEbreForMLMSSRvHngy-1jM-C8Le_","1RkUQCb5i5EI2NpaQt9sYkYmjaOfUylnI","1ViCm__B4DaFFVyQ9Eylfd8mld-aaeLis","1xLM7_wmoiSGhAVgwn5N01-s0VKIAsLTk","1RofSwm2LIhlUMBT5v2q-T8X5QNDas9kz","1U9lTZEdzzJO-KtqkTdfRGNv6OqS6zBJI","1S6RrgDUJ1Go_SMTV86JRLhFT3mm8rv9Z","1oUk1R3qvMDO_XA06OFd4fpy32A_5dMEi","1ioV76Zdz_g_MX2X-tv_f84wDFzwYE7yP","1gcUWikjEXtfQfsvfp-tEGNxaa3mi9q40","1s1nM7sNoSAMxfm_vyaoagyVyqEEdJN40","1P05ywHihIS32nsutDYgN_y9NN-peXTzB","1Deczp7jELLUrEFpaqPg83IpckySZBrzH","1NiWjpLA8ZuUL_ax7t_bJaIswrftCJgJq","1tTZQSzLUFJn5eFB3cXvDMYBDiEm4MnBJ","1T3BYGJw6pywoauDYsFl5gMBRxZ_dFxfx","13uzCgGOoaa-LRe_ca38AiPYaMS6wpOw7","1T7l2o7kCS7WaJGPnuSte45_TSpjwbadj","1LZ0Is27TyvPegZ56ub_uIu1nmYUenJtm","1SODQqGq5pM4xxS_Tw8oBL688dPfv82kO","15H90HAYWv3Mnnp5iQxLyr8Q-ZIqZeeeB","10HVyd5hix_kcrouj0irc0CxWu1codj8Q","1AWnt0-sGYUh3gmojwAQOnHOziWUr3uDR","17_3vYDIDFFvJcQIF4KC3seI86mDe_Mk1","1eA_o9AuuAunDa6Qhzj8h0J7BJq_e_gQz","10svqT1mohIRaSavNWLgKygZSW-bHQcvl","1hockt3cK9_9al9-jzBv4IJIIoYZ3Imjp","1gskZL23FIcl7EDa-TAzyCmYJKT2gtVr-","1Mk-U1zrNfmAHaYPDV7NWT41lC-12-8y8","12gkABWJp_3l5JtiWlkTpy0iCmQBWj1e-","1wEDT9u_6inUdr-pRa2k0TRHkjhmuv8uo","1n5RzL02fZPn-n4vXNTVuLl7bc5bRVKHT","1O7F4lr5Niv6UIZd-YlaJecGvLGheW7vO","1ZJ7HEinR49I0Ip4ES4l9xjuF3q_wlOhk","1dJgEudHHbjRLT4RXsGtpeL9G-6mHZmxm","1mMjsqpIUDiFDTrjGEIQ7-gQ1bQG5PSCx","1_J2S8RGRPyd8HvMvWD4bykKZ_0T14Lxh","1CVE_qIfmhyjAVffuQTl2nS7VUdGhdF-q","1kZOfT5UeKZ995nzs1GM25HaCTiYyiUgw","1fF1jnkgg8RSRXAsAEh3bYGpv2lz8OQJn","12xs9Mf2RJGOjhUpfrELwRxTVay99ucD7","13aAyXtlUmF1YAE6HjH7H3HB-QqZG9JB_","1rbf9B0mfXrJsmYuaUWD1mOxwha0Qhcb3","12pPKy8ecyA79Yco4oGYgHRvABeUG82DH","1mDdurQSKeQa_GenIYWC7uTyrtHkL5B6d","13YNa1FWQYvCRc6atEhin992w2h9VK1Dc","1kP3Bss6yAY9e0QUVe7nDaOhny-_0YR5G","1paQkiKW1RML-Hb9duO0SiS79mxU-1Jn7","1B97sg1rtl7tsTTFxLhmA-SESTeysdS19","1PSuQPMPFwx9vzLF0MkoTbagkZWwWEWrZ","1aYFyUZO5_42zsALBWBHvS99VrZ4KRdkN","1bRFizb0tjKBVMDH30Ukd4sGNFssIMG0K","1MkhJ7CHLZuoOX8DC10jpMNB7KCxqxXnK","1gTKOftyhqIVUPIFGITcfqiCwEc01rB0d","1XzKWl3406nLmx5pOoYFra2CZGEGLu7ej","1Oc2c9Wu8RDq_5vb3vPTPuF6xWIREdcFE","1sfIoqCJx2rsDAPIyayquulaM2cSWaSPZ","1A-Ynix6rJq-5tGGxlFbH08yuZr4ldHpi","1Yh-eUxUsj74lpnyKISbB-IR-ZB_UprBW","15G5eSn7vRPQhMpnENV85-ag6-A-QOyZV","1sl61Im9gTcaPhQy2pdG_AheR09CI3zol","1d9_WcAMNXE6gkBQI5yA4dNncQ4bEFmus","1TeuJQ__6z1YEHZP4cscEMaP9fJlHnJdU","161zln6dYkrk5dJRkI1TnGOsO0TMOE8YC","1D114VqDItbkf4YVfl8XVLUd-FumLnbCF","1nPnfDLzZ-N_p7BcpXncm4T5WbfaemWYr","1FQrogNrEZ2ni1LFhrYa72pmIO3iJ2iMf","1ZDU5Y2wxwYNfft6bYLqK3EnC7s9FgMeJ","1TvoH1YPp49JCldXLtxcf-ZR0nRnxegdC","1R0dkJ0G8Nxo7VsPzlcMGOVDJaRJU1AkE","1YyCgGaViXyoenuliOf9bIC28ryJqZscL","1YuPUYR09uk_M1VTWzHvXJTTFoUsJl_Bj","19EWg9GUZTpz5ZnrkQpURfUWYxhesDc7-","1qElNG1PjUdHg5DIS533lsTd7cExzROf2","1qNRLfVatqTZXURoG6cBXVYESiQaIc-p1","1i_xIxHDXyB-8u_CmqiuurxaDgzJz_9ia","198f3i9MCQhh3Pqt_qbpXOQ8prCyPU6H4","1PIiDjQjOFRG82lFvtEq1tFxWzQ31-q3p","1_RGI7qEd-6hAL60EghKdR97J67RK87TS","1v4sH-bbRofRMLsWKsIe3GrRkiA0b68oE","1xfCQyACJs5W_1Jpr6e4bk2CarA6739bl","1YYue4sgu3RA9N9CR6GgnbivANttdIHcY","1COxnI3JAJ77mmeDA9v38ztukjqSW7qOl"];const worlds=[["THE SWEET BEGINNING","Frosting hills. Candle towers. The first twenty memories."],["THE SECRET GARDEN","Purple flowers, butterflies and memories growing everywhere."],["PARIS INSIDE THE CAKE","A tiny dreamlike Paris hidden inside the next layer."],["ZERO GRAVITY","The floor disappears. Memories become stars."],["QUEEN B","The final memories illuminate the impossible golden B."]];
-const J=document.getElementById("journey");worlds.forEach((w,k)=>{let s=document.createElement("section");s.className="world w"+(k+1);s.innerHTML='<div class="counter">MEMORIES '+String(k*20+1).padStart(3,"0")+'–'+String((k+1)*20).padStart(3,"0")+' / 100</div><h2>'+w[0]+'</h2><p class="sub">'+w[1]+'</p><div class="memories"></div>'+(k===4?'<div class="bigB">B</div>':'');let g=s.querySelector(".memories");ids.slice(k*20,k*20+20).forEach((id,j)=>{let d=document.createElement("div");d.className="memory";d.style.setProperty("--r",((j%5)-2)*1.6+"deg");let n=k*20+j+1;d.innerHTML='<img loading="lazy" referrerpolicy="no-referrer" src="https://drive.google.com/thumbnail?id='+id+'&sz=w1200" alt="Memory '+n+'"><span class="num">MEMORY '+String(n).padStart(3,"0")+' / 100</span>';d.onclick=()=>{d.querySelector("img").requestFullscreen?.()};g.appendChild(d)});J.appendChild(s)});
-let hold=document.getElementById("hold"),op=document.getElementById("open");
-function blow(e){
-  if(e){e.preventDefault();e.stopPropagation();}
-  if(hold.dataset.done==="1") return;
-  hold.dataset.done="1";
-  hold.textContent="BLOWING OUT THE CANDLE…";
-  const flame=document.querySelector(".flame");
-  if(flame){flame.textContent="✨";}
-  setTimeout(()=>{hold.textContent="WISH MADE ✨";},250);
-  setTimeout(()=>{op.classList.add("gone");window.scrollTo({top:0,behavior:"smooth"});},650);
+const ids=["1zh1cxp5hcBl0ZGsoIercv51RSxszmMSb","1-QVlGgM0BqfcUQqWcQLNPlzoDztmzcpg","1ONzcyGleKAL39Wl3BP4JHSF04wpkuUxT","1_-ca47E29UUEVxlmK64GAN_tZ4YQfbaP","1L9YqKXnmXQx6j-xS2dp6QvOfu4oHi1q7","1SMMWYdG0DtjnhH_u9KYqBRS_eNX4Ls2l","19hKTEOxavIecIMoJbimuODSOJXK-4Np6","1Yxjpv34EWj758TA_FuRB4_R1RHGeZ6eL","1frYwatctg6od3LQhvl3atnZTjDDCNAxP","1HBeZ7kuMR_OXKO3IaZOTlFnsIcV16mOu","14sTEaEBPn5nxEUrV1Nh_c6DVkUp5SItR","1o7OlBVPnmvnoAxVMTo7d-AZM396Mv8vo","1o7hyORJ5AD5IcxOBGemLDaBcZheNHZsB","1i7V_2yoKvM46leKNYS44ZdjoMSlvZkms","1wHMphIV-A0eJfts5fXEkvq5781MCMqiL","1j0Kr0w5x-1i4M-onpcgwzmwezWszqZp7","1jaR44yZw_rjDDSB0Xso7gAMd_KkRssP3","1XKElEbreForMLMSSRvHngy-1jM-C8Le_","1RkUQCb5i5EI2NpaQt9sYkYmjaOfUylnI","1ViCm__B4DaFFVyQ9Eylfd8mld-aaeLis","1xLM7_wmoiSGhAVgwn5N01-s0VKIAsLTk","1RofSwm2LIhlUMBT5v2q-T8X5QNDas9kz","1U9lTZEdzzJO-KtqkTdfRGNv6OqS6zBJI","1S6RrgDUJ1Go_SMTV86JRLhFT3mm8rv9Z","1oUk1R3qvMDO_XA06OFd4fpy32A_5dMEi","1ioV76Zdz_g_MX2X-tv_f84wDFzwYE7yP","1gcUWikjEXtfQfsvfp-tEGNxaa3mi9q40","1s1nM7sNoSAMxfm_vyaoagyVyqEEdJN40","1P05ywHihIS32nsutDYgN_y9NN-peXTzB","1Deczp7jELLUrEFpaqPg83IpckySZBrzH","1NiWjpLA8ZuUL_ax7t_bJaIswrftCJgJq","1tTZQSzLUFJn5eFB3cXvDMYBDiEm4MnBJ","1T3BYGJw6pywoauDYsFl5gMBRxZ_dFxfx","13uzCgGOoaa-LRe_ca38AiPYaMS6wpOw7","1T7l2o7kCS7WaJGPnuSte45_TSpjwbadj","1LZ0Is27TyvPegZ56ub_uIu1nmYUenJtm","1SODQqGq5pM4xxS_Tw8oBL688dPfv82kO","15H90HAYWv3Mnnp5iQxLyr8Q-ZIqZeeeB","10HVyd5hix_kcrouj0irc0CxWu1codj8Q","1AWnt0-sGYUh3gmojwAQOnHOziWUr3uDR","17_3vYDIDFFvJcQIF4KC3seI86mDe_Mk1","1eA_o9AuuAunDa6Qhzj8h0J7BJq_e_gQz","10svqT1mohIRaSavNWLgKygZSW-bHQcvl","1hockt3cK9_9al9-jzBv4IJIIoYZ3Imjp","1gskZL23FIcl7EDa-TAzyCmYJKT2gtVr-","1Mk-U1zrNfmAHaYPDV7NWT41lC-12-8y8","12gkABWJp_3l5JtiWlkTpy0iCmQBWj1e-","1wEDT9u_6inUdr-pRa2k0TRHkjhmuv8uo","1n5RzL02fZPn-n4vXNTVuLl7bc5bRVKHT","1O7F4lr5Niv6UIZd-YlaJecGvLGheW7vO","1ZJ7HEinR49I0Ip4ES4l9xjuF3q_wlOhk","1dJgEudHHbjRLT4RXsGtpeL9G-6mHZmxm","1mMjsqpIUDiFDTrjGEIQ7-gQ1bQG5PSCx","1_J2S8RGRPyd8HvMvWD4bykKZ_0T14Lxh","1CVE_qIfmhyjAVffuQTl2nS7VUdGhdF-q","1kZOfT5UeKZ995nzs1GM25HaCTiYyiUgw","1fF1jnkgg8RSRXAsAEh3bYGpv2lz8OQJn","12xs9Mf2RJGOjhUpfrELwRxTVay99ucD7","13aAyXtlUmF1YAE6HjH7H3HB-QqZG9JB_","1rbf9B0mfXrJsmYuaUWD1mOxwha0Qhcb3","12pPKy8ecyA79Yco4oGYgHRvABeUG82DH","1mDdurQSKeQa_GenIYWC7uTyrtHkL5B6d","13YNa1FWQYvCRc6atEhin992w2h9VK1Dc","1kP3Bss6yAY9e0QUVe7nDaOhny-_0YR5G","1paQkiKW1RML-Hb9duO0SiS79mxU-1Jn7","1B97sg1rtl7tsTTFxLhmA-SESTeysdS19","1PSuQPMPFwx9vzLF0MkoTbagkZWwWEWrZ","1aYFyUZO5_42zsALBWBHvS99VrZ4KRdkN","1bRFizb0tjKBVMDH30Ukd4sGNFssIMG0K","1MkhJ7CHLZuoOX8DC10jpMNB7KCxqxXnK","1gTKOftyhqIVUPIFGITcfqiCwEc01rB0d","1XzKWl3406nLmx5pOoYFra2CZGEGLu7ej","1Oc2c9Wu8RDq_5vb3vPTPuF6xWIREdcFE","1sfIoqCJx2rsDAPIyayquulaM2cSWaSPZ","1A-Ynix6rJq-5tGGxlFbH08yuZr4ldHpi","1Yh-eUxUsj74lpnyKISbB-IR-ZB_UprBW","15G5eSn7vRPQhMpnENV85-ag6-A-QOyZV","1sl61Im9gTcaPhQy2pdG_AheR09CI3zol","1d9_WcAMNXE6gkBQI5yA4dNncQ4bEFmus","1TeuJQ__6z1YEHZP4cscEMaP9fJlHnJdU","161zln6dYkrk5dJRkI1TnGOsO0TMOE8YC","1D114VqDItbkf4YVfl8XVLUd-FumLnbCF","1nPnfDLzZ-N_p7BcpXncm4T5WbfaemWYr","1FQrogNrEZ2ni1LFhrYa72pmIO3iJ2iMf","1ZDU5Y2wxwYNfft6bYLqK3EnC7s9FgMeJ","1TvoH1YPp49JCldXLtxcf-ZR0nRnxegdC","1R0dkJ0G8Nxo7VsPzlcMGOVDJaRJU1AkE","1YyCgGaViXyoenuliOf9bIC28ryJqZscL","1YuPUYR09uk_M1VTWzHvXJTTFoUsJl_Bj","19EWg9GUZTpz5ZnrkQpURfUWYxhesDc7-","1qElNG1PjUdHg5DIS533lsTd7cExzROf2","1qNRLfVatqTZXURoG6cBXVYESiQaIc-p1","1i_xIxHDXyB-8u_CmqiuurxaDgzJz_9ia","198f3i9MCQhh3Pqt_qbpXOQ8prCyPU6H4","1PIiDjQjOFRG82lFvtEq1tFxWzQ31-q3p","1_RGI7qEd-6hAL60EghKdR97J67RK87TS","1v4sH-bbRofRMLsWKsIe3GrRkiA0b68oE","1xfCQyACJs5W_1Jpr6e4bk2CarA6739bl","1YYue4sgu3RA9N9CR6GgnbivANttdIHcY","1COxnI3JAJ77mmeDA9v38ztukjqSW7qOl"];
+const urls=ids.map(id=>"https://drive.google.com/thumbnail?id="+id+"&sz=w1600");
+const worlds=[...document.querySelectorAll(".world")];
+const counter=document.getElementById("counter");
+const modal=document.getElementById("modal"), modalImg=modal.querySelector("img");
+
+function makeMemory(n, scene){
+  const d=document.createElement("button");
+  d.className="memory";
+  d.type="button";
+  d.dataset.n="MEMORY "+String(n+1).padStart(3,"0")+" / 100";
+  d.innerHTML='<img loading="lazy" referrerpolicy="no-referrer" src="'+urls[n]+'" alt="Memory '+(n+1)+'">';
+  const j=n%20;
+  const col=(j%5)-2, row=Math.floor(j/5)-1.5;
+  const seed=(n*37)%17;
+  d.dataset.x=(col*34 + (seed-8)*1.1);
+  d.dataset.y=(row*28 + ((n*13)%11-5)*1.2);
+  d.dataset.z=(-420 + (j%4)*150 + ((n*19)%80));
+  d.dataset.r=((-7 + (n*29)%15));
+  d.addEventListener("click",()=>{modalImg.src=urls[n];modal.classList.add("show")});
+  return d;
 }
-hold.addEventListener("click",blow);
-hold.addEventListener("touchend",blow,{passive:false});
-hold.addEventListener("contextmenu",e=>e.preventDefault());
-document.getElementById("play").onclick=()=>{document.getElementById("vb").classList.add("show");document.getElementById("play").style.display="none";document.getElementById("vid").play().catch(()=>{})};
-</script></body></html>
+
+worlds.forEach((w,scene)=>{
+  const field=w.querySelector(".field");
+  for(let j=0;j<20;j++) field.appendChild(makeMemory(scene*20+j,scene));
+});
+
+for(let i=0;i<22;i++){
+  const p=document.createElement("span");p.className="petal";p.textContent=i%3===0?"✦":"❀";p.style.left=(i*43%100)+"%";p.style.animationDuration=(8+i%7)+"s";p.style.animationDelay=(-i*.7)+"s";document.querySelector(".petals").appendChild(p)
+}
+for(let i=0;i<70;i++){
+  const s=document.createElement("span");s.className="spark";s.style.left=(i*61%100)+"%";s.style.top=(i*37%100)+"%";s.style.opacity=.2+(i%8)/10;document.querySelector(".sparkles").appendChild(s)
+}
+
+document.getElementById("enter").addEventListener("click",()=>{
+  const flame=document.getElementById("openingFlame");
+  flame.style.opacity="0";
+  document.getElementById("enter").textContent="WISH MADE ✨";
+  setTimeout(()=>{
+    document.getElementById("opening").classList.add("vanish");
+    document.getElementById("journey").classList.add("show");
+  },450);
+  setTimeout(()=>window.scrollTo({top:0,behavior:"smooth"}),750);
+});
+
+function render(){
+  const vh=innerHeight;
+  let active=0, overall=1;
+  worlds.forEach((w,idx)=>{
+    const r=w.getBoundingClientRect();
+    const p=Math.max(0,Math.min(1,(-r.top)/(w.offsetHeight-vh||1)));
+    if(r.top<=vh*.45 && r.bottom>vh*.45){active=idx;overall=idx*20+1+Math.floor(p*19)}
+    w.querySelectorAll(".memory").forEach((el,j)=>{
+      const x=parseFloat(el.dataset.x),y=parseFloat(el.dataset.y),z=parseFloat(el.dataset.z),rot=parseFloat(el.dataset.r);
+      const local=(p-.5);
+      const spread=1+Math.abs(local)*.9;
+      const drift=Math.sin((p*6.28)+(j*.72))*10;
+      const zMove=z + p*520 - j*8;
+      const scale=.72 + ((j%5)*.05) + p*.12;
+      const op=Math.max(.18,1-Math.abs(local)*.55);
+      el.style.opacity=op;
+      el.style.transform='translate3d(calc(-50% + '+(x*spread)+'vw),calc(-50% + '+(y*spread+drift)+'vh),'+zMove+'px) rotateZ('+(rot+local*8)+'deg) scale('+scale+')';
+    });
+  });
+  counter.textContent="MEMORY "+String(Math.min(100,overall)).padStart(3,"0")+" / 100";
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
+
+document.getElementById("reduce").onclick=()=>document.body.classList.toggle("reduced");
+document.getElementById("close").onclick=()=>modal.classList.remove("show");
+modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show")});
+document.getElementById("flamePlay").onclick=()=>{
+  document.getElementById("videoBox").classList.add("show");
+  document.getElementById("flamePlay").style.display="none";
+  document.getElementById("vid").play().catch(()=>{});
+};
+</script>
+</body>
+</html>
