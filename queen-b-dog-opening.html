@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-store,max-age=0">
+<meta name="theme-color" content="#08010b">
+<title>Queen B — Teddy the Dog</title>
+<style>
+:root{--bg:#08010b;--plum:#21072b;--purple:#3a0d4d;--gold:#d6b65f;--gold2:#f2de9d;--ivory:#f8f1e8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+button{font:inherit;color:inherit}
+#app{
+  position:fixed;inset:0;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 46%,rgba(105,43,126,.22),transparent 30%),
+    linear-gradient(180deg,#100314 0%,#08010b 62%,#040005 100%);
+}
+#app:before{
+  content:"";position:absolute;inset:16px;border:1px solid rgba(214,182,95,.24);
+  border-radius:28px;pointer-events:none
+}
+#header{
+  position:absolute;z-index:60;top:max(22px,env(safe-area-inset-top));left:20px;right:20px;text-align:center;pointer-events:none
+}
+#header .tiny{font-size:9px;letter-spacing:.42em;color:rgba(242,222,157,.78);font-weight:800}
+#header h1{font:400 clamp(42px,10vw,72px)/.92 Georgia,serif;margin:11px 0 5px}
+#header p{margin:0;color:rgba(248,241,232,.58);font-size:12px;letter-spacing:.05em}
+
+/* Signature B */
+#signature{
+  position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);
+  width:min(76vw,440px);height:min(58vh,560px);z-index:12
+}
+#bigB{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font:900 min(88vw,520px)/.78 Georgia,"Times New Roman",serif;
+  color:transparent;-webkit-text-stroke:2px rgba(214,182,95,.82);
+  text-shadow:0 0 45px rgba(214,182,95,.12),0 22px 70px rgba(0,0,0,.38);
+  opacity:.94;pointer-events:none
+}
+#bigB:before{
+  content:"";position:absolute;inset:12% 9%;border-radius:48% 58% 58% 48%;
+  background:radial-gradient(circle at 50% 50%,rgba(102,43,122,.18),transparent 62%);
+  filter:blur(5px)
+}
+#crown{
+  position:absolute;z-index:20;left:50%;top:-2%;transform:translateX(-50%);
+  font:400 54px/1 Georgia,serif;color:var(--gold2);filter:drop-shadow(0 0 16px rgba(214,182,95,.28))
+}
+#pedestal{
+  position:absolute;left:50%;bottom:6%;transform:translateX(-50%);
+  width:72%;height:11%;border-radius:50%;
+  background:linear-gradient(180deg,#3d183f,#160619);
+  border:1px solid rgba(214,182,95,.45);
+  box-shadow:0 20px 50px rgba(0,0,0,.5),inset 0 8px 18px rgba(255,255,255,.03)
+}
+#candles{position:absolute;inset:-8% -8% -10%;z-index:30}
+.candle{
+  position:absolute;width:56px;height:82px;margin:-41px 0 0 -28px;border:0;background:transparent;padding:0;
+  touch-action:manipulation;cursor:pointer
+}
+.candle .stem{
+  position:absolute;left:24px;bottom:10px;width:8px;height:31px;border-radius:6px;
+  background:linear-gradient(#fff4c8,#d6b65f 48%,#7a5b21);
+  box-shadow:0 0 0 1px rgba(255,255,255,.08)
+}
+.candle .flame{
+  position:absolute;left:50%;top:7px;transform:translateX(-50%);
+  width:13px;height:22px;border-radius:65% 35% 60% 40%;
+  background:radial-gradient(circle at 50% 62%,#fff8c9 0 18%,#f0cf6c 20% 50%,#bd6c2a 52%);
+  filter:drop-shadow(0 0 8px rgba(239,197,94,.72));animation:flick .8s ease-in-out infinite alternate
+}
+@keyframes flick{to{transform:translateX(-50%) scale(.86,1.13) rotate(4deg)}}
+.candle.done{opacity:.14}.candle.done .flame{display:none}
+#count{
+  position:absolute;z-index:55;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);
+  font-size:9px;letter-spacing:.34em;color:rgba(248,241,232,.5);white-space:nowrap
+}
+
+/* Memory portal inside the B */
+#memory{
+  position:absolute;inset:0;z-index:90;display:none;background:
+    radial-gradient(circle at 50% 44%,rgba(86,30,105,.30),transparent 28%),
+    linear-gradient(180deg,#0e0312,#050006);
+}
+#memory.show{display:block}
+#memory:before{
+  content:"B";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font:900 min(130vw,760px)/.75 Georgia,serif;color:transparent;
+  -webkit-text-stroke:1.5px rgba(214,182,95,.27);
+  text-shadow:0 0 70px rgba(214,182,95,.08);pointer-events:none
+}
+#memoryHead{
+  position:absolute;z-index:20;top:max(25px,env(safe-area-inset-top));left:20px;right:20px;text-align:center
+}
+#memoryHead .c{font:400 29px/1 Georgia,serif;color:var(--gold2)}
+#memoryHead .k{margin-top:9px;font-size:8px;letter-spacing:.38em;color:rgba(242,222,157,.7);font-weight:800}
+#memoryHead h2{font:400 31px/1 Georgia,serif;margin:11px 0 0;color:var(--ivory)}
+#memoryHead p{margin:7px 0 0;font-size:9px;letter-spacing:.30em;color:rgba(248,241,232,.44)}
+
+#portal{
+  position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);
+  width:min(92vw,760px);height:min(62vh,600px)
+}
+.portalSet{position:relative;width:100%;height:100%}
+.card{
+  position:absolute;border:0;background:transparent;padding:0;touch-action:manipulation;cursor:pointer;
+}
+.card .rim{
+  width:100%;height:100%;padding:2px;background:linear-gradient(135deg,#806422,#ead99a 35%,#8f6f28 65%,#d6b65f);
+  border-radius:40% 18% 40% 18% / 20% 32% 20% 32%;
+  box-shadow:0 30px 75px rgba(0,0,0,.62)
+}
+.card .inner{
+  width:100%;height:100%;padding:7px;background:#140918;border-radius:inherit
+}
+.card img{
+  display:block;width:100%;height:100%;object-fit:cover;border-radius:34% 14% 34% 14% / 18% 28% 18% 28%;
+  pointer-events:none;user-select:none;-webkit-user-drag:none
+}
+.portalSet.two .card{width:min(39vw,250px);height:min(55vw,350px);top:50%}
+.portalSet.two .card:nth-child(1){left:27%;transform:translate(-50%,-50%) rotate(-3deg)}
+.portalSet.two .card:nth-child(2){left:73%;transform:translate(-50%,-50%) rotate(3deg)}
+.portalSet.three .card{width:min(27vw,175px);height:min(40vw,255px);top:51%;opacity:.82}
+.portalSet.three .card:nth-child(1){left:18%;transform:translate(-50%,-50%) rotate(-4deg)}
+.portalSet.three .card:nth-child(2){
+  left:50%;top:49%;width:min(38vw,245px);height:min(55vw,350px);transform:translate(-50%,-50%);z-index:3;opacity:1
+}
+.portalSet.three .card:nth-child(3){left:82%;transform:translate(-50%,-50%) rotate(4deg)}
+#hint{
+  position:absolute;left:0;right:0;bottom:94px;text-align:center;
+  font-size:8px;letter-spacing:.34em;color:rgba(248,241,232,.38)
+}
+#return{
+  position:absolute;left:50%;bottom:34px;transform:translateX(-50%);
+  border:0;background:transparent;color:var(--gold2);font-size:10px;letter-spacing:.22em;font-weight:800;
+  padding:16px 26px;touch-action:manipulation
+}
+#return:before,#return:after{
+  content:"";display:inline-block;width:34px;height:1px;background:rgba(214,182,95,.38);vertical-align:middle;margin:0 12px
+}
+
+/* Zoom */
+#zoom{position:absolute;inset:0;z-index:120;display:none;place-items:center;background:#040005f5;padding:18px}
+#zoom.show{display:grid}
+#zoom img{max-width:92vw;max-height:82vh;object-fit:contain;border:1px solid rgba(214,182,95,.45);padding:5px;background:#100713}
+#zoomClose{
+  position:absolute;right:18px;top:max(18px,env(safe-area-inset-top));
+  width:52px;height:52px;border-radius:50%;border:1px solid rgba(214,182,95,.3);background:#0c050f;font-size:26px
+}
+
+/* Ending */
+#message,#video{
+  position:absolute;inset:0;z-index:130;display:none;place-items:center;text-align:center;padding:28px;
+  background:linear-gradient(180deg,#0d0311,#040005)
+}
+#message{
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:34px 20px max(42px,env(safe-area-inset-bottom))
+}
+#message .inner{
+  width:min(92vw,680px);
+  margin:auto;
+  padding:10px 0 28px
+}
+.finalPhotoWrap{
+  width:min(84vw,380px);
+  margin:0 auto 24px;
+  padding:5px;
+  border:1px solid rgba(214,182,95,.55);
+  background:linear-gradient(145deg,rgba(214,182,95,.12),rgba(255,255,255,.025));
+  box-shadow:0 24px 70px rgba(0,0,0,.48),0 0 34px rgba(214,182,95,.08)
+}
+.finalPhoto{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0 auto;
+  object-fit:contain;
+  object-position:center;
+  background:#08010b
+}
+#message .sigB{margin-top:8px}
+#message p{max-width:620px;margin:0 auto}
+
+#message.show,#video.show{display:grid}
+#message .sigB{
+  font:900 150px/.72 Georgia,serif;color:transparent;-webkit-text-stroke:1.5px rgba(214,182,95,.45);
+  text-shadow:0 0 60px rgba(214,182,95,.08)
+}
+#message small{display:block;margin-top:10px;color:rgba(242,222,157,.72);font-size:8px;letter-spacing:.38em}
+#message h2{font:400 clamp(45px,12vw,82px)/.9 Georgia,serif;margin:18px 0;color:var(--ivory)}
+#message p,.end{font:22px/1.55 Georgia,serif;color:rgba(248,241,232,.82)}
+.gold{color:var(--gold2)}
+#showVideo{
+  margin-top:16px;padding:16px 24px;border:1px solid rgba(214,182,95,.4);background:transparent;
+  color:var(--gold2);font-size:10px;letter-spacing:.18em
+}
+#video{padding:22px 18px}
+#video .videoWrap{
+  width:min(92vw,430px);
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center
+}
+#video video{
+  display:block;
+  width:100%;
+  max-width:430px;
+  height:auto;
+  max-height:72vh;
+  margin:0 auto;
+  object-fit:contain;
+  object-position:center center;
+  background:#000;
+  border-radius:8px;
+  box-shadow:0 22px 70px rgba(0,0,0,.62)
+}
+#video .end{
+  width:100%;
+  max-width:430px;
+  margin:16px auto 0;
+  padding:0 8px;
+  text-align:center;
+  font:clamp(17px,4.8vw,22px)/1.45 Georgia,serif;
+  color:rgba(248,241,232,.82)
+}
+
+@media(max-height:740px){
+  #signature{top:53%;height:54vh}
+  #header h1{font-size:38px}
+  #portal{top:54%;height:53vh}
+}
+
+/* Password opening */
+#lock{
+  position:fixed;inset:0;z-index:500;display:grid;place-items:center;
+  padding:24px;background:
+    radial-gradient(circle at 50% 36%,rgba(101,39,123,.32),transparent 27%),
+    linear-gradient(180deg,#100314 0%,#070108 72%,#030004 100%);
+}
+#lock:before{
+  content:"";position:absolute;inset:16px;border:1px solid rgba(214,182,95,.28);
+  border-radius:28px;pointer-events:none
+}
+.lockCard{
+  width:min(90vw,390px);text-align:center;padding:34px 24px 30px;
+  border:1px solid rgba(214,182,95,.30);border-radius:26px;
+  background:rgba(255,255,255,.025);
+  box-shadow:0 30px 90px rgba(0,0,0,.45),inset 0 0 35px rgba(255,255,255,.018)
+}
+.lockBear{
+  font-size:66px;line-height:1;margin-bottom:14px;
+  filter:drop-shadow(0 0 18px rgba(214,182,95,.15))
+}
+.lockTiny{
+  font-size:8px;letter-spacing:.42em;color:rgba(242,222,157,.72);font-weight:800
+}
+.lockCard h1{
+  margin:12px 0 7px;font:400 44px/.95 Georgia,serif;color:var(--ivory)
+}
+.lockCard p{
+  margin:0 0 24px;color:rgba(248,241,232,.54);font-size:12px;letter-spacing:.05em
+}
+#passwordInput{
+  width:100%;height:54px;border-radius:999px;
+  border:1px solid rgba(214,182,95,.42);
+  background:#0c030f;color:var(--ivory);
+  text-align:center;font-size:16px;letter-spacing:.10em;
+  outline:none;padding:0 18px
+}
+#passwordInput:focus{border-color:rgba(242,222,157,.78);box-shadow:0 0 0 3px rgba(214,182,95,.08)}
+#unlockButton{
+  width:100%;height:54px;margin-top:12px;border-radius:999px;
+  border:1px solid rgba(214,182,95,.50);
+  background:linear-gradient(180deg,rgba(214,182,95,.15),rgba(214,182,95,.04));
+  color:var(--gold2);font-size:10px;letter-spacing:.24em;font-weight:800;touch-action:manipulation
+}
+#lockError{
+  min-height:18px;margin-top:13px;color:#e9b6cd;font-size:11px;letter-spacing:.05em
+}
+#lock.unlocked{display:none}
+
+
+.dogAvatar{margin:0 auto 14px;text-align:center}
+.dogFace{font-size:78px;line-height:1;filter:drop-shadow(0 0 18px rgba(214,182,95,.18))}
+.dogName{margin-top:10px;font:700 18px/1 Georgia,serif;letter-spacing:.25em;color:var(--gold2)}
+.pawLine{margin-top:8px;font-size:14px;opacity:.72}
+</style>
+</head>
+<body>
+<div id="lock" role="dialog" aria-label="Queen B password">
+  <div class="lockCard">
+    <div class="lockBear dogAvatar" aria-label="Teddy the dog"><div class="dogFace">🐕</div><div class="dogName">TEDDY</div><div class="pawLine">🐾 &nbsp; 🐾</div></div>
+    <div class="lockTiny">TEDDY THE DOG · PRIVATE QUEEN B ENTRY</div>
+    <h1>For Beaux</h1>
+    <p>Teddy the dog is guarding the Queen B birthday world.</p>
+    <input id="passwordInput" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter password" aria-label="Password">
+    <button id="unlockButton" type="button">OPEN WITH TEDDY</button>
+    <div id="lockError" aria-live="polite"></div>
+  </div>
+</div>
+<div id="app">
+  <div id="header">
+    <div class="tiny">THE QUEEN B FINAL EDITION</div>
+    <h1>For Beaux</h1>
+    <p>Forty-three candles. One hundred memories. Her story inside one golden B.</p>
+  </div>
+
+  <div id="signature">
+    <div id="bigB">B</div>
+    <div id="crown">♛</div>
+    <div id="pedestal"></div>
+    <div id="candles"></div>
+  </div>
+  <div id="count">00/43</div>
+
+  <section id="memory">
+    <div id="memoryHead">
+      <div class="c">♛</div>
+      <div class="k">QUEEN B · MEMORY INSIDE THE B</div>
+      <h2 id="memoryTitle">CANDLE I</h2>
+      <p id="memorySub">THREE MEMORIES</p>
+    </div>
+    <div id="portal"></div>
+    <div id="hint">TAP A MEMORY TO VIEW FULL SIZE</div>
+    <button id="return">RETURN</button>
+  </section>
+
+  <div id="zoom">
+    <button id="zoomClose">×</button>
+    <img id="zoomImg" alt="Memory">
+  </div>
+
+  <section id="message">
+    <div class="inner">
+      <div class="finalPhotoWrap">
+        <img class="finalPhoto" src="./IMG-20260710-WA0031(1).jpg" alt="Kimmy and Beaux">
+      </div>
+      <div class="sigB">B</div>
+      <small>FORTY-THREE CANDLES · ONE HUNDRED MEMORIES</small>
+      <h2>Happy Birthday to the<br><span class="gold">Queen B! 👑💜</span></h2>
+      <p>
+        Sis,<br><br>
+        These 100 photos are little pieces of your story.<br><br>
+        Different years. Different places. Different people. Different versions of you. Some are ordinary moments, some are unforgettable ones—but together, they show just a glimpse of the beautiful life you have lived so far.<br><br>
+        I made this for you because I wanted you to see what I see: a life filled with memories, people who love you, adventures, laughter, growth, and so many more chapters still waiting for you.<br><br>
+        Wherever life takes you next, I hope you keep choosing happiness, chasing your dreams, making memories, and being completely yourself.<br><br>
+        And no matter how old we get or how far apart life takes us, I will always be proud to call you my sister.<br><br>
+        Happy Birthday, Sis.<br><br>
+        Here’s to the woman behind all 100 memories—and to the thousands still to come.<br><br>
+        Long live the Queen B. 👑<br><br>
+        Love you always,<br>
+        Kimmy 💜
+      </p>
+      <button id="showVideo">ONE MORE THING · PLAY VIDEO</button>
+    </div>
+  </section>
+
+  <section id="video">
+    <div class="videoWrap">
+      <video id="vid" controls playsinline preload="metadata">
+        <source src="./VID-20260915-WA0000.mp4" type="video/mp4">
+      </video>
+      <div class="end">
+        Happy Birthday, Beaux. 👑<br>
+        <span class="gold">43 candles. 100 memories. One Queen B.</span><br>
+        — Kimmy ❤️
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const lock=document.getElementById("lock");
+const passwordInput=document.getElementById("passwordInput");
+const unlockButton=document.getElementById("unlockButton");
+const lockError=document.getElementById("lockError");
+
+function unlockQueenB(){
+  if(passwordInput.value.trim().toLowerCase()==="teddy"){
+    lock.classList.add("unlocked");
+    lockError.textContent="";
+    passwordInput.value="";
+  }else{
+    lockError.textContent="That password isn't quite right.";
+    passwordInput.select();
+  }
+}
+unlockButton.addEventListener("click",unlockQueenB);
+passwordInput.addEventListener("keydown",e=>{
+  if(e.key==="Enter") unlockQueenB();
+});
+setTimeout(()=>passwordInput.focus({preventScroll:true}),250);
+
+const groups=[["1zh1cxp5hcBl0ZGsoIercv51RSxszmMSb","1-QVlGgM0BqfcUQqWcQLNPlzoDztmzcpg","1ONzcyGleKAL39Wl3BP4JHSF04wpkuUxT"],["1_-ca47E29UUEVxlmK64GAN_tZ4YQfbaP","1L9YqKXnmXQx6j-xS2dp6QvOfu4oHi1q7","1SMMWYdG0DtjnhH_u9KYqBRS_eNX4Ls2l"],["19hKTEOxavIecIMoJbimuODSOJXK-4Np6","1Yxjpv34EWj758TA_FuRB4_R1RHGeZ6eL","1frYwatctg6od3LQhvl3atnZTjDDCNAxP"],["1HBeZ7kuMR_OXKO3IaZOTlFnsIcV16mOu","14sTEaEBPn5nxEUrV1Nh_c6DVkUp5SItR","1o7OlBVPnmvnoAxVMTo7d-AZM396Mv8vo"],["1o7hyORJ5AD5IcxOBGemLDaBcZheNHZsB","1i7V_2yoKvM46leKNYS44ZdjoMSlvZkms","1wHMphIV-A0eJfts5fXEkvq5781MCMqiL"],["1j0Kr0w5x-1i4M-onpcgwzmwezWszqZp7","1jaR44yZw_rjDDSB0Xso7gAMd_KkRssP3","1XKElEbreForMLMSSRvHngy-1jM-C8Le_"],["1RkUQCb5i5EI2NpaQt9sYkYmjaOfUylnI","1ViCm__B4DaFFVyQ9Eylfd8mld-aaeLis","1xLM7_wmoiSGhAVgwn5N01-s0VKIAsLTk"],["1RofSwm2LIhlUMBT5v2q-T8X5QNDas9kz","1U9lTZEdzzJO-KtqkTdfRGNv6OqS6zBJI","1S6RrgDUJ1Go_SMTV86JRLhFT3mm8rv9Z"],["1oUk1R3qvMDO_XA06OFd4fpy32A_5dMEi","1ioV76Zdz_g_MX2X-tv_f84wDFzwYE7yP","1gcUWikjEXtfQfsvfp-tEGNxaa3mi9q40"],["1s1nM7sNoSAMxfm_vyaoagyVyqEEdJN40","1P05ywHihIS32nsutDYgN_y9NN-peXTzB","1Deczp7jELLUrEFpaqPg83IpckySZBrzH"],["1NiWjpLA8ZuUL_ax7t_bJaIswrftCJgJq","1tTZQSzLUFJn5eFB3cXvDMYBDiEm4MnBJ","1T3BYGJw6pywoauDYsFl5gMBRxZ_dFxfx"],["13uzCgGOoaa-LRe_ca38AiPYaMS6wpOw7","1T7l2o7kCS7WaJGPnuSte45_TSpjwbadj","1LZ0Is27TyvPegZ56ub_uIu1nmYUenJtm"],["1SODQqGq5pM4xxS_Tw8oBL688dPfv82kO","15H90HAYWv3Mnnp5iQxLyr8Q-ZIqZeeeB","10HVyd5hix_kcrouj0irc0CxWu1codj8Q"],["1AWnt0-sGYUh3gmojwAQOnHOziWUr3uDR","17_3vYDIDFFvJcQIF4KC3seI86mDe_Mk1","1eA_o9AuuAunDa6Qhzj8h0J7BJq_e_gQz"],["10svqT1mohIRaSavNWLgKygZSW-bHQcvl","1hockt3cK9_9al9-jzBv4IJIIoYZ3Imjp"],["1gskZL23FIcl7EDa-TAzyCmYJKT2gtVr-","1Mk-U1zrNfmAHaYPDV7NWT41lC-12-8y8"],["12gkABWJp_3l5JtiWlkTpy0iCmQBWj1e-","1wEDT9u_6inUdr-pRa2k0TRHkjhmuv8uo"],["1n5RzL02fZPn-n4vXNTVuLl7bc5bRVKHT","1O7F4lr5Niv6UIZd-YlaJecGvLGheW7vO"],["1ZJ7HEinR49I0Ip4ES4l9xjuF3q_wlOhk","1dJgEudHHbjRLT4RXsGtpeL9G-6mHZmxm"],["1mMjsqpIUDiFDTrjGEIQ7-gQ1bQG5PSCx","1_J2S8RGRPyd8HvMvWD4bykKZ_0T14Lxh"],["1CVE_qIfmhyjAVffuQTl2nS7VUdGhdF-q","1kZOfT5UeKZ995nzs1GM25HaCTiYyiUgw"],["1fF1jnkgg8RSRXAsAEh3bYGpv2lz8OQJn","12xs9Mf2RJGOjhUpfrELwRxTVay99ucD7"],["13aAyXtlUmF1YAE6HjH7H3HB-QqZG9JB_","1rbf9B0mfXrJsmYuaUWD1mOxwha0Qhcb3"],["12pPKy8ecyA79Yco4oGYgHRvABeUG82DH","1mDdurQSKeQa_GenIYWC7uTyrtHkL5B6d"],["13YNa1FWQYvCRc6atEhin992w2h9VK1Dc","1kP3Bss6yAY9e0QUVe7nDaOhny-_0YR5G"],["1paQkiKW1RML-Hb9duO0SiS79mxU-1Jn7","1B97sg1rtl7tsTTFxLhmA-SESTeysdS19"],["1PSuQPMPFwx9vzLF0MkoTbagkZWwWEWrZ","1aYFyUZO5_42zsALBWBHvS99VrZ4KRdkN"],["1bRFizb0tjKBVMDH30Ukd4sGNFssIMG0K","1MkhJ7CHLZuoOX8DC10jpMNB7KCxqxXnK"],["1gTKOftyhqIVUPIFGITcfqiCwEc01rB0d","1XzKWl3406nLmx5pOoYFra2CZGEGLu7ej"],["1Oc2c9Wu8RDq_5vb3vPTPuF6xWIREdcFE","1sfIoqCJx2rsDAPIyayquulaM2cSWaSPZ"],["1A-Ynix6rJq-5tGGxlFbH08yuZr4ldHpi","1Yh-eUxUsj74lpnyKISbB-IR-ZB_UprBW"],["15G5eSn7vRPQhMpnENV85-ag6-A-QOyZV","1sl61Im9gTcaPhQy2pdG_AheR09CI3zol"],["1d9_WcAMNXE6gkBQI5yA4dNncQ4bEFmus","1TeuJQ__6z1YEHZP4cscEMaP9fJlHnJdU"],["161zln6dYkrk5dJRkI1TnGOsO0TMOE8YC","1D114VqDItbkf4YVfl8XVLUd-FumLnbCF"],["1nPnfDLzZ-N_p7BcpXncm4T5WbfaemWYr","1FQrogNrEZ2ni1LFhrYa72pmIO3iJ2iMf"],["1ZDU5Y2wxwYNfft6bYLqK3EnC7s9FgMeJ","1TvoH1YPp49JCldXLtxcf-ZR0nRnxegdC"],["1R0dkJ0G8Nxo7VsPzlcMGOVDJaRJU1AkE","1YyCgGaViXyoenuliOf9bIC28ryJqZscL"],["1YuPUYR09uk_M1VTWzHvXJTTFoUsJl_Bj","19EWg9GUZTpz5ZnrkQpURfUWYxhesDc7-"],["1qElNG1PjUdHg5DIS533lsTd7cExzROf2","1qNRLfVatqTZXURoG6cBXVYESiQaIc-p1"],["1i_xIxHDXyB-8u_CmqiuurxaDgzJz_9ia","198f3i9MCQhh3Pqt_qbpXOQ8prCyPU6H4"],["1PIiDjQjOFRG82lFvtEq1tFxWzQ31-q3p","1_RGI7qEd-6hAL60EghKdR97J67RK87TS"],["1v4sH-bbRofRMLsWKsIe3GrRkiA0b68oE","1xfCQyACJs5W_1Jpr6e4bk2CarA6739bl"],["1YYue4sgu3RA9N9CR6GgnbivANttdIHcY","1COxnI3JAJ77mmeDA9v38ztukjqSW7qOl"]];
+const uniqueMemoryIds=new Set();
+groups.forEach((group,gi)=>{
+  groups[gi]=group.filter(id=>{
+    if(uniqueMemoryIds.has(id)) return false;
+    uniqueMemoryIds.add(id);
+    return true;
+  });
+});
+const candles=document.getElementById("candles");
+const memory=document.getElementById("memory");
+const portal=document.getElementById("portal");
+const count=document.getElementById("count");
+const title=document.getElementById("memoryTitle");
+const sub=document.getElementById("memorySub");
+const zoom=document.getElementById("zoom");
+const zoomImg=document.getElementById("zoomImg");
+const opened=new Set();
+const roman=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII"];
+
+function pos(i){
+  const ring=i<15?0:i<29?1:2;
+  const start=ring===0?0:ring===1?15:29;
+  const n=ring===0?15:14;
+  const j=i-start;
+  const a=-Math.PI/2+(j/n)*Math.PI*2;
+  const rx=ring===0?45:ring===1?34:23;
+  const ry=ring===0?42:ring===1?31:21;
+  return {x:50+Math.cos(a)*rx,y:51+Math.sin(a)*ry};
+}
+function openZoom(src,e){if(e){e.preventDefault();e.stopPropagation()}zoomImg.src=src;zoom.classList.add("show")}
+function openOne(i,b){
+  if(opened.has(i))return;
+  opened.add(i);b.classList.add("done");portal.innerHTML="";
+  const set=document.createElement("div");set.className="portalSet "+(groups[i].length===2?"two":"three");
+  groups[i].forEach(id=>{
+    const card=document.createElement("button");card.type="button";card.className="card";
+    const rim=document.createElement("div");rim.className="rim";
+    const inner=document.createElement("div");inner.className="inner";
+    const img=document.createElement("img");img.src="https://drive.google.com/thumbnail?id="+id+"&sz=w1600";img.alt="Memory";
+    inner.appendChild(img);rim.appendChild(inner);card.appendChild(rim);
+    const h=e=>openZoom(img.src,e);card.addEventListener("pointerup",h);card.addEventListener("click",h);
+    set.appendChild(card);
+  });
+  portal.appendChild(set);
+  title.textContent="CANDLE "+roman[i];
+  sub.textContent=groups[i].length===2?"TWO MEMORIES":"THREE MEMORIES";
+  count.textContent=String(opened.size).padStart(2,"0")+"/43";
+  memory.classList.add("show");
+}
+for(let i=0;i<43;i++){
+  const p=pos(i),b=document.createElement("button");
+  b.type="button";b.className="candle";b.style.left=p.x+"%";b.style.top=p.y+"%";
+  b.innerHTML='<span class="flame"></span><span class="stem"></span>';
+  const h=e=>{e.preventDefault();e.stopPropagation();openOne(i,b)};
+  b.addEventListener("pointerup",h);b.addEventListener("click",h);candles.appendChild(b);
+}
+let closing=false;
+function closeMemory(e){
+  if(e){e.preventDefault();e.stopPropagation()}if(closing)return;closing=true;
+  memory.classList.remove("show");
+  if(opened.size===43)document.getElementById("message").classList.add("show");
+  setTimeout(()=>closing=false,220);
+}
+document.getElementById("return").addEventListener("pointerup",closeMemory);
+document.getElementById("return").addEventListener("click",closeMemory);
+function closeZoom(e){if(e){e.preventDefault();e.stopPropagation()}zoom.classList.remove("show")}
+document.getElementById("zoomClose").addEventListener("pointerup",closeZoom);
+document.getElementById("zoomClose").addEventListener("click",closeZoom);
+zoom.addEventListener("click",e=>{if(e.target===zoom)closeZoom(e)});
+if(new URLSearchParams(location.search).get("final")==="1"){
+  document.getElementById("message").classList.add("show");
+}
+
+document.getElementById("showVideo").onclick=()=>{
+  document.getElementById("message").classList.remove("show");
+  document.getElementById("video").classList.add("show");
+  document.getElementById("vid").play().catch(()=>{});
+};
+</script>
+</body>
+</html>
