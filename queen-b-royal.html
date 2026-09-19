@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-store, max-age=0">
+<meta name="theme-color" content="#070009">
+<title>Queen B — Royal Edition</title>
+<style>
+:root{
+  --gold:#e8c56e;
+  --softGold:#f4e2a3;
+  --cream:#fbf4ea;
+  --plum:#4b145f;
+  --deep:#050007;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--deep);color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+button{font:inherit;color:inherit}
+#app{
+  position:fixed;inset:0;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 16%,rgba(137,75,173,.16),transparent 28%),
+    radial-gradient(circle at 50% 68%,#4a155f 0,#17051f 38%,#060008 72%,#020003 100%);
+}
+#app:before{
+  content:"";position:absolute;inset:-15%;
+  background-image:
+    radial-gradient(#fff 0 1px,transparent 1.3px),
+    radial-gradient(var(--gold) 0 1px,transparent 1.4px);
+  background-size:86px 86px,132px 132px;
+  opacity:.12;animation:stars 24s linear infinite;pointer-events:none;
+}
+@keyframes stars{to{transform:translateY(-90px)}}
+
+#title{
+  position:absolute;z-index:60;left:16px;right:16px;
+  top:max(20px,env(safe-area-inset-top));text-align:center;pointer-events:none
+}
+#title small{display:block;color:var(--gold);font-size:10px;letter-spacing:.34em;font-weight:800}
+#title h1{
+  font:700 clamp(42px,10vw,72px)/.9 Georgia,"Times New Roman",serif;
+  margin:10px 0 7px;letter-spacing:-.025em;text-shadow:0 12px 36px rgba(0,0,0,.48)
+}
+#title p{margin:0;font-size:13px;letter-spacing:.04em;opacity:.74}
+
+#cake{
+  position:absolute;z-index:10;left:50%;top:60%;transform:translate(-50%,-50%);
+  width:min(92vw,560px);height:min(74vh,650px);
+  filter:drop-shadow(0 28px 44px rgba(0,0,0,.36)) drop-shadow(0 0 50px rgba(214,124,255,.08))
+}
+#cake:before{
+  content:"";position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);
+  width:92%;height:16%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,223,162,.20),transparent 72%);
+  filter:blur(10px);pointer-events:none
+}
+#cake:after{
+  content:"";position:absolute;left:50%;bottom:1%;transform:translateX(-50%);
+  width:74%;height:8%;border-radius:999px;
+  background:linear-gradient(#f6de95,#d0a347 45%,#8f5f18);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.45),0 8px 18px rgba(0,0,0,.28);
+  pointer-events:none
+}
+.base,.top{pointer-events:none;position:absolute;left:50%;transform:translateX(-50%);border-radius:50%/20%}
+.base{
+  bottom:8%;width:88%;height:35%;
+  background:linear-gradient(#fff9ff 0 8%,#f2c4f6 9% 18%,#d98ce6 19% 32%,#9d4dac 33% 58%,#5a1a67 59% 100%);
+  box-shadow:inset 0 14px 26px rgba(255,255,255,.58),inset 0 -22px 34px rgba(38,0,46,.9),0 34px 72px rgba(0,0,0,.60)
+}
+.top{
+  bottom:34%;width:69%;height:25%;
+  background:linear-gradient(#fffbff 0 10%,#f5d2f8 11% 20%,#e6a5ef 21% 42%,#a650b4 43% 68%,#652071 69% 100%);
+  box-shadow:inset 0 10px 18px rgba(255,255,255,.58),inset 0 -16px 24px rgba(33,0,41,.9)
+}
+.base:before,.top:before{
+  content:"";position:absolute;border-radius:999px;
+  background:linear-gradient(rgba(255,255,255,.96),rgba(255,235,248,.76));
+  box-shadow:inset 0 2px 5px rgba(255,255,255,.6)
+}
+.base:before{left:5%;right:5%;top:8%;height:20%}
+.top:before{left:8%;right:8%;top:8%;height:20%}
+.base:after,.top:after{
+  content:"";position:absolute;border-radius:999px;
+  background:linear-gradient(#f7dfa2,#d2a64d 48%,#8a5b18);
+  box-shadow:0 1px 6px rgba(0,0,0,.24)
+}
+.base:after{left:6%;right:6%;bottom:8%;height:6%}
+.top:after{left:8%;right:8%;bottom:8%;height:7%}
+
+.basePearls,.topPearls{
+  position:absolute;left:50%;transform:translateX(-50%);display:flex;justify-content:space-between;
+  pointer-events:none;z-index:18
+}
+.basePearls{bottom:33%;width:72%}
+.topPearls{bottom:57%;width:48%}
+.basePearls span,.topPearls span{
+  width:10px;height:10px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#fff 0,#fff7e9 35%,#e7c779 100%);
+  box-shadow:0 0 8px rgba(255,231,172,.28)
+}
+.crown{
+  pointer-events:none;position:absolute;left:50%;top:5%;transform:translateX(-50%);
+  font-size:54px;color:var(--softGold);
+  filter:drop-shadow(0 0 18px rgba(232,197,110,.45));z-index:20
+}
+#candles{position:absolute;inset:0;z-index:35}
+.candle{
+  position:absolute;width:62px;height:96px;margin:-48px 0 0 -31px;
+  border:0;background:transparent;padding:0;cursor:pointer;touch-action:manipulation;z-index:40
+}
+.candle:before{
+  content:"";position:absolute;left:50%;top:15px;transform:translateX(-50%);
+  width:42px;height:42px;border-radius:50%;
+  background:radial-gradient(circle,rgba(244,212,119,.22),transparent 72%);filter:blur(3px)
+}
+.candle .stick{
+  position:absolute;left:25px;bottom:12px;width:12px;height:38px;border-radius:8px;
+  background:linear-gradient(#fff7cf,#f0d27a 18%,#c79b35 45%,#8d5d12);
+  box-shadow:inset 0 0 6px rgba(255,255,255,.45),0 0 10px rgba(244,212,119,.18)
+}
+.candle .stick:before{
+  content:"";position:absolute;left:-6px;bottom:-8px;width:24px;height:8px;border-radius:999px;
+  background:linear-gradient(#e8c56e,#9e6d1c);box-shadow:0 2px 8px rgba(0,0,0,.28)
+}
+.candle .flame{
+  position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:18px;height:28px;border-radius:65% 35% 60% 40%;
+  background:radial-gradient(circle at 50% 65%,#fff8bc 0 18%,#ffcf4a 19% 48%,#ff8a2e 49% 72%,#ff5f22 73%);
+  filter:drop-shadow(0 0 8px rgba(255,201,84,.95)) drop-shadow(0 0 16px rgba(255,154,44,.65));
+  animation:flick .74s ease-in-out infinite alternate
+}
+@keyframes flick{to{transform:translateX(-50%) scale(.82,1.14) rotate(5deg)}}
+.candle .n{display:none}
+.candle.done{opacity:.20}
+.candle.done .flame{display:none}
+
+#status{
+  position:absolute;z-index:70;left:14px;bottom:max(14px,env(safe-area-inset-bottom));
+  padding:10px 13px;border-radius:999px;background:rgba(10,3,17,.72);
+  border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);
+  color:var(--cream);font-size:10px;letter-spacing:.17em
+}
+
+#memory{
+  position:absolute;inset:0;z-index:90;display:none;place-items:center;
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(109,42,132,.46),transparent 34%),
+    linear-gradient(180deg,#16051d 0%,#0b020e 46%,#040005 100%);
+  backdrop-filter:blur(10px);
+  overflow:hidden
+}
+#memory:before{
+  content:"B";position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);
+  font:700 min(95vw,640px)/1 Georgia,"Times New Roman",serif;color:transparent;
+  -webkit-text-stroke:1px rgba(232,197,110,.085);
+  text-shadow:0 0 70px rgba(232,197,110,.04);
+  pointer-events:none
+}
+#memory:after{
+  content:"";position:absolute;left:14%;right:14%;top:13%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,197,110,.55),transparent);
+  pointer-events:none
+}
+#memory.show{display:grid}
+#memoryTopline{
+  position:absolute;top:max(24px,env(safe-area-inset-top));left:0;right:0;text-align:center;
+  color:var(--gold);font-size:9px;letter-spacing:.36em;font-weight:700
+}
+#memoryMonogram{
+  position:absolute;top:57px;left:0;right:0;text-align:center;
+  font:400 28px/1 Georgia,"Times New Roman",serif;color:var(--softGold);
+  text-shadow:0 0 20px rgba(232,197,110,.2)
+}
+#photos{position:relative;width:94vw;height:66vh;display:flex;align-items:center;justify-content:center;margin-top:-3vh}
+.photoSet{position:relative;width:min(94vw,780px);height:min(59vh,600px)}
+.memoryCard{
+  position:absolute;z-index:20;border:1px solid rgba(232,197,110,.72);border-radius:12px;
+  background:#f8f1e8;padding:5px;
+  box-shadow:0 28px 75px rgba(0,0,0,.72),0 0 0 1px rgba(255,255,255,.08),0 0 40px rgba(215,168,255,.08);
+  overflow:hidden;touch-action:manipulation;cursor:pointer;pointer-events:auto;
+  transition:transform .22s ease,opacity .22s ease,filter .22s ease
+}
+.memoryCard:active{filter:brightness(1.05);transform:scale(.98)}
+.memoryCard img{display:block;width:100%;height:100%;object-fit:cover;border-radius:7px;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.photoSet.two .memoryCard{width:min(39vw,245px);height:min(57vw,350px)}
+.photoSet.two .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-104%,-50%) rotate(-4deg)}
+.photoSet.two .memoryCard:nth-child(2){left:50%;top:50%;z-index:22;transform:translate(4%,-50%) rotate(4deg)}
+.photoSet.three .memoryCard:nth-child(1),
+.photoSet.three .memoryCard:nth-child(3){
+  width:min(29vw,182px);height:min(43vw,270px);opacity:.82;filter:saturate(.92) brightness(.9)
+}
+.photoSet.three .memoryCard:nth-child(1){left:50%;top:50%;z-index:21;transform:translate(-138%,-45%) rotate(-5deg)}
+.photoSet.three .memoryCard:nth-child(2){
+  left:50%;top:50%;z-index:24;width:min(39vw,245px);height:min(57vw,350px);
+  transform:translate(-50%,-50%);opacity:1
+}
+.photoSet.three .memoryCard:nth-child(3){left:50%;top:50%;z-index:22;transform:translate(38%,-45%) rotate(5deg)}
+#tapHint{
+  position:absolute;left:0;right:0;bottom:17.2%;text-align:center;
+  font-size:9px;letter-spacing:.28em;color:rgba(248,241,232,.58)
+}
+#memoryCaption{
+  position:absolute;left:0;right:0;bottom:11.4%;text-align:center;color:var(--softGold)
+}
+#memoryCaption .capCandle{
+  display:block;font:400 19px/1.1 Georgia,"Times New Roman",serif;letter-spacing:.12em
+}
+#memoryCaption .capMemories{
+  display:block;margin-top:7px;font-size:9px;letter-spacing:.34em;color:rgba(248,241,232,.68);font-weight:700
+}
+#closeMemory,#showVideo{
+  position:absolute;left:50%;transform:translateX(-50%);
+  min-width:220px;min-height:50px;padding:0 24px;border-radius:999px;
+  border:1px solid rgba(232,197,110,.52);
+  background:rgba(255,255,255,.035);
+  color:#f2d98e;font-size:11px;font-weight:700;letter-spacing:.18em;
+  box-shadow:0 10px 40px rgba(0,0,0,.18),inset 0 0 22px rgba(255,255,255,.025);
+  touch-action:manipulation
+}
+#closeMemory{bottom:22px}
+#zoom{
+  position:absolute;inset:0;z-index:110;display:none;place-items:center;background:#020003f4;padding:18px
+}
+#zoom.show{display:grid}
+#zoomImg{max-width:94vw;max-height:84vh;object-fit:contain;border-radius:18px;box-shadow:0 30px 120px #000}
+#zoomClose{
+  position:absolute;right:16px;top:max(16px,env(safe-area-inset-top));
+  width:56px;height:56px;border-radius:50%;border:1px solid #fff4;background:#120019dd;font-size:28px;z-index:2
+}
+
+#message,#video{
+  position:absolute;inset:0;z-index:120;display:none;place-items:center;text-align:center;padding:28px;
+  background:
+    radial-gradient(circle at 50% 26%,rgba(118,45,153,.48),transparent 25%),
+    radial-gradient(circle at 50% 42%,#581874,#15031d 46%,#030004 78%)
+}
+#message.show,#video.show{display:grid}
+.msgWrap{max-width:650px}
+.msgCrown{font-size:52px;color:var(--softGold);filter:drop-shadow(0 0 18px rgba(232,197,110,.4))}
+#message small{color:var(--gold);letter-spacing:.28em;font-weight:700}
+#message h2{
+  font:700 clamp(48px,12vw,86px)/.9 Georgia,"Times New Roman",serif;
+  margin:12px 0 20px
+}
+#message p,.end{font:23px/1.5 Georgia,"Times New Roman",serif;color:var(--cream)}
+.gold{color:var(--softGold)}
+#showVideo{position:relative;left:auto;bottom:auto;transform:none;margin-top:12px}
+video{width:min(96vw,900px);max-height:78vh;background:#000;border-radius:22px;box-shadow:0 30px 100px rgba(0,0,0,.68)}
+.end{margin-top:18px}
+
+@media (max-height:740px){
+  #cake{top:62%;height:68vh}
+  #title h1{font-size:36px}
+  #title p{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="title">
+    <small>QUEEN B · 43 CANDLES</small>
+    <h1>For Beaux</h1>
+    <p>Forty-three candles. One hundred beautiful memories.</p>
+  </div>
+
+  <div id="cake">
+    <div class="crown">♛</div>
+    <div class="base"></div>
+    <div class="top"></div>
+
+    <div class="basePearls">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="topPearls">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+    </div>
+
+    <div id="candles"></div>
+  </div>
+
+  <div id="status">0 / 43 CANDLES</div>
+
+  <div id="memory">
+    <div id="memoryTopline">QUEEN B · ROYAL MEMORY REVEAL</div>
+    <div id="memoryMonogram">♛</div>
+    <div id="photos"></div>
+    <div id="tapHint">TAP A MEMORY TO VIEW</div>
+    <div id="memoryCaption"></div>
+    <button id="closeMemory">RETURN TO THE CAKE</button>
+  </div>
+
+  <div id="zoom">
+    <button id="zoomClose">×</button>
+    <img id="zoomImg" alt="Memory">
+  </div>
+
+  <div id="message">
+    <div class="msgWrap">
+      <div class="msgCrown">♛</div>
+      <small>43 CANDLES · 100 MEMORIES</small>
+      <h2>HAPPY BIRTHDAY,<br><span class="gold">BEAUX.</span></h2>
+      <p>
+        Happy Birthday, Sis. ❤️<br>
+        <span class="gold">Every candle holds a memory. Every memory holds love.</span><br><br>
+        — Kimmy
+      </p>
+      <button id="showVideo">ONE MORE THING… ▶</button>
+    </div>
+  </div>
+
+  <div id="video">
+    <div>
+      <video id="vid" controls playsinline preload="metadata">
+        <source src="./VID-20260915-WA0000.mp4" type="video/mp4">
+      </video>
+      <div class="end">
+        HAPPY BIRTHDAY, BEAUX. 👑<br>
+        <span class="gold">43 candles. 100 memories. One Queen B.</span><br>
+        — Kimmy ❤️
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const groups=[["1zh1cxp5hcBl0ZGsoIercv51RSxszmMSb","1-QVlGgM0BqfcUQqWcQLNPlzoDztmzcpg","1ONzcyGleKAL39Wl3BP4JHSF04wpkuUxT"],["1_-ca47E29UUEVxlmK64GAN_tZ4YQfbaP","1L9YqKXnmXQx6j-xS2dp6QvOfu4oHi1q7","1SMMWYdG0DtjnhH_u9KYqBRS_eNX4Ls2l"],["19hKTEOxavIecIMoJbimuODSOJXK-4Np6","1Yxjpv34EWj758TA_FuRB4_R1RHGeZ6eL","1frYwatctg6od3LQhvl3atnZTjDDCNAxP"],["1HBeZ7kuMR_OXKO3IaZOTlFnsIcV16mOu","14sTEaEBPn5nxEUrV1Nh_c6DVkUp5SItR","1o7OlBVPnmvnoAxVMTo7d-AZM396Mv8vo"],["1o7hyORJ5AD5IcxOBGemLDaBcZheNHZsB","1i7V_2yoKvM46leKNYS44ZdjoMSlvZkms","1wHMphIV-A0eJfts5fXEkvq5781MCMqiL"],["1j0Kr0w5x-1i4M-onpcgwzmwezWszqZp7","1jaR44yZw_rjDDSB0Xso7gAMd_KkRssP3","1XKElEbreForMLMSSRvHngy-1jM-C8Le_"],["1RkUQCb5i5EI2NpaQt9sYkYmjaOfUylnI","1ViCm__B4DaFFVyQ9Eylfd8mld-aaeLis","1xLM7_wmoiSGhAVgwn5N01-s0VKIAsLTk"],["1RofSwm2LIhlUMBT5v2q-T8X5QNDas9kz","1U9lTZEdzzJO-KtqkTdfRGNv6OqS6zBJI","1S6RrgDUJ1Go_SMTV86JRLhFT3mm8rv9Z"],["1oUk1R3qvMDO_XA06OFd4fpy32A_5dMEi","1ioV76Zdz_g_MX2X-tv_f84wDFzwYE7yP","1gcUWikjEXtfQfsvfp-tEGNxaa3mi9q40"],["1s1nM7sNoSAMxfm_vyaoagyVyqEEdJN40","1P05ywHihIS32nsutDYgN_y9NN-peXTzB","1Deczp7jELLUrEFpaqPg83IpckySZBrzH"],["1NiWjpLA8ZuUL_ax7t_bJaIswrftCJgJq","1tTZQSzLUFJn5eFB3cXvDMYBDiEm4MnBJ","1T3BYGJw6pywoauDYsFl5gMBRxZ_dFxfx"],["13uzCgGOoaa-LRe_ca38AiPYaMS6wpOw7","1T7l2o7kCS7WaJGPnuSte45_TSpjwbadj","1LZ0Is27TyvPegZ56ub_uIu1nmYUenJtm"],["1SODQqGq5pM4xxS_Tw8oBL688dPfv82kO","15H90HAYWv3Mnnp5iQxLyr8Q-ZIqZeeeB","10HVyd5hix_kcrouj0irc0CxWu1codj8Q"],["1AWnt0-sGYUh3gmojwAQOnHOziWUr3uDR","17_3vYDIDFFvJcQIF4KC3seI86mDe_Mk1","1eA_o9AuuAunDa6Qhzj8h0J7BJq_e_gQz"],["10svqT1mohIRaSavNWLgKygZSW-bHQcvl","1hockt3cK9_9al9-jzBv4IJIIoYZ3Imjp"],["1gskZL23FIcl7EDa-TAzyCmYJKT2gtVr-","1Mk-U1zrNfmAHaYPDV7NWT41lC-12-8y8"],["12gkABWJp_3l5JtiWlkTpy0iCmQBWj1e-","1wEDT9u_6inUdr-pRa2k0TRHkjhmuv8uo"],["1n5RzL02fZPn-n4vXNTVuLl7bc5bRVKHT","1O7F4lr5Niv6UIZd-YlaJecGvLGheW7vO"],["1ZJ7HEinR49I0Ip4ES4l9xjuF3q_wlOhk","1dJgEudHHbjRLT4RXsGtpeL9G-6mHZmxm"],["1mMjsqpIUDiFDTrjGEIQ7-gQ1bQG5PSCx","1_J2S8RGRPyd8HvMvWD4bykKZ_0T14Lxh"],["1CVE_qIfmhyjAVffuQTl2nS7VUdGhdF-q","1kZOfT5UeKZ995nzs1GM25HaCTiYyiUgw"],["1fF1jnkgg8RSRXAsAEh3bYGpv2lz8OQJn","12xs9Mf2RJGOjhUpfrELwRxTVay99ucD7"],["13aAyXtlUmF1YAE6HjH7H3HB-QqZG9JB_","1rbf9B0mfXrJsmYuaUWD1mOxwha0Qhcb3"],["12pPKy8ecyA79Yco4oGYgHRvABeUG82DH","1mDdurQSKeQa_GenIYWC7uTyrtHkL5B6d"],["13YNa1FWQYvCRc6atEhin992w2h9VK1Dc","1kP3Bss6yAY9e0QUVe7nDaOhny-_0YR5G"],["1paQkiKW1RML-Hb9duO0SiS79mxU-1Jn7","1B97sg1rtl7tsTTFxLhmA-SESTeysdS19"],["1PSuQPMPFwx9vzLF0MkoTbagkZWwWEWrZ","1aYFyUZO5_42zsALBWBHvS99VrZ4KRdkN"],["1bRFizb0tjKBVMDH30Ukd4sGNFssIMG0K","1MkhJ7CHLZuoOX8DC10jpMNB7KCxqxXnK"],["1gTKOftyhqIVUPIFGITcfqiCwEc01rB0d","1XzKWl3406nLmx5pOoYFra2CZGEGLu7ej"],["1Oc2c9Wu8RDq_5vb3vPTPuF6xWIREdcFE","1sfIoqCJx2rsDAPIyayquulaM2cSWaSPZ"],["1A-Ynix6rJq-5tGGxlFbH08yuZr4ldHpi","1Yh-eUxUsj74lpnyKISbB-IR-ZB_UprBW"],["15G5eSn7vRPQhMpnENV85-ag6-A-QOyZV","1sl61Im9gTcaPhQy2pdG_AheR09CI3zol"],["1d9_WcAMNXE6gkBQI5yA4dNncQ4bEFmus","1TeuJQ__6z1YEHZP4cscEMaP9fJlHnJdU"],["161zln6dYkrk5dJRkI1TnGOsO0TMOE8YC","1D114VqDItbkf4YVfl8XVLUd-FumLnbCF"],["1nPnfDLzZ-N_p7BcpXncm4T5WbfaemWYr","1FQrogNrEZ2ni1LFhrYa72pmIO3iJ2iMf"],["1ZDU5Y2wxwYNfft6bYLqK3EnC7s9FgMeJ","1TvoH1YPp49JCldXLtxcf-ZR0nRnxegdC"],["1R0dkJ0G8Nxo7VsPzlcMGOVDJaRJU1AkE","1YyCgGaViXyoenuliOf9bIC28ryJqZscL"],["1YuPUYR09uk_M1VTWzHvXJTTFoUsJl_Bj","19EWg9GUZTpz5ZnrkQpURfUWYxhesDc7-"],["1qElNG1PjUdHg5DIS533lsTd7cExzROf2","1qNRLfVatqTZXURoG6cBXVYESiQaIc-p1"],["1i_xIxHDXyB-8u_CmqiuurxaDgzJz_9ia","198f3i9MCQhh3Pqt_qbpXOQ8prCyPU6H4"],["1PIiDjQjOFRG82lFvtEq1tFxWzQ31-q3p","1_RGI7qEd-6hAL60EghKdR97J67RK87TS"],["1v4sH-bbRofRMLsWKsIe3GrRkiA0b68oE","1xfCQyACJs5W_1Jpr6e4bk2CarA6739bl"],["1YYue4sgu3RA9N9CR6GgnbivANttdIHcY","1COxnI3JAJ77mmeDA9v38ztukjqSW7qOl"]];
+const candles=document.getElementById("candles");
+const memory=document.getElementById("memory");
+const photos=document.getElementById("photos");
+const caption=document.getElementById("memoryCaption");
+const status=document.getElementById("status");
+const zoom=document.getElementById("zoom");
+const zoomImg=document.getElementById("zoomImg");
+const opened=new Set();
+
+function pos(i){
+  const rows=[
+    {start:0,count:15,rx:35,ry:18,cy:52},
+    {start:15,count:14,rx:26,ry:14,cy:52},
+    {start:29,count:14,rx:17,ry:10,cy:52}
+  ];
+  const row=rows.find(r=>i>=r.start&&i<r.start+r.count);
+  const j=i-row.start;
+  const a=-Math.PI/2+(j/row.count)*Math.PI*2;
+  return {x:50+Math.cos(a)*row.rx,y:row.cy+Math.sin(a)*row.ry};
+}
+
+function openZoom(src,e){
+  if(e){e.preventDefault();e.stopPropagation();}
+  zoomImg.src=src;
+  zoom.classList.add("show");
+}
+
+function openOne(i,b){
+  if(opened.has(i)) return;
+  opened.add(i);
+  b.classList.add("done");
+  photos.innerHTML="";
+
+  const set=document.createElement("div");
+  set.className="photoSet "+(groups[i].length===2?"two":"three");
+
+  groups[i].forEach(id=>{
+    const card=document.createElement("button");
+    card.type="button";
+    card.className="memoryCard";
+    const img=document.createElement("img");
+    img.src="https://drive.google.com/thumbnail?id="+id+"&sz=w1600";
+    img.alt="Memory";
+    card.appendChild(img);
+
+    const handler=e=>openZoom(img.src,e);
+    card.addEventListener("pointerup",handler);
+    card.addEventListener("click",handler);
+
+    set.appendChild(card);
+  });
+
+  photos.appendChild(set);
+  const roman=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII"];
+  caption.innerHTML='<span class="capCandle">CANDLE '+roman[i]+'</span><span class="capMemories">'+(groups[i].length===2?'TWO MEMORIES':'THREE MEMORIES')+'</span>';
+  status.textContent=opened.size+" / 43 CANDLES";
+  memory.classList.add("show");
+}
+
+for(let i=0;i<43;i++){
+  const p=pos(i);
+  const b=document.createElement("button");
+  b.type="button";
+  b.className="candle";
+  b.style.left=p.x+"%";
+  b.style.top=p.y+"%";
+  b.innerHTML='<span class="flame"></span><span class="stick"></span><span class="n">'+(i+1)+'</span>';
+  const handler=e=>{e.preventDefault();e.stopPropagation();openOne(i,b)};
+  b.addEventListener("pointerup",handler);
+  b.addEventListener("click",handler);
+  candles.appendChild(b);
+}
+
+let closing=false;
+function closeMemory(e){
+  if(e){e.preventDefault();e.stopPropagation();}
+  if(closing)return;
+  closing=true;
+  memory.classList.remove("show");
+  if(opened.size===43) document.getElementById("message").classList.add("show");
+  setTimeout(()=>closing=false,220);
+}
+document.getElementById("closeMemory").addEventListener("pointerup",closeMemory);
+document.getElementById("closeMemory").addEventListener("click",closeMemory);
+
+function closeZoom(e){
+  if(e){e.preventDefault();e.stopPropagation();}
+  zoom.classList.remove("show");
+}
+document.getElementById("zoomClose").addEventListener("pointerup",closeZoom);
+document.getElementById("zoomClose").addEventListener("click",closeZoom);
+zoom.addEventListener("click",e=>{if(e.target===zoom)closeZoom(e)});
+
+document.getElementById("showVideo").onclick=()=>{
+  document.getElementById("message").classList.remove("show");
+  document.getElementById("video").classList.add("show");
+  document.getElementById("vid").play().catch(()=>{});
+};
+</script>
+</body>
+</html>
