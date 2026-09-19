@@ -3,251 +3,183 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#050008">
-<title>Queen B — Inside the Cake</title>
+<meta name="theme-color" content="#09000f">
+<title>Queen B — 43 Candles</title>
 <style>
-:root{--gold:#f3cf72;--ink:#050008;--violet:#6a1d87;--lav:#d6a1ee}
+:root{--gold:#f3cf72;--purple:#4b145f;--deep:#070009}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#030004;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+html,body{margin:0;height:100%;overflow:hidden;background:#050007;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
 button{font:inherit;color:inherit}
-#app{position:fixed;inset:0;overflow:hidden;background:#030004}
-#intro{position:absolute;inset:0;z-index:100;display:grid;place-items:center;text-align:center;background:
-radial-gradient(circle at 50% 68%,#5f177e 0,#1d0629 28%,#070009 64%,#020002 100%);transition:1.2s cubic-bezier(.2,.8,.2,1)}
-#intro.enter{transform:scale(2.7);filter:blur(12px);opacity:0;pointer-events:none}
-.stars{position:absolute;inset:-20%;opacity:.25;background-image:
-radial-gradient(#fff 0 1px,transparent 1.3px),
-radial-gradient(#f3cf72 0 1px,transparent 1.3px);background-size:70px 70px,110px 110px;animation:drift 18s linear infinite}
-@keyframes drift{to{transform:translateY(-100px)}}
-.introIn{position:relative;z-index:2;width:min(94vw,560px);padding:20px}
-.kicker{font-size:10px;letter-spacing:.32em;color:var(--gold);font-weight:800}
-.crown{font-size:38px;margin-bottom:8px;filter:drop-shadow(0 0 18px #f3cf7288)}
-.cake{width:270px;height:260px;margin:5px auto 0;position:relative}
-.base,.top{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%/20%;background:linear-gradient(#fff1ff 0 16%,#d37bdc 18% 46%,#762882 48%);box-shadow:inset 0 8px 18px #fff7,inset 0 -12px 20px #2a0030,0 24px 44px #000a}
-.base{width:220px;height:116px;bottom:22px}.top{width:145px;height:86px;bottom:105px}
-.candle{position:absolute;left:50%;bottom:187px;transform:translateX(-50%);width:13px;height:48px;border-radius:6px;background:repeating-linear-gradient(45deg,#fff1b6 0 7px,#d79b30 7px 14px)}
-.flame{position:absolute;left:50%;bottom:228px;transform:translateX(-50%);width:25px;height:36px;border-radius:65% 35% 60% 40%;background:radial-gradient(circle at 50% 65%,#fff5a4 0 20%,#ffb21e 21% 55%,#ff6125 56%);filter:drop-shadow(0 0 18px #ff8f23);animation:flicker .75s infinite alternate}
-@keyframes flicker{to{transform:translateX(-50%) scale(.82,1.13) rotate(5deg)}}
-.crack{position:absolute;left:50%;bottom:110px;width:5px;height:0;transform:translateX(-50%);background:#fff;box-shadow:0 0 30px #fff,0 0 70px #d57cff;opacity:0;transition:.6s}
-#intro.cracking .crack{height:100px;opacity:1}
-#intro.cracking .top{transform:translateX(-50%) translateY(-40px) rotateX(-15deg)}
-#intro.cracking .base{transform:translateX(-50%) translateY(36px) rotateX(10deg)}
-#intro.cracking .flame{opacity:0}
-h1{font:700 clamp(42px,11vw,82px)/.88 Georgia,serif;margin:4px 0 8px}
-.wish{font:22px Georgia,serif;color:var(--gold);margin:12px 0 20px}
-#enter{min-height:66px;width:min(92vw,430px);border:1.5px solid var(--gold);border-radius:999px;background:#ffffff0d;box-shadow:0 0 36px #b05fff22;color:#ffe9a8;font-weight:800;letter-spacing:.08em}
-#stage{position:absolute;inset:0;display:none;perspective:1200px;background:#030004}
-#stage.show{display:block}
-#scene{position:absolute;inset:0;overflow:hidden;transform-style:preserve-3d}
-.env{position:absolute;inset:0;opacity:0;transition:opacity .45s linear,transform .45s linear;transform:scale(1.08)}
-.env.active{opacity:1;transform:scale(1)}
-/* Frosting tunnel */
-#frost{background:radial-gradient(ellipse at center,#8e4c9c 0,#54135f 42%,#220428 68%,#070008 100%)}
-.ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:22px solid #f4dcf8;border-radius:50%;box-shadow:0 0 50px #f4dcf855,inset 0 0 40px #b54cc244}
-.ring:nth-child(1){width:95vw;height:95vw;opacity:.95}.ring:nth-child(2){width:72vw;height:72vw;opacity:.75}.ring:nth-child(3){width:50vw;height:50vw;opacity:.52}.ring:nth-child(4){width:30vw;height:30vw;opacity:.35}
-.frostDune{position:absolute;left:-20vw;right:-20vw;bottom:-18vh;height:52vh;border-radius:50% 50% 0 0;background:linear-gradient(#fff3ff 0 8%,#cd79d8 9% 27%,#6d2678 28% 100%);box-shadow:inset 0 20px 50px #fff5}
-/* Garden */
-#garden{background:radial-gradient(circle at 50% 82%,#4b7451 0,#28392e 24%,#1a0926 52%,#060008 78%)}
-.vine{position:absolute;width:3px;background:linear-gradient(#91e49a11,#91e49aaa);bottom:-5vh;border-radius:4px}
-.flower{position:absolute;font-size:40px;filter:drop-shadow(0 0 16px #c98eff88);animation:sway 4s ease-in-out infinite}
-@keyframes sway{50%{transform:translateY(-5px) rotate(7deg)}}
-.butter{position:absolute;color:var(--gold);font-size:24px;animation:fly 4.8s ease-in-out infinite alternate;filter:drop-shadow(0 0 12px #ffd77199)}
-@keyframes fly{to{transform:translate(42px,-30px) rotate(20deg)}}
-/* Paris */
-#paris{background:linear-gradient(#160522,#4b1e4a 52%,#130316 100%)}
-.street{position:absolute;left:18vw;right:18vw;bottom:-4vh;height:62vh;clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);background:linear-gradient(#76606f,#211820)}
-.building{position:absolute;bottom:21vh;width:28vw;height:44vh;background:linear-gradient(#684466,#2f1b31);border:1px solid #f3cf7233;box-shadow:inset 0 0 0 10px #0002}
-.building:after{content:"";position:absolute;inset:9% 15%;background:repeating-linear-gradient(180deg,#f4d07c44 0 8%,transparent 8% 18%)}
-.tower{position:absolute;left:50%;bottom:17vh;transform:translateX(-50%);width:14px;height:55vh;background:linear-gradient(#f0c66a88,#f0c66a22);clip-path:polygon(35% 0,65% 0,58% 55%,100% 100%,70% 100%,50% 65%,30% 100%,0 100%,42% 55%);filter:drop-shadow(0 0 20px #f0c66a55)}
-.lamp{position:absolute;bottom:20vh;width:6px;height:28vh;background:#21151f}
-.lamp:before{content:"";position:absolute;top:-24px;left:-13px;width:32px;height:28px;border-radius:50% 50% 34% 34%;background:#f2cc78;box-shadow:0 0 34px #f2cc78}
-/* Space */
-#space{background:radial-gradient(circle at 50% 50%,#2a225e 0,#0d0920 40%,#020003 75%)}
-.nebula{position:absolute;inset:-30%;background:radial-gradient(ellipse at 35% 42%,#7b68ff44,transparent 30%),radial-gradient(ellipse at 68% 60%,#c866e844,transparent 28%);filter:blur(26px);animation:neb 10s ease-in-out infinite alternate}
-@keyframes neb{to{transform:scale(1.14) rotate(8deg)}}
-.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff}
-/* Chamber */
-#chamber{background:radial-gradient(circle at 50% 50%,#8b5a1c22,#23050f 40%,#050004 75%)}
-.arch{position:absolute;inset:6vh 6vw;border:1px solid #f3cf7244;border-radius:50% 50% 10% 10%/35% 35% 8% 8%;box-shadow:inset 0 0 100px #d8a74018,0 0 80px #000}
-.bigB{position:absolute;inset:19vh 0 auto;text-align:center;font:900 min(72vw,560px)/.8 Georgia,serif;color:transparent;-webkit-text-stroke:2px #f3cf7277;text-shadow:0 0 70px #e2b94c66}
-#portalLayer{position:absolute;inset:0;z-index:30;transform-style:preserve-3d;pointer-events:none}
-.portal{position:absolute;left:50%;top:50%;transform-style:preserve-3d;pointer-events:auto;border:0;background:transparent;padding:0;transition:opacity .18s linear}
-.portal img{display:block;width:100%;height:100%;object-fit:cover}
-.portal .label{position:absolute;left:50%;bottom:-28px;transform:translateX(-50%);font-size:9px;letter-spacing:.12em;color:#ffe6a2;white-space:nowrap;text-shadow:0 2px 8px #000}
-.portal.frost img{border:12px solid #fff2ff;border-radius:34px 34px 18px 18px;box-shadow:0 0 0 10px #8f409d,0 30px 80px #000c}
-.portal.garden img{clip-path:ellipse(48% 46% at 50% 50%);border-radius:50%;box-shadow:0 0 0 12px #6d2d7eaa,0 0 0 20px #dba7f755,0 28px 70px #000c}
-.portal.paris img{border:9px solid #fff8e9;border-bottom-width:28px;border-radius:5px;box-shadow:0 25px 70px #000b}
-.portal.space img{border:1px solid #cfc7ff99;border-radius:22px;padding:5px;background:#090514;box-shadow:0 0 60px #7a70ff66,0 30px 90px #000c}
-.portal.chamber img{border:5px solid #e9c45d;border-radius:14px;box-shadow:0 0 42px #f2c85966,0 26px 70px #000c}
-#title{position:absolute;z-index:50;top:7vh;left:18px;right:18px;text-align:center;pointer-events:none}
-#title small{display:block;color:var(--gold);font-size:9px;font-weight:800;letter-spacing:.3em;margin-bottom:8px}
-#title h2{font:700 clamp(30px,8vw,56px)/.92 Georgia,serif;margin:0}
-#title p{font-size:12px;opacity:.58;margin:8px 0 0}
-#progress{position:absolute;z-index:60;left:12px;bottom:max(14px,env(safe-area-inset-bottom));padding:9px 12px;border-radius:999px;background:#09000dcc;border:1px solid #ffffff25;font-size:10px;letter-spacing:.08em}
-#reduce{position:absolute;z-index:60;right:12px;top:max(12px,env(safe-area-inset-top));padding:9px 12px;border-radius:999px;background:#09000dcc;border:1px solid #ffffff25;font-size:10px}
-#swipe{position:absolute;z-index:55;left:0;right:0;bottom:8vh;text-align:center;font-size:10px;letter-spacing:.18em;opacity:.55}
-#final{position:absolute;inset:0;z-index:90;display:none;place-items:center;text-align:center;background:radial-gradient(circle at 50% 42%,#60217e,#15031d 44%,#030004 76%);padding:24px}
-#final.show{display:grid}
-.finalCake{font-size:86px;filter:drop-shadow(0 0 28px #d8a6ff)}
-#final h2{font:700 clamp(44px,11vw,82px)/.9 Georgia,serif;margin:10px 0;color:#fff}
+#app{position:fixed;inset:0;background:
+radial-gradient(circle at 50% 70%,#522069 0,#1a0823 36%,#070009 70%,#030004 100%);
+overflow:hidden}
+.sky{position:absolute;inset:-20%;opacity:.22;background-image:
+radial-gradient(#fff 0 1px,transparent 1.5px),
+radial-gradient(#f3cf72 0 1px,transparent 1.4px);
+background-size:82px 82px,130px 130px;animation:drift 22s linear infinite}
+@keyframes drift{to{transform:translateY(-90px)}}
+#header{position:absolute;z-index:20;top:max(18px,env(safe-area-inset-top));left:18px;right:18px;text-align:center}
+.kicker{font-size:10px;letter-spacing:.3em;color:var(--gold);font-weight:800}
+#header h1{font:700 clamp(34px,8vw,62px)/.95 Georgia,serif;margin:8px 0 4px}
+#sub{font-size:13px;opacity:.68}
+#counter{position:absolute;z-index:25;left:14px;bottom:max(14px,env(safe-area-inset-bottom));padding:10px 13px;border-radius:999px;background:#08000dcc;border:1px solid #ffffff25;font-size:11px;letter-spacing:.08em}
+#reduce{position:absolute;z-index:25;right:14px;bottom:max(14px,env(safe-area-inset-bottom));padding:10px 13px;border-radius:999px;background:#08000dcc;border:1px solid #ffffff25;font-size:11px}
+#cake{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);width:min(86vw,520px);aspect-ratio:1/1.03}
+.cakeBase{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);width:88%;height:41%;border-radius:50%/19%;background:
+linear-gradient(#fff2ff 0 14%,#d078da 15% 36%,#8e3c9c 37% 60%,#53145f 61% 100%);
+box-shadow:inset 0 12px 22px #fff7,inset 0 -20px 30px #25002b,0 35px 70px #000b,0 0 50px #c55ce833}
+.cakeTop{position:absolute;left:50%;bottom:36%;transform:translateX(-50%);width:68%;height:30%;border-radius:50%/20%;background:
+linear-gradient(#fff4ff 0 16%,#d57ddd 17% 46%,#762580 47% 100%);
+box-shadow:inset 0 10px 18px #fff7,inset 0 -16px 25px #26002e,0 0 42px #d77cff33}
+.crown{position:absolute;left:50%;top:6%;transform:translateX(-50%);font-size:42px;filter:drop-shadow(0 0 18px #f3cf7288)}
+.candle{position:absolute;width:26px;height:62px;border:0;background:transparent;padding:0;transform-origin:50% 100%;touch-action:manipulation;cursor:pointer}
+.stick{position:absolute;left:7px;bottom:0;width:12px;height:36px;border-radius:7px;background:repeating-linear-gradient(45deg,#fff0ad 0 6px,#a34ab1 6px 12px);box-shadow:0 0 7px #fff2}
+.flame{position:absolute;left:50%;top:0;transform:translateX(-50%);width:18px;height:26px;border-radius:65% 35% 60% 40%;background:radial-gradient(circle at 50% 65%,#fff6a7 0 20%,#ffb31f 21% 56%,#ff5f22 57%);filter:drop-shadow(0 0 12px #ff8a23);animation:flicker .75s infinite alternate}
+@keyframes flicker{to{transform:translateX(-50%) scale(.82,1.14) rotate(5deg)}}
+.candle.done .flame{opacity:.15;filter:none}
+.candle.next .flame{filter:drop-shadow(0 0 20px #fff) drop-shadow(0 0 34px #f3cf72);transform:translateX(-50%) scale(1.15)}
+.candle.next{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+#burst{position:absolute;inset:0;z-index:50;display:none;place-items:center;background:radial-gradient(circle,#3f1454cc,#09000ff0 68%);backdrop-filter:blur(6px)}
+#burst.show{display:grid}
+.photoWrap{position:relative;width:min(94vw,760px);height:min(74vh,700px)}
+.burstPhoto{position:absolute;left:50%;top:50%;max-width:min(70vw,360px);max-height:52vh;object-fit:contain;border:8px solid #fff7e8;border-radius:12px;box-shadow:0 35px 100px #000d,0 0 42px #d997ff33;transform:translate(-50%,-50%);opacity:0;animation:arrive .7s cubic-bezier(.2,.8,.2,1) forwards}
+.burstPhoto.p1{transform:translate(-57%,-50%) rotate(-5deg);animation-delay:.05s}
+.burstPhoto.p2{transform:translate(-43%,-50%) rotate(5deg);animation-delay:.18s}
+.burstPhoto.p3{transform:translate(-50%,-42%) rotate(1deg);animation-delay:.30s}
+@keyframes arrive{from{opacity:0;scale:.72}to{opacity:1;scale:1}}
+#burstLabel{position:absolute;left:0;right:0;bottom:5%;text-align:center;font:700 18px Georgia,serif;color:#ffe9a4}
+#continue{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);min-width:220px;min-height:54px;border:1px solid var(--gold);border-radius:999px;background:#ffffff10;color:#ffe9a5;font-weight:800}
+#message{position:absolute;inset:0;z-index:70;display:none;place-items:center;text-align:center;padding:28px;background:radial-gradient(circle at 50% 42%,#5e1c79,#16031e 45%,#030004 78%)}
+#message.show{display:grid}
+.msgCard{max-width:620px}
+.msgCard .crown2{font-size:50px}
+.msgCard h2{font:700 clamp(44px,11vw,82px)/.9 Georgia,serif;margin:10px 0 18px}
+.msgCard p{font:23px/1.5 Georgia,serif;margin:0 0 26px}
 .gold{color:var(--gold)}
-#play{width:112px;height:112px;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle,#ffd46f 0 8%,#ff7e2e 27%,#6d1765 57%,#17021f 78%);box-shadow:0 0 90px #ff993355;font-size:38px}
-#videoBox{display:none;margin-top:22px}#videoBox.show{display:block}
-video{width:min(94vw,900px);max-height:72vh;background:#000;border-radius:18px}
-.end{font:23px/1.45 Georgia,serif;margin-top:20px}
-#modal{position:absolute;inset:0;z-index:150;background:#020003f2;display:none;place-items:center;padding:18px}
-#modal.show{display:grid}
-#modal img{max-width:94vw;max-height:84vh;object-fit:contain;border-radius:16px}
-#close{position:absolute;right:16px;top:max(16px,env(safe-area-inset-top));width:54px;height:54px;border-radius:50%;border:1px solid #fff4;background:#120019cc;font-size:28px}
+#toVideo{min-width:240px;min-height:62px;border:1px solid var(--gold);border-radius:999px;background:#ffffff10;color:#ffe9a5;font-weight:800}
+#videoScreen{position:absolute;inset:0;z-index:80;display:none;place-items:center;text-align:center;padding:18px;background:#030004}
+#videoScreen.show{display:grid}
+video{width:min(96vw,900px);max-height:78vh;background:#000;border-radius:18px;box-shadow:0 30px 100px #000}
+.end{font:22px/1.45 Georgia,serif;margin-top:18px}
 body.reduced *{animation:none!important;transition:none!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div id="app">
-  <section id="intro">
-    <div class="stars"></div>
-    <div class="introIn">
-      <div class="crown">♛</div>
-      <div class="kicker">QUEEN B · INSIDE THE CAKE</div>
-      <div class="cake"><div class="base"></div><div class="top"></div><div class="candle"></div><div class="flame"></div><div class="crack"></div></div>
-      <h1>HAPPY BIRTHDAY,<br>SIS.</h1>
-      <div class="wish">Make a wish.</div>
-      <button id="enter">TAP TO ENTER THE CAKE</button>
-    </div>
-  </section>
+  <div class="sky"></div>
+  <div id="header">
+    <div class="kicker">QUEEN B · 43 CANDLES</div>
+    <h1>HAPPY BIRTHDAY, SIS.</h1>
+    <div id="sub">Tap the glowing candle.</div>
+  </div>
 
-  <section id="stage">
-    <div id="scene">
-      <div id="frost" class="env active"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="frostDune"></div></div>
-      <div id="garden" class="env"></div>
-      <div id="paris" class="env"><div class="street"></div><div class="building" style="left:2vw"></div><div class="building" style="right:3vw;height:48vh"></div><div class="tower"></div><div class="lamp" style="left:18vw"></div><div class="lamp" style="right:18vw"></div></div>
-      <div id="space" class="env"><div class="nebula"></div></div>
-      <div id="chamber" class="env"><div class="arch"></div><div class="bigB">B</div></div>
-      <div id="portalLayer"></div>
-      <div id="title"><small>LAYER 01 · 001–020</small><h2>THE SWEET BEGINNING</h2><p>The cake has a world inside it.</p></div>
-      <div id="progress">MEMORY 001 / 100</div>
-      <button id="reduce">REDUCED MOTION</button>
-      <div id="swipe">SWIPE UP TO TRAVEL DEEPER ↑</div>
-    </div>
-  </section>
+  <div id="cake">
+    <div class="crown">♛</div>
+    <div class="cakeBase"></div>
+    <div class="cakeTop"></div>
+  </div>
 
-  <section id="final">
+  <div id="counter">CANDLE 01 / 43</div>
+  <button id="reduce">REDUCED MOTION</button>
+
+  <div id="burst">
+    <div class="photoWrap" id="photoWrap"></div>
+    <div id="burstLabel"></div>
+    <button id="continue">NEXT CANDLE ✨</button>
+  </div>
+
+  <div id="message">
+    <div class="msgCard">
+      <div class="crown2">♛</div>
+      <div class="kicker">43 CANDLES · 100 MEMORIES</div>
+      <h2>HAPPY BIRTHDAY,<br><span class="gold">BEAUX.</span></h2>
+      <p>Happy birthday, Sis. ❤️<br><span class="gold">May every candle remind you how loved you are, and every memory remind you how much life we have shared.</span><br><br>— Kimmy</p>
+      <button id="toVideo">ONE MORE THING… ▶</button>
+    </div>
+  </div>
+
+  <div id="videoScreen">
     <div>
-      <div class="finalCake">🎂</div>
-      <div class="kicker">THE WHOLE UNIVERSE WAS INSIDE THIS CAKE</div>
-      <h2>ONE MORE THING,<br><span class="gold">SIS…</span></h2>
-      <button id="play">▶</button>
-      <div id="videoBox">
-        <video id="vid" controls playsinline preload="metadata"><source src="./VID-20260915-WA0000.mp4" type="video/mp4"></video>
-        <div class="end">HAPPY BIRTHDAY, BEAUX. 👑<br><span class="gold">Some cakes have layers.<br>Yours has a whole universe.</span><br>— Kimmy ❤️</div>
-      </div>
+      <video id="vid" controls playsinline preload="metadata">
+        <source src="./VID-20260915-WA0000.mp4" type="video/mp4">
+      </video>
+      <div class="end">HAPPY BIRTHDAY, BEAUX. 👑<br><span class="gold">43 candles. 100 memories. One sister I love very much.</span><br>— Kimmy ❤️</div>
     </div>
-  </section>
-
-  <div id="modal"><button id="close">×</button><img alt="Memory"></div>
+  </div>
 </div>
+
 <script>
-const ids=["1zh1cxp5hcBl0ZGsoIercv51RSxszmMSb","1-QVlGgM0BqfcUQqWcQLNPlzoDztmzcpg","1ONzcyGleKAL39Wl3BP4JHSF04wpkuUxT","1_-ca47E29UUEVxlmK64GAN_tZ4YQfbaP","1L9YqKXnmXQx6j-xS2dp6QvOfu4oHi1q7","1SMMWYdG0DtjnhH_u9KYqBRS_eNX4Ls2l","19hKTEOxavIecIMoJbimuODSOJXK-4Np6","1Yxjpv34EWj758TA_FuRB4_R1RHGeZ6eL","1frYwatctg6od3LQhvl3atnZTjDDCNAxP","1HBeZ7kuMR_OXKO3IaZOTlFnsIcV16mOu","14sTEaEBPn5nxEUrV1Nh_c6DVkUp5SItR","1o7OlBVPnmvnoAxVMTo7d-AZM396Mv8vo","1o7hyORJ5AD5IcxOBGemLDaBcZheNHZsB","1i7V_2yoKvM46leKNYS44ZdjoMSlvZkms","1wHMphIV-A0eJfts5fXEkvq5781MCMqiL","1j0Kr0w5x-1i4M-onpcgwzmwezWszqZp7","1jaR44yZw_rjDDSB0Xso7gAMd_KkRssP3","1XKElEbreForMLMSSRvHngy-1jM-C8Le_","1RkUQCb5i5EI2NpaQt9sYkYmjaOfUylnI","1ViCm__B4DaFFVyQ9Eylfd8mld-aaeLis","1xLM7_wmoiSGhAVgwn5N01-s0VKIAsLTk","1RofSwm2LIhlUMBT5v2q-T8X5QNDas9kz","1U9lTZEdzzJO-KtqkTdfRGNv6OqS6zBJI","1S6RrgDUJ1Go_SMTV86JRLhFT3mm8rv9Z","1oUk1R3qvMDO_XA06OFd4fpy32A_5dMEi","1ioV76Zdz_g_MX2X-tv_f84wDFzwYE7yP","1gcUWikjEXtfQfsvfp-tEGNxaa3mi9q40","1s1nM7sNoSAMxfm_vyaoagyVyqEEdJN40","1P05ywHihIS32nsutDYgN_y9NN-peXTzB","1Deczp7jELLUrEFpaqPg83IpckySZBrzH","1NiWjpLA8ZuUL_ax7t_bJaIswrftCJgJq","1tTZQSzLUFJn5eFB3cXvDMYBDiEm4MnBJ","1T3BYGJw6pywoauDYsFl5gMBRxZ_dFxfx","13uzCgGOoaa-LRe_ca38AiPYaMS6wpOw7","1T7l2o7kCS7WaJGPnuSte45_TSpjwbadj","1LZ0Is27TyvPegZ56ub_uIu1nmYUenJtm","1SODQqGq5pM4xxS_Tw8oBL688dPfv82kO","15H90HAYWv3Mnnp5iQxLyr8Q-ZIqZeeeB","10HVyd5hix_kcrouj0irc0CxWu1codj8Q","1AWnt0-sGYUh3gmojwAQOnHOziWUr3uDR","17_3vYDIDFFvJcQIF4KC3seI86mDe_Mk1","1eA_o9AuuAunDa6Qhzj8h0J7BJq_e_gQz","10svqT1mohIRaSavNWLgKygZSW-bHQcvl","1hockt3cK9_9al9-jzBv4IJIIoYZ3Imjp","1gskZL23FIcl7EDa-TAzyCmYJKT2gtVr-","1Mk-U1zrNfmAHaYPDV7NWT41lC-12-8y8","12gkABWJp_3l5JtiWlkTpy0iCmQBWj1e-","1wEDT9u_6inUdr-pRa2k0TRHkjhmuv8uo","1n5RzL02fZPn-n4vXNTVuLl7bc5bRVKHT","1O7F4lr5Niv6UIZd-YlaJecGvLGheW7vO","1ZJ7HEinR49I0Ip4ES4l9xjuF3q_wlOhk","1dJgEudHHbjRLT4RXsGtpeL9G-6mHZmxm","1mMjsqpIUDiFDTrjGEIQ7-gQ1bQG5PSCx","1_J2S8RGRPyd8HvMvWD4bykKZ_0T14Lxh","1CVE_qIfmhyjAVffuQTl2nS7VUdGhdF-q","1kZOfT5UeKZ995nzs1GM25HaCTiYyiUgw","1fF1jnkgg8RSRXAsAEh3bYGpv2lz8OQJn","12xs9Mf2RJGOjhUpfrELwRxTVay99ucD7","13aAyXtlUmF1YAE6HjH7H3HB-QqZG9JB_","1rbf9B0mfXrJsmYuaUWD1mOxwha0Qhcb3","12pPKy8ecyA79Yco4oGYgHRvABeUG82DH","1mDdurQSKeQa_GenIYWC7uTyrtHkL5B6d","13YNa1FWQYvCRc6atEhin992w2h9VK1Dc","1kP3Bss6yAY9e0QUVe7nDaOhny-_0YR5G","1paQkiKW1RML-Hb9duO0SiS79mxU-1Jn7","1B97sg1rtl7tsTTFxLhmA-SESTeysdS19","1PSuQPMPFwx9vzLF0MkoTbagkZWwWEWrZ","1aYFyUZO5_42zsALBWBHvS99VrZ4KRdkN","1bRFizb0tjKBVMDH30Ukd4sGNFssIMG0K","1MkhJ7CHLZuoOX8DC10jpMNB7KCxqxXnK","1gTKOftyhqIVUPIFGITcfqiCwEc01rB0d","1XzKWl3406nLmx5pOoYFra2CZGEGLu7ej","1Oc2c9Wu8RDq_5vb3vPTPuF6xWIREdcFE","1sfIoqCJx2rsDAPIyayquulaM2cSWaSPZ","1A-Ynix6rJq-5tGGxlFbH08yuZr4ldHpi","1Yh-eUxUsj74lpnyKISbB-IR-ZB_UprBW","15G5eSn7vRPQhMpnENV85-ag6-A-QOyZV","1sl61Im9gTcaPhQy2pdG_AheR09CI3zol","1d9_WcAMNXE6gkBQI5yA4dNncQ4bEFmus","1TeuJQ__6z1YEHZP4cscEMaP9fJlHnJdU","161zln6dYkrk5dJRkI1TnGOsO0TMOE8YC","1D114VqDItbkf4YVfl8XVLUd-FumLnbCF","1nPnfDLzZ-N_p7BcpXncm4T5WbfaemWYr","1FQrogNrEZ2ni1LFhrYa72pmIO3iJ2iMf","1ZDU5Y2wxwYNfft6bYLqK3EnC7s9FgMeJ","1TvoH1YPp49JCldXLtxcf-ZR0nRnxegdC","1R0dkJ0G8Nxo7VsPzlcMGOVDJaRJU1AkE","1YyCgGaViXyoenuliOf9bIC28ryJqZscL","1YuPUYR09uk_M1VTWzHvXJTTFoUsJl_Bj","19EWg9GUZTpz5ZnrkQpURfUWYxhesDc7-","1qElNG1PjUdHg5DIS533lsTd7cExzROf2","1qNRLfVatqTZXURoG6cBXVYESiQaIc-p1","1i_xIxHDXyB-8u_CmqiuurxaDgzJz_9ia","198f3i9MCQhh3Pqt_qbpXOQ8prCyPU6H4","1PIiDjQjOFRG82lFvtEq1tFxWzQ31-q3p","1_RGI7qEd-6hAL60EghKdR97J67RK87TS","1v4sH-bbRofRMLsWKsIe3GrRkiA0b68oE","1xfCQyACJs5W_1Jpr6e4bk2CarA6739bl","1YYue4sgu3RA9N9CR6GgnbivANttdIHcY","1COxnI3JAJ77mmeDA9v38ztukjqSW7qOl"];
-const urls=ids.map(id=>"https://drive.google.com/thumbnail?id="+id+"&sz=w1600");
-const envs=[document.getElementById("frost"),document.getElementById("garden"),document.getElementById("paris"),document.getElementById("space"),document.getElementById("chamber")];
-const names=[
-  ["LAYER 01 · 001–020","THE SWEET BEGINNING","The cake has a world inside it."],
-  ["LAYER 02 · 021–040","THE SECRET GARDEN","The frosting turns into flowers."],
-  ["LAYER 03 · 041–060","PARIS INSIDE THE CAKE","A city appears where icing should be."],
-  ["LAYER 04 · 061–080","ZERO GRAVITY","The floor disappears."],
-  ["LAYER 05 · 081–100","QUEEN B","The memories become her letter."]
-];
-const title=document.getElementById("title");
-const progressEl=document.getElementById("progress");
-const layer=document.getElementById("portalLayer");
-const modal=document.getElementById("modal"), modalImg=modal.querySelector("img");
-let p=0, target=0, dragging=false,startY=0,startP=0,started=false;
+const groups=[["1zh1cxp5hcBl0ZGsoIercv51RSxszmMSb","1-QVlGgM0BqfcUQqWcQLNPlzoDztmzcpg","1ONzcyGleKAL39Wl3BP4JHSF04wpkuUxT"],["1_-ca47E29UUEVxlmK64GAN_tZ4YQfbaP","1L9YqKXnmXQx6j-xS2dp6QvOfu4oHi1q7","1SMMWYdG0DtjnhH_u9KYqBRS_eNX4Ls2l"],["19hKTEOxavIecIMoJbimuODSOJXK-4Np6","1Yxjpv34EWj758TA_FuRB4_R1RHGeZ6eL","1frYwatctg6od3LQhvl3atnZTjDDCNAxP"],["1HBeZ7kuMR_OXKO3IaZOTlFnsIcV16mOu","14sTEaEBPn5nxEUrV1Nh_c6DVkUp5SItR","1o7OlBVPnmvnoAxVMTo7d-AZM396Mv8vo"],["1o7hyORJ5AD5IcxOBGemLDaBcZheNHZsB","1i7V_2yoKvM46leKNYS44ZdjoMSlvZkms","1wHMphIV-A0eJfts5fXEkvq5781MCMqiL"],["1j0Kr0w5x-1i4M-onpcgwzmwezWszqZp7","1jaR44yZw_rjDDSB0Xso7gAMd_KkRssP3","1XKElEbreForMLMSSRvHngy-1jM-C8Le_"],["1RkUQCb5i5EI2NpaQt9sYkYmjaOfUylnI","1ViCm__B4DaFFVyQ9Eylfd8mld-aaeLis","1xLM7_wmoiSGhAVgwn5N01-s0VKIAsLTk"],["1RofSwm2LIhlUMBT5v2q-T8X5QNDas9kz","1U9lTZEdzzJO-KtqkTdfRGNv6OqS6zBJI","1S6RrgDUJ1Go_SMTV86JRLhFT3mm8rv9Z"],["1oUk1R3qvMDO_XA06OFd4fpy32A_5dMEi","1ioV76Zdz_g_MX2X-tv_f84wDFzwYE7yP","1gcUWikjEXtfQfsvfp-tEGNxaa3mi9q40"],["1s1nM7sNoSAMxfm_vyaoagyVyqEEdJN40","1P05ywHihIS32nsutDYgN_y9NN-peXTzB","1Deczp7jELLUrEFpaqPg83IpckySZBrzH"],["1NiWjpLA8ZuUL_ax7t_bJaIswrftCJgJq","1tTZQSzLUFJn5eFB3cXvDMYBDiEm4MnBJ","1T3BYGJw6pywoauDYsFl5gMBRxZ_dFxfx"],["13uzCgGOoaa-LRe_ca38AiPYaMS6wpOw7","1T7l2o7kCS7WaJGPnuSte45_TSpjwbadj","1LZ0Is27TyvPegZ56ub_uIu1nmYUenJtm"],["1SODQqGq5pM4xxS_Tw8oBL688dPfv82kO","15H90HAYWv3Mnnp5iQxLyr8Q-ZIqZeeeB","10HVyd5hix_kcrouj0irc0CxWu1codj8Q"],["1AWnt0-sGYUh3gmojwAQOnHOziWUr3uDR","17_3vYDIDFFvJcQIF4KC3seI86mDe_Mk1","1eA_o9AuuAunDa6Qhzj8h0J7BJq_e_gQz"],["10svqT1mohIRaSavNWLgKygZSW-bHQcvl","1hockt3cK9_9al9-jzBv4IJIIoYZ3Imjp"],["1gskZL23FIcl7EDa-TAzyCmYJKT2gtVr-","1Mk-U1zrNfmAHaYPDV7NWT41lC-12-8y8"],["12gkABWJp_3l5JtiWlkTpy0iCmQBWj1e-","1wEDT9u_6inUdr-pRa2k0TRHkjhmuv8uo"],["1n5RzL02fZPn-n4vXNTVuLl7bc5bRVKHT","1O7F4lr5Niv6UIZd-YlaJecGvLGheW7vO"],["1ZJ7HEinR49I0Ip4ES4l9xjuF3q_wlOhk","1dJgEudHHbjRLT4RXsGtpeL9G-6mHZmxm"],["1mMjsqpIUDiFDTrjGEIQ7-gQ1bQG5PSCx","1_J2S8RGRPyd8HvMvWD4bykKZ_0T14Lxh"],["1CVE_qIfmhyjAVffuQTl2nS7VUdGhdF-q","1kZOfT5UeKZ995nzs1GM25HaCTiYyiUgw"],["1fF1jnkgg8RSRXAsAEh3bYGpv2lz8OQJn","12xs9Mf2RJGOjhUpfrELwRxTVay99ucD7"],["13aAyXtlUmF1YAE6HjH7H3HB-QqZG9JB_","1rbf9B0mfXrJsmYuaUWD1mOxwha0Qhcb3"],["12pPKy8ecyA79Yco4oGYgHRvABeUG82DH","1mDdurQSKeQa_GenIYWC7uTyrtHkL5B6d"],["13YNa1FWQYvCRc6atEhin992w2h9VK1Dc","1kP3Bss6yAY9e0QUVe7nDaOhny-_0YR5G"],["1paQkiKW1RML-Hb9duO0SiS79mxU-1Jn7","1B97sg1rtl7tsTTFxLhmA-SESTeysdS19"],["1PSuQPMPFwx9vzLF0MkoTbagkZWwWEWrZ","1aYFyUZO5_42zsALBWBHvS99VrZ4KRdkN"],["1bRFizb0tjKBVMDH30Ukd4sGNFssIMG0K","1MkhJ7CHLZuoOX8DC10jpMNB7KCxqxXnK"],["1gTKOftyhqIVUPIFGITcfqiCwEc01rB0d","1XzKWl3406nLmx5pOoYFra2CZGEGLu7ej"],["1Oc2c9Wu8RDq_5vb3vPTPuF6xWIREdcFE","1sfIoqCJx2rsDAPIyayquulaM2cSWaSPZ"],["1A-Ynix6rJq-5tGGxlFbH08yuZr4ldHpi","1Yh-eUxUsj74lpnyKISbB-IR-ZB_UprBW"],["15G5eSn7vRPQhMpnENV85-ag6-A-QOyZV","1sl61Im9gTcaPhQy2pdG_AheR09CI3zol"],["1d9_WcAMNXE6gkBQI5yA4dNncQ4bEFmus","1TeuJQ__6z1YEHZP4cscEMaP9fJlHnJdU"],["161zln6dYkrk5dJRkI1TnGOsO0TMOE8YC","1D114VqDItbkf4YVfl8XVLUd-FumLnbCF"],["1nPnfDLzZ-N_p7BcpXncm4T5WbfaemWYr","1FQrogNrEZ2ni1LFhrYa72pmIO3iJ2iMf"],["1ZDU5Y2wxwYNfft6bYLqK3EnC7s9FgMeJ","1TvoH1YPp49JCldXLtxcf-ZR0nRnxegdC"],["1R0dkJ0G8Nxo7VsPzlcMGOVDJaRJU1AkE","1YyCgGaViXyoenuliOf9bIC28ryJqZscL"],["1YuPUYR09uk_M1VTWzHvXJTTFoUsJl_Bj","19EWg9GUZTpz5ZnrkQpURfUWYxhesDc7-"],["1qElNG1PjUdHg5DIS533lsTd7cExzROf2","1qNRLfVatqTZXURoG6cBXVYESiQaIc-p1"],["1i_xIxHDXyB-8u_CmqiuurxaDgzJz_9ia","198f3i9MCQhh3Pqt_qbpXOQ8prCyPU6H4"],["1PIiDjQjOFRG82lFvtEq1tFxWzQ31-q3p","1_RGI7qEd-6hAL60EghKdR97J67RK87TS"],["1v4sH-bbRofRMLsWKsIe3GrRkiA0b68oE","1xfCQyACJs5W_1Jpr6e4bk2CarA6739bl"],["1YYue4sgu3RA9N9CR6GgnbivANttdIHcY","1COxnI3JAJ77mmeDA9v38ztukjqSW7qOl"]];
+const urls=id=>"https://drive.google.com/thumbnail?id="+id+"&sz=w1600";
+const cake=document.getElementById("cake");
+const burst=document.getElementById("burst");
+const wrap=document.getElementById("photoWrap");
+const label=document.getElementById("burstLabel");
+const counter=document.getElementById("counter");
+let current=0;
 
-for(let i=0;i<18;i++){
-  const v=document.createElement("i");v.className="vine";v.style.left=(4+i*5.4)+"%";v.style.height=(35+(i%6)*7)+"vh";v.style.transform="rotate("+(-14+(i*11)%28)+"deg)";document.getElementById("garden").appendChild(v);
-}
-for(let i=0;i<26;i++){
-  const f=document.createElement("span");f.className="flower";f.textContent=i%3===0?"✿":"❀";f.style.left=((i*43)%96)+"%";f.style.top=(18+((i*31)%70))+"%";f.style.animationDelay=(-i*.14)+"s";document.getElementById("garden").appendChild(f);
-}
-for(let i=0;i<12;i++){
-  const b=document.createElement("span");b.className="butter";b.textContent="✦";b.style.left=((i*67)%90)+"%";b.style.top=(12+((i*41)%72))+"%";document.getElementById("garden").appendChild(b);
-}
-for(let i=0;i<80;i++){
-  const s=document.createElement("i");s.className="star";s.style.left=((i*59)%100)+"%";s.style.top=((i*37)%100)+"%";s.style.opacity=.25+(i%8)/10;document.getElementById("space").appendChild(s);
+function candlePos(i){
+  // 3 concentric rings around cake top
+  const ring = i<14 ? 0 : (i<29 ? 1 : 2);
+  const idx = ring===0 ? i : (ring===1 ? i-14 : i-29);
+  const count = ring===0 ? 14 : (ring===1 ? 15 : 14);
+  const radius = ring===0 ? 34 : (ring===1 ? 25 : 16);
+  const cy = 54;
+  const angle = -Math.PI/2 + (idx/count)*Math.PI*2;
+  const x = 50 + Math.cos(angle)*radius;
+  const y = cy + Math.sin(angle)*(radius*.52);
+  return {x,y};
 }
 
-const portals=[];
-for(let i=0;i<100;i++){
-  const b=document.createElement("button");b.className="portal";b.type="button";
-  b.innerHTML='<img loading="lazy" referrerpolicy="no-referrer" src="'+urls[i]+'" alt="Memory '+(i+1)+'"><span class="label">MEMORY '+String(i+1).padStart(3,"0")+' / 100</span>';
-  b.onclick=()=>{modalImg.src=urls[i];modal.classList.add("show")};
-  layer.appendChild(b);portals.push(b);
+for(let i=0;i<43;i++){
+  const p=candlePos(i);
+  const b=document.createElement("button");
+  b.className="candle"+(i===0?" next":"");
+  b.style.left="calc("+p.x+"% - 13px)";
+  b.style.top="calc("+p.y+"% - 30px)";
+  b.innerHTML='<span class="flame"></span><span class="stick"></span>';
+  b.setAttribute("aria-label","Candle "+(i+1));
+  b.onclick=()=>openCandle(i,b);
+  cake.appendChild(b);
 }
 
-document.getElementById("enter").onclick=()=>{
-  if(started)return;started=true;
-  const intro=document.getElementById("intro");
-  intro.classList.add("cracking");
-  setTimeout(()=>intro.classList.add("enter"),700);
-  setTimeout(()=>document.getElementById("stage").classList.add("show"),900);
-};
-
-function sceneIndex(v){return Math.min(4,Math.floor(v/20))}
-function portalClass(s){return ["frost","garden","paris","space","chamber"][s]}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function render(){
-  p += (target-p)*.13;
-  const s=sceneIndex(p);
-  envs.forEach((e,i)=>e.classList.toggle("active",i===s));
-  const local=p-s*20;
-  const focus=s*20+local;
-  title.querySelector("small").textContent=names[s][0];
-  title.querySelector("h2").textContent=names[s][1];
-  title.querySelector("p").textContent=names[s][2];
-  title.style.opacity=local<4?1:clamp(1-(local-4)/4,0,1);
-  progressEl.textContent="MEMORY "+String(Math.min(100,Math.floor(p)+1)).padStart(3,"0")+" / 100";
-  document.getElementById("swipe").style.opacity=p<4?.55:0;
-
-  portals.forEach((el,i)=>{
-    const d=i-focus;
-    const same=Math.floor(i/20)===s;
-    if(!same || Math.abs(d)>3.2){
-      el.style.opacity=0;el.style.pointerEvents="none";return;
-    }
-    const ad=Math.abs(d);
-    const side=i%2===0?-1:1;
-    const x=d*24 + side*(ad*6);
-    const y=Math.sin(i*.9)*11 + d*2;
-    const z=-d*320;
-    const sc=1-Math.min(ad*.12,.32);
-    const rot=side*(ad*3);
-    el.className="portal "+portalClass(s);
-    el.style.width=s===4?"clamp(82px,20vw,130px)":"clamp(130px,34vw,220px)";
-    el.style.height=s===4?"clamp(110px,27vw,175px)":"clamp(170px,44vw,285px)";
-    el.style.opacity=clamp(1-ad/3.2,.05,1);
-    el.style.pointerEvents=ad<1.4?"auto":"none";
-    el.style.transform='translate3d(calc(-50% + '+x+'vw),calc(-50% + '+y+'vh),'+z+'px) rotateZ('+rot+'deg) scale('+sc+')';
+function openCandle(i,b){
+  if(i!==current)return;
+  b.classList.remove("next");b.classList.add("done");
+  wrap.innerHTML="";
+  const imgs=groups[i];
+  imgs.forEach((id,j)=>{
+    const img=document.createElement("img");
+    img.src=urls(id);
+    img.alt="Memory";
+    img.className="burstPhoto p"+(j+1);
+    wrap.appendChild(img);
   });
-
-  if(p>=99.55) document.getElementById("final").classList.add("show");
-  requestAnimationFrame(render);
+  label.textContent="CANDLE "+String(i+1).padStart(2,"0")+" · "+imgs.length+" MEMORIES";
+  burst.classList.add("show");
 }
-requestAnimationFrame(render);
 
-function setTarget(v){target=clamp(v,0,99.65)}
-addEventListener("wheel",e=>{if(!started)return;e.preventDefault();setTarget(target+Math.sign(e.deltaY)*1.2)},{passive:false});
-addEventListener("touchstart",e=>{if(!started)return;dragging=true;startY=e.touches[0].clientY;startP=target},{passive:true});
-addEventListener("touchmove",e=>{if(!started||!dragging)return;const dy=startY-e.touches[0].clientY;setTarget(startP+dy/18)},{passive:true});
-addEventListener("touchend",()=>dragging=false,{passive:true});
+document.getElementById("continue").onclick=()=>{
+  burst.classList.remove("show");
+  current++;
+  if(current>=43){
+    document.getElementById("message").classList.add("show");
+    counter.textContent="43 / 43 ✨";
+    return;
+  }
+  const all=[...document.querySelectorAll(".candle")];
+  all[current].classList.add("next");
+  counter.textContent="CANDLE "+String(current+1).padStart(2,"0")+" / 43";
+}
 
-document.getElementById("reduce").onclick=()=>document.body.classList.toggle("reduced");
-document.getElementById("close").onclick=()=>modal.classList.remove("show");
-modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};
-document.getElementById("play").onclick=()=>{
-  document.getElementById("videoBox").classList.add("show");
-  document.getElementById("play").style.display="none";
+document.getElementById("toVideo").onclick=()=>{
+  document.getElementById("message").classList.remove("show");
+  document.getElementById("videoScreen").classList.add("show");
   document.getElementById("vid").play().catch(()=>{});
-};
+}
+document.getElementById("reduce").onclick=()=>document.body.classList.toggle("reduced");
 </script>
 </body>
 </html>
