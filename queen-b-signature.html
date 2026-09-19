@@ -329,6 +329,10 @@ function closeZoom(e){if(e){e.preventDefault();e.stopPropagation()}zoom.classLis
 document.getElementById("zoomClose").addEventListener("pointerup",closeZoom);
 document.getElementById("zoomClose").addEventListener("click",closeZoom);
 zoom.addEventListener("click",e=>{if(e.target===zoom)closeZoom(e)});
+if(new URLSearchParams(location.search).get("final")==="1"){
+  document.getElementById("message").classList.add("show");
+}
+
 document.getElementById("showVideo").onclick=()=>{
   document.getElementById("message").classList.remove("show");
   document.getElementById("video").classList.add("show");
