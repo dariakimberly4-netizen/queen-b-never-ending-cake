@@ -488,9 +488,12 @@ function closeMemory(e){
 document.getElementById("return").addEventListener("pointerup",closeMemory);
 document.getElementById("return").addEventListener("click",closeMemory);
 
+let nextBusy=false;
 function goNextMemory(e){
   if(e){e.preventDefault();e.stopPropagation()}
-  if(currentMemoryIndex<0)return;
+  if(nextBusy || currentMemoryIndex<0)return;
+  nextBusy=true;
+  setTimeout(()=>nextBusy=false,260);
 
   if(opened.size===43){
     memory.classList.remove("show");
