@@ -163,6 +163,15 @@ button{font:inherit;color:inherit}
   position:absolute;right:18px;top:max(18px,env(safe-area-inset-top));
   width:52px;height:52px;border-radius:50%;border:1px solid rgba(214,182,95,.3);background:#0c050f;font-size:26px
 }
+#zoomNext{
+  position:absolute;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translateX(-50%);
+  min-width:150px;height:54px;border-radius:999px;
+  border:1px solid rgba(214,182,95,.68);
+  background:linear-gradient(180deg,rgba(214,182,95,.26),rgba(214,182,95,.08));
+  color:var(--gold2);font-size:10px;letter-spacing:.20em;font-weight:800;
+  box-shadow:0 12px 36px rgba(0,0,0,.38),0 0 24px rgba(214,182,95,.10);
+  touch-action:manipulation;z-index:4
+}
 
 /* Ending */
 #message,#video{
@@ -350,8 +359,9 @@ button{font:inherit;color:inherit}
   </section>
 
   <div id="zoom">
-    <button id="zoomClose">×</button>
+    <button id="zoomClose" type="button" aria-label="Close picture">×</button>
     <img id="zoomImg" alt="Memory">
+    <button id="zoomNext" type="button">NEXT →</button>
   </div>
 
   <section id="message">
@@ -432,7 +442,9 @@ const title=document.getElementById("memoryTitle");
 const sub=document.getElementById("memorySub");
 const zoom=document.getElementById("zoom");
 const zoomImg=document.getElementById("zoomImg");
+const zoomNext=document.getElementById("zoomNext");
 const opened=new Set();
+let currentZoomIndex=0;
 let currentMemoryIndex=-1;
 const roman=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL","XLI","XLII","XLIII"];
 
@@ -446,7 +458,12 @@ function pos(i){
   const ry=ring===0?42:ring===1?31:21;
   return {x:50+Math.cos(a)*rx,y:51+Math.sin(a)*ry};
 }
-function openZoom(src,e){if(e){e.preventDefault();e.stopPropagation()}zoomImg.src=src;zoom.classList.add("show")}
+function openZoom(src,e,index=0){
+  if(e){e.preventDefault();e.stopPropagation()}
+  currentZoomIndex=index;
+  zoomImg.src=src;
+  zoom.classList.add("show");
+}
 function openOne(i,b,allowOpened=false){
   if(opened.has(i) && !allowOpened)return;
   currentMemoryIndex=i;
@@ -456,13 +473,13 @@ function openOne(i,b,allowOpened=false){
   }
   portal.innerHTML="";
   const set=document.createElement("div");set.className="portalSet "+(groups[i].length===2?"two":"three");
-  groups[i].forEach(id=>{
+  groups[i].forEach((id,photoIndex)=>{
     const card=document.createElement("button");card.type="button";card.className="card";
     const rim=document.createElement("div");rim.className="rim";
     const inner=document.createElement("div");inner.className="inner";
     const img=document.createElement("img");img.src="https://drive.google.com/thumbnail?id="+id+"&sz=w1600";img.alt="Memory";
     inner.appendChild(img);rim.appendChild(inner);card.appendChild(rim);
-    const h=e=>openZoom(img.src,e);card.addEventListener("pointerup",h);card.addEventListener("click",h);
+    const h=e=>openZoom(img.src,e,photoIndex);card.addEventListener("pointerup",h);card.addEventListener("click",h);
     set.appendChild(card);
   });
   portal.appendChild(set);
@@ -513,6 +530,27 @@ function goNextMemory(e){
 }
 document.getElementById("nextMemory").addEventListener("pointerup",goNextMemory);
 document.getElementById("nextMemory").addEventListener("click",goNextMemory);
+
+let zoomNextBusy=false;
+function nextZoomPhoto(e){
+  if(e){e.preventDefault();e.stopPropagation()}
+  if(zoomNextBusy || currentMemoryIndex<0)return;
+  zoomNextBusy=true;
+  setTimeout(()=>zoomNextBusy=false,240);
+
+  const group=groups[currentMemoryIndex];
+  currentZoomIndex++;
+  if(currentZoomIndex<group.length){
+    zoomImg.src="https://drive.google.com/thumbnail?id="+group[currentZoomIndex]+"&sz=w1600";
+    return;
+  }
+
+  // At the end of this candle's pictures, advance to the next unopened candle.
+  zoom.classList.remove("show");
+  goNextMemory(e);
+}
+zoomNext.addEventListener("pointerup",nextZoomPhoto);
+zoomNext.addEventListener("click",nextZoomPhoto);
 
 function closeZoom(e){if(e){e.preventDefault();e.stopPropagation()}zoom.classList.remove("show")}
 document.getElementById("zoomClose").addEventListener("pointerup",closeZoom);
